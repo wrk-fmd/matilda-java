@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mitarbeitertyp Aktualisieren</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Mitarbeitertyp</h1>
+    <form action="#" th:action="@{/mitarbeitertypupdate/{id}(id=${mitarbeitertyp.id})}" th:object="${mitarbeitertyp}" method="post">
+    
+    	<p class="error-message"
+	    th:if="${#fields.hasGlobalErrors()}"
+	    th:each="error : ${#fields.errors('global')}"
+ 		th:text="${error}">Validation error</p>
+                   
+		<div class="form-group"
+        th:classappend="${#fields.hasErrors('kuerzel')}? 'has-error':''">
+        <label for="kuerzel" class="control-label">Kürzel</label>
+        <input id="kuerzel"
+        class="form-control"
+        th:field="*{kuerzel}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('kuerzel')}"
+        th:text="${error}">Validation error</p>
+       	</div>
+       	
+       	<div class="form-group"
+        th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
+        <label for="name" class="control-label">Name</label>
+        <input id="name"
+        class="form-control"
+        th:field="*{name}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('name')}"
+        th:text="${error}">Validation error</p>
+       	</div>
+       	
+        <p><input type="submit" value="Submit" /> </p>
+    </form>
+    <form th:action="@{/mitarbeitertypupdate/{id}/loeschen(id=${mitarbeitertyp.id})}" th:object="${mitarbeitertyp}" method="post" >
+		<button type="submit" onclick="return Confirm('sicher?')">L&ouml;schen</button>
+	</form>
+		</br>
+	<button onclick="goBack()">Abbrechen</button>
+	<script>
+	function goBack() {
+	    window.history.back();
+	}
+	</script>
+</body>
+</html>

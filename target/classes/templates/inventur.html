@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Inventur</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Inventur</h1>
+    <form action="#" th:action="@{/inventur/{id}(id=${material.id})}" th:object="${material}" method="post">
+    
+    	<p class="error-message"
+	    th:if="${#fields.hasGlobalErrors()}"
+	    th:each="error : ${#fields.errors('global')}"
+ 		th:text="${error}">Validation error</p>
+        
+        <div class="form-group"
+        th:classappend="${#fields.hasErrors('bestand')}? 'has-error':''">
+        <label for="bestand" class="control-label">Bestand</label>
+        <input id="bestand"
+        type="number"
+        class="form-control"
+        th:field="*{bestand}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('bestand')}"
+        th:text="${error}">Validation error</p>
+        </div>
+               
+		<div class="form-group"
+        th:classappend="${#fields.hasErrors('seriennummer')}? 'has-error':''">
+        <label for="seriennummer" class="control-label">Seriennummer</label>
+        <input id="seriennummer"
+        class="form-control"
+        th:field="*{seriennummer}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('seriennummer')}"
+        th:text="${error}">Validation error</p>
+    	
+		<div class="form-group"
+        th:classappend="${#fields.hasErrors('einkaufsdatum')}? 'has-error':''">
+        <label for="einkaufsdatum" class="control-label">Einkaufsdatum</label>
+        <input id="einkaufsdatum"
+        type="date"
+        class="form-control"
+        th:field="*{einkaufsdatum}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('einkaufsdatum')}"
+        th:text="${error}">Validation error</p>
+		</div>
+		
+		<div class="form-group"
+        th:classappend="${#fields.hasErrors('letztesudatum')}? 'has-error':''">
+        <label for="letztesudatum" class="control-label">Letztes Überprüfungsdatum</label>
+        <input id="letztesudatum"
+        type="date"
+        class="form-control"
+        th:field="*{letztesudatum}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('letztesudatum')}"
+        th:text="${error}">Validation error</p>
+        
+        <div class="form-group"
+        th:classappend="${#fields.hasErrors('naechstesudatum')}? 'has-error':''">
+        <label for="naechstesudatum" class="control-label">Nächstes Überprüfungsdatum</label>
+        <input id="naechstesudatum"
+        type="date"
+        class="form-control"
+        th:field="*{naechstesudatum}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('naechstesudatum')}"
+        th:text="${error}">Validation error</p>
+        </div>
+        
+        <div class="form-group"
+        th:classappend="${#fields.hasErrors('einsatzbereitschaft')}? 'has-error':''">
+        <label for="einsatzbereitschaft" class="control-label">Einsatzbereitschaft</label>
+        <input id="einsatzbereitschaft"
+        type="checkbox"
+        class="form-control"
+        th:field="*{einsatzbereitschaft}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('einsatzbereitschaft')}"
+        th:text="${error}">Validation error</p>
+        </div>
+        
+        <p><input type="submit" value="Submit" /> </p>
+    </form>
+    	</br>
+	<button onclick="goBack()">Abbrechen</button>
+	<script>
+	function goBack() {
+	    window.history.back();
+	}
+	</script>
+</body>
+</html>

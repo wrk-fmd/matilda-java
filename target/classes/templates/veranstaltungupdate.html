@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Materialtyp Aktualisieren</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Veranstaltung</h1>
+    <form action="#" th:action="@{/veranstaltungupdate/{id}(id=${veranstaltung.id})}" th:object="${veranstaltung}" method="post">
+    	
+    	<p class="error-message"
+	    th:if="${#fields.hasGlobalErrors()}"
+	    th:each="error : ${#fields.errors('global')}"
+ 		th:text="${error}">Validation error</p>
+                   
+		<div class="form-group"
+        th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
+        <label for="name" class="control-label">Name</label>
+        <input id="name"
+        class="form-control"
+        th:field="*{name}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('name')}"
+        th:text="${error}">Validation error</p>
+       	</div>
+       	
+		<div class="form-group"
+        th:classappend="${#fields.hasErrors('beginn')}? 'has-error':''">
+        <label for="beginn" class="control-label">Beginn</label>
+        <input id="beginn"
+        type="date"
+        class="form-control"
+        th:field="*{beginn}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('beginn')}"
+        th:text="${error}">Validation error</p>
+		</div>
+		
+    	<div class="form-group"
+        th:classappend="${#fields.hasErrors('ende')}? 'has-error':''">
+        <label for="ende" class="control-label">Ende</label>
+        <input id="ende"
+        type="date"
+        class="form-control"
+        th:field="*{ende}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('ende')}"
+        th:text="${error}">Validation error</p>
+		</div>
+    	
+        <p><input type="submit" value="Submit" /> </p>
+    </form>
+    
+    <form th:action="@{/veranstaltung/{id}/loeschen(id=${veranstaltung.id})}" th:object="${veranstaltung}" method="post" >
+		<button type="submit" onclick="clicked();">L&ouml;schen</button>
+	</form>
+		</br>
+	<button onclick="goBack()">Abbrechen</button>
+	<script>
+	function goBack() {
+	    window.history.back();
+	}
+    function clicked() {
+        if (confirm('Möchten Sie die Veranstaltung löschen?!')) {
+            yourformelement.submit();
+        } else {
+            return false;
+        }
+     }
+	</script>
+</body>
+</html>

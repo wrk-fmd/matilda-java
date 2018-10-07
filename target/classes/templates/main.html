@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="index.css">
+		
+		<title>Hauptseite Matilda</title>
+		
+	</head>
+	
+	<body>
+		<header>
+		<nav>
+		<div class="topnav" id="myTopnav">
+		<!--	<img class="logo" src="./Pictures/WRK_Logo.jpg" alt="Logo"> -->
+			<a href="#matilda" class="active">MATILDA</a>
+			<div class="dropdown">
+			 <button class="dropbtn">Material
+				<i class="fa fa-caret-down"></i>
+			 </button>
+			 <div class="dropdown-content">
+				<a href="#">Material buchen</a>
+				<a href="#">Material reservieren</a>
+				<a href="#">Bestand ansehen</a>
+			 </div>
+			</div>
+			
+			<div class="dropdown">
+			 <button class="dropbtn">Veranstaltungen
+				<i class="fa fa-caret-down"></i>
+			 </button>
+			 <div class="dropdown-content">
+				<a href="#">Veranstaltung erstellen</a>
+				<a href="#">Veranstaltung löschen</a>
+				<a href="#">Veranstaltungen ansehen</a>
+			 </div>
+			</div>
+			
+			<div class="dropdownAdmin">
+			 <button class="dropbtnAdmin">Admin
+				<i class="fa fa-caret-down"></i>
+			 </button>
+			 <div class="dropdown-content-admin">
+				<a href="#">Mitarbeiterverwaltung</a>
+				<a href="#">Materialverwaltung</a>
+				<a href="#">Veranstaltungen verwalten</a>
+				<a href="#">Einheitenverwaltung</a>
+			 </div>
+			</div>
+			
+		<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+				
+				
+		</div>
+		</nav>
+		</header>	
+		
+		<script>
+			function myFunction() {
+				var x = document.getElementById("myTopnav");
+				if (x.className === "topnav") {
+					x.className += " responsive";
+				} else {
+					x.className = "topnav";
+				}
+			}
+		</script>
+		
+		<footer>
+		<div class="footer">
+			<a href="#Impressum" class="footerText">Impressum</a>
+		</div>
+		</footer>
+		
+		
+		
+		
+		
+	</body>
+	

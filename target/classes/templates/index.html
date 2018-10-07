@@ -1,0 +1,97 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+	<head th:replace="/fragment/header :: head"></head>
+	
+	<body>
+		<div class="topnav" id="myTopnav">
+		<!--	<img class="logo" src="./Pictures/WRK_Logo.jpg" alt="Logo"> -->
+			<a href="#matilda" class="active">MATILDA</a>
+			<div class="dropdown">
+			 <button class="dropbtn">Materialverwaltung
+				<i class="fa fa-caret-down"></i>
+			 </button>
+			</div>
+			
+			<div class="dropdown">
+			 <button class="dropbtn">Veranstaltung
+				<i class="fa fa-caret-down"></i>
+			 </button>
+			 <div class="dropdown-content">
+				<a href="veranstaltung">Veranstaltung erstellen</a>
+			 </div>
+			</div>
+
+		<div sec:authorize="hasAuthority('ADMIN')">
+			<div class="dropdownAdmin">
+				<button class="dropbtnAdmin">Admin
+					<i class="fa fa-caret-down"></i>
+			 	</button>
+				<div class="dropdown-content-admin">
+					<a href="mitarbeiterverwaltung">Mitarbeiterverwaltung</a>
+					<a href="registration">Benutzerregistrierung</a>
+				</div>
+			</div>
+		</div>
+			
+		<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+				
+		</div>
+
+		<script>
+			function myFunction() {
+				var x = document.getElementById("myTopnav");
+				if (x.className === "topnav") {
+					x.className += " responsive";
+				} else {
+					x.className = "topnav";
+				}
+			}
+		</script>
+		
+	     <div th:replace="/fragment/footer :: footer"></div>
+		
+	<div class="container">
+    	<h1>Spring Security User Registration with Hibernate and Thymeleaf</h1>
+    	<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+	</div>
+
+	<p>The following users are currently logged in:</p>
+		<a style="color: blue" th:href="@{/}">Home</a>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" />
+		</form>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Benutzername</th>
+					<th>Anzeigename</th>
+					<th>Dienstnummer</th>
+				</tr>
+			</thead>
+			<dl th:each="user : ${loggedInUser}">
+			<tr>
+				<td th:text="${user.username}">benutzername</td>
+			</tr>
+		</table>
+
+        Authenticated username:
+        <div sec:authentication="name"></div>
+        Authenticated user roles:
+        <div sec:authentication="principal.authorities"></div>
+        
+
+		<div sec:authorize="isAuthenticated()">
+		  This content is only shown to authenticated users.
+		</div>
+		<div sec:authorize="hasRole('ADMIN')">
+		  This content is only shown to administrators.
+		</div>
+		<div sec:authorize="hasRole('ROLE_USER')">
+		  This content is only shown to users.
+		</div>
+		<div sec:authorize="hasAuthority('ADMIN')">Only for admin</div>
+
+	</body>
+</html>

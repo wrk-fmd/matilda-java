@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lagerstandort Aktualisieren</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Lagerstandort</h1>
+    <form action="#" th:action="@{/lagerstandortupdate/{id}(id=${lagerstandort.id})}" th:object="${lagerstandort}" method="post">
+    
+		<p class="error-message"
+	    th:if="${#fields.hasGlobalErrors()}"
+	    th:each="error : ${#fields.errors('global')}"
+ 		th:text="${error}">Validation error</p>
+                   
+		<div class="form-group"
+        th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
+        <label for="name" class="control-label">Name</label>
+        <input id="name"
+        class="form-control"
+        th:field="*{name}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('name')}"
+        th:text="${error}">Validation error</p>
+       	</div>
+       	
+       	<div class="form-group"
+        th:classappend="${#fields.hasErrors('adresse')}? 'has-error':''">
+        <label for="adresse" class="control-label">Adresse</label>
+        <input id="adresse"
+        class="form-control"
+        th:field="*{adresse}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('adresse')}"
+        th:text="${error}">Validation error</p>
+       	</div>
+       	
+		<div class="form-group"
+        th:classappend="${#fields.hasErrors('beschreibung')}? 'has-error':''">
+        <label for="beschreibung" class="control-label">Beschreibung</label>
+        <input id="beschreibung"
+        class="form-control"
+        th:field="*{beschreibung}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('beschreibung')}"
+        th:text="${error}">Validation error</p>
+       	</div>
+        
+        <div class="form-group"
+        th:classappend="${#fields.hasErrors('benutzer')}? 'has-error':''">
+        <label for="benutzer" class="control-label">Verantwortlicher</label>
+        <select th:field="*{benutzer}">
+  			<option th:each="benutzer : ${alleBenutzer}" 
+         	 th:value="${benutzer.id}" 
+       	     th:text="${benutzer.benutzername}"></option>
+		</select></p>
+		<p class="error-message"
+       	th:each="error: ${#fields.errors('benutzer')}"
+        th:text="${error}">Validation error</p>
+       	</div>
+
+        <p><input type="submit" value="Submit" /> </p>
+    </form>
+    <form th:action="@{/lagerstandortupdate/{id}/loeschen(id=${lagerstandort.id})}" th:object="${lagerstandort}" method="post" >
+		<button type="submit" onclick="return Confirm('sicher?')">L&ouml;schen</button>
+	</form>
+	</br>
+	<button onclick="goBack()">Abbrechen</button>
+	<script>
+	function goBack() {
+	    window.history.back();
+	}
+	</script>
+
+</body>
+</html>
