@@ -1,10 +1,75 @@
-<head th:fragment="head">
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<html>
+	<body>
+		<div class="topnav" id="myTopnav" th:fragment="header">
+		<!--	<img class="logo" src="./Pictures/WRK_Logo.jpg" alt="Logo"> -->
+			<a href="/" class="active">MATILDA</a>
+			<div class="dropdown">
+			 <button class="dropbtn">Materialverwaltung
+				<i class="fa fa-caret-down"></i>
+			 </button>
+			 <div class="dropdown-content">
+				<a href="material">Materialeingabe</a>
+			 </div>
+			</div>
+			
+			<div class="dropdown">
+			 <button class="dropbtn">Veranstaltung
+				<i class="fa fa-caret-down"></i>
+			 </button>
+			 <div class="dropdown-content">
+				<a href="veranstaltung">Veranstaltung erstellen</a>
+			 </div>
+			</div>
+			
+			<div class="dropdown">
+			 <button class="dropbtn">Typen
+				<i class="fa fa-caret-down"></i>
+			 </button>
+			 <div class="dropdown-content">
+				<a href="/einheitentyp">Einheitentyp</a>
+				<a href="/mitarbeitertyp">Mitarbeitertyp</a>
+				<a href="/materialtyp">Materialtyp</a>
+			 </div>
+			</div>
 
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
- 	<link rel="stylesheet" th:href="@{/css/index.css}"/>
- 	<link rel="import" href="/fragment/topnav.html">
-</head>
+			<div class="dropdownAdmin">
+				<button class="dropbtnAdmin">Konto
+					<i class="fa fa-caret-down"></i>
+			 	</button>
+				<div class="dropdown-content-admin">
+					<div sec:authorize="hasAuthority('ADMIN')">
+						<a href="mitarbeiterverwaltung">Mitarbeiterverwaltung</a>
+						<a href="registration">Benutzerregistrierung</a>
+					</div>
+					<div sec:authorize="hasAuthority('BENUTZER')">
+						<a href="passwortaenderung">Passwort ändern</a>
+					</div>
+					<div>
+						<a href="javascript: document.logoutForm.submit()" > Sign out </a>
+						<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+      						<input hidden type="submit" value="Logout"/>
+						</form>
+					</div>
+				</div>
+			</div>
+			
+		<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+				
+		</div>
+
+		<script>
+			function myFunction() {
+				var x = document.getElementById("myTopnav");
+				if (x.className === "topnav") {
+					x.className += " responsive";
+				} else {
+					x.className = "topnav";
+				}
+			}
+		</script>
+		
+		<div>
+			<p>&nbsp;</p>
+		</div>
+	</body>
+</html>

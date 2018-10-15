@@ -21,11 +21,6 @@ public class LoginWebsiteTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Test
-    public void shouldReturnIsOk() throws Exception {
-        this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isFound());
-    }
     
     @Test
     public void shouldReturnStatusOkIfStringContainsBenutzername() throws Exception {
@@ -37,5 +32,11 @@ public class LoginWebsiteTest {
     public void shouldReturnStatusOkIfStringContainsPassword() throws Exception {
         this.mockMvc.perform(get("/login")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Password")));
+    }
+    
+    @Test
+    public void shouldReturnStatusOkIfStringContainsLogIn() throws Exception {
+        this.mockMvc.perform(get("/login")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Log In")));
     }	
 }

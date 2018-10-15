@@ -41,6 +41,12 @@ public class Benutzer extends Audit
 	public Benutzer()
 	{}
 	
+	public Benutzer(String benutzername, String dienstnummer)
+	{
+		this.benutzername = benutzername;
+		this.dienstnummer = dienstnummer;
+	}
+	
 	public Benutzer(String benutzername, String passwort, String anzeigename, String dienstnummer,
 			Collection<Rolle> rollen)
 	{
