@@ -63,6 +63,10 @@ public class Passwortaenderung {
     	List<User> users = userTableSettings.getUsers();
     	String isChecked = checkboxValue;
 
+    	if(users.size()==0) {
+    		return "redirect:/passwordaenderung?stale";
+    	}
+    	
     	for(int i = 0; i<users.size(); i++) {
     		if(isChecked != null) {
     			if(isChecked.equals("on")) {
@@ -70,7 +74,9 @@ public class Passwortaenderung {
 	    			String newPassword = passwordEncoder.encode(users.get(i).getPassword());
 	    			passwordRepo.updatePassword(username, newPassword);
     			}
-    		}
+    		} else {
+				return "redirect:/passwordaenderung?stale";
+			}
     	}
     	return "redirect:/passwordaenderung?success";
     }
