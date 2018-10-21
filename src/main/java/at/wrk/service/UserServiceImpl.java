@@ -12,8 +12,6 @@ import at.wrk.model.Benutzer;
 import at.wrk.model.Rolle;
 import at.wrk.repository.UserRepository;
 import at.wrk.web.dto.UserRegistrationDto;
-
-
 import java.util.Collection;
 import java.util.stream.Collectors;
 

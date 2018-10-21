@@ -54,4 +54,3 @@ public class UserController
 //		return "redirect:/{benutzername}";
 //	}
 }
-

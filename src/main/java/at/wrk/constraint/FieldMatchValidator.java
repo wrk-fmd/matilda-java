@@ -75,13 +75,13 @@ public class FieldMatchValidator implements ConstraintValidator<ValidPassword, S
                 new CharacterRule(EnglishCharacterData.Digit, 1),
 
                 // at least one symbol (special character)
-                new CharacterRule(EnglishCharacterData.Special, 1),
+                // new CharacterRule(EnglishCharacterData.Special, 1),
                 
                 // at least 3 alphabetical characters
-                new CharacterRule(EnglishCharacterData.Alphabetical, 3),
+                // new CharacterRule(EnglishCharacterData.Alphabetical, 3),
 
                 // no whitespace
-                new WhitespaceRule(),
+                // new WhitespaceRule(),
 
                 // no common passwords
                 dictionaryRule

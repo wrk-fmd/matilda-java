@@ -36,10 +36,10 @@ public class MaterialController
 	private BuchungRepository buchungRepository;
 	private VeranstaltungRepository veranstaltungRepository;
 	
-	// die beide sind für hinzufügen verwendet:
+	// beide werden für hinzufügen verwendet
 	private Lagerstandort aktLagerstandort;
 	private long aktLagerId;
-	// die beide sind für lieferschein verwendet:
+	// beide werden für lieferschein verwendet
 	private Material aktMaterial;
 	private long aktMaterialId;
 	
@@ -274,6 +274,5 @@ public class MaterialController
     	materialRepository.save(exicting);
     		
     	return "redirect:/materialverwaltung/"+aktLagerId;
-    }
-   
+    }  
 }

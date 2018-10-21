@@ -40,9 +40,7 @@
 					<div sec:authorize="hasAuthority('ADMIN')">
 						<a href="mitarbeiterverwaltung">Mitarbeiterverwaltung</a>
 						<a href="registration">Benutzerregistrierung</a>
-					</div>
-					<div sec:authorize="hasAuthority('BENUTZER')">
-						<a href="passwortaenderung">Passwort ändern</a>
+						<a href="passwordaenderung">Passwort ändern</a>
 					</div>
 					<div>
 						<a href="javascript: document.logoutForm.submit()" > Sign out </a>

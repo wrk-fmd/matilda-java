@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
  	<link rel="stylesheet" th:href="@{/css/index.css}"/>
  	<link rel="import" href="/fragment/topnav.html">
- 	<title>Materialtyp</title>
+ 	<title>Registration</title>
 </head>
 	<body>
 		<head th:replace="/fragment/header :: header"></head>	
@@ -33,9 +33,6 @@
 					*) one upper-case character [A-Z]</br>
 					*) one lower-case character [a-z]</br>
                 	*) one digit character [0-9]</br>
-					*) one symbol (special character) [!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]</br>
-                	*) three alphabetical characters</br>
-                	*) no whitespace
             
             </p>
             <form th:action="@{/registration}" th:object="${benutzer}" method="post" autocomplete="off">
