@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +33,7 @@ public class MitarbeitertypController
 	// ************************************* MitarbeitertypList + hinzufügen ************************************
 	
 	@RequestMapping(value="/mitarbeitertyp" , method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
 	public String list(Model model)
 	{
 		model.addAttribute("mitarbeitertyp", new Mitarbeitertyp());
@@ -63,6 +65,7 @@ public class MitarbeitertypController
 	// ************************************* Mitarbeitertyp Ändern ************************************
     
 	@RequestMapping(value="/mitarbeitertypupdate/{id}", method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String aendernForm(@PathVariable("id") long id, Model model) {
 		Mitarbeitertyp exicting = mitarbeitertypRepository.findById(id);
         model.addAttribute("mitarbeitertyp", exicting);

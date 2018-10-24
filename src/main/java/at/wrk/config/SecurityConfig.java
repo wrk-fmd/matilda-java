@@ -36,36 +36,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                    .antMatchers(
-                    		"/",
-                            "/js/**",
-                            "/css/**",
-                            "/img/**",
-                            "/webjars/**").permitAll()
-                    .antMatchers("/registration/**", "/h2_console/**").hasAuthority("ADMIN")
+        	.authorizeRequests()
+            	.antMatchers(
+            			"/",
+                        "/js/**",
+                        "/css/**",
+                        "/img/**",
+                        "/webjars/**").permitAll()
+            	.antMatchers("/registration/**", "/h2_console/**").hasAuthority("ADMIN")
            //         .antMatchers("/materialtyp/**", "/einheitentypen/**", "standorte").hasAuthority("SUPERVISOR")
-                    .anyRequest().authenticated()
-                .and()
-                    .formLogin()
+            	.anyRequest().authenticated()
+                	.and()
+                    	.formLogin()
                         .loginPage("/login")
-                            .permitAll()
-                .and()
-                	.logout()
-                    .invalidateHttpSession(true)
-                    .clearAuthentication(true)
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/login?logout")
-                    .permitAll()
-               .and()
-               	.exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler);
+                        .permitAll()
+                   .and()
+                   		.logout()
+                   		.invalidateHttpSession(true)
+                   		.clearAuthentication(true)
+                   		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                   		.logoutSuccessUrl("/login?logout")
+                   		.permitAll()
+                   	.and()
+                   		.exceptionHandling()
+                   		.accessDeniedHandler(accessDeniedHandler);
 //                .and()
 //                	.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
 //        http.logout().    
 //		logoutUrl("/logout").
 //		logoutSuccessHandler(customLogoutSuccessHandler); 
-        
     }
     
     @Bean

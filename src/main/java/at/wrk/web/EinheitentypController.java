@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,7 @@ public class EinheitentypController
 	// ************************************* EinheitentypList +  hinzufügen ************************************
 	
 	@RequestMapping(value="/einheitentyp" , method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
 	public String list(Model model)
 	{
         model.addAttribute("einheitentyp", new Einheitentyp());
@@ -67,6 +69,7 @@ public class EinheitentypController
 	// ************************************* Einheitentyp Ändern ************************************
     
 	@RequestMapping(value="/einheitentypupdate/{id}", method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String aendernForm(@PathVariable("id") long id, Model model) {
 		Einheitentyp exicting = einheitentypRepository.findById(id);
         model.addAttribute("einheitentyp", exicting);

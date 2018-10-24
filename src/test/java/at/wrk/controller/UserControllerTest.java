@@ -1,5 +1,8 @@
 package at.wrk.controller;
 
+import at.wrk.repository.DummyUserRepository;
+import at.wrk.repository.UserRepository;
+import at.wrk.web.UserController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,10 +12,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import at.wrk.repository.DummyUserRepository;
-import at.wrk.repository.UserRepository;
-import at.wrk.web.UserController;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { UserController.class, DummyUserRepository.class })

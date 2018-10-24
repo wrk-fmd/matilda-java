@@ -34,6 +34,7 @@ public class VeranstaltungController
 	// ************************************* VeranstaltungList + hinzufügen ************************************
 	
 	@RequestMapping(value="/veranstaltung" , method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
 	public String list(Model model)
 	{
 		model.addAttribute("veranstaltung", new Veranstaltung());
@@ -81,6 +82,7 @@ public class VeranstaltungController
 	// ************************************* Veranstaltung Ändern ************************************
     
 	@RequestMapping(value="/veranstaltungupdate/{id}", method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String aendernForm(@PathVariable("id") long id, Model model) {
 		Veranstaltung exicting = veranstaltungRepository.findById(id);
         model.addAttribute("veranstaltung", exicting);

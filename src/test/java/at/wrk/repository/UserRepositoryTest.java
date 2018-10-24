@@ -1,14 +1,15 @@
 package at.wrk.repository;
 
+import at.wrk.model.BenutzerTest;
+import at.wrk.model.Rolle;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import at.wrk.model.Benutzer;
-import at.wrk.model.Rolle;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

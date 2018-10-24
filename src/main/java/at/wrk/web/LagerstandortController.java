@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,7 +85,7 @@ public class LagerstandortController
 	// ************************************* Lagerstandort Ändern ************************************
     
 	@RequestMapping(value="/lagerstandortupdate/{id}", method=RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
 	public String aendernForm(@PathVariable("id") long id, Model model) {
 		Lagerstandort exicting = lagerstandortRepository.findById(id);
         model.addAttribute("lagerstandort", exicting);

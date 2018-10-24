@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,6 +54,7 @@ public class VerEinController
 	// ************************************* Ver-Ein List   ***************************************
 	
 	@RequestMapping(value="/veranstaltungeinheit/{id}", method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String addNtransaktionForm(@PathVariable("id") long id, Model model) {
 		
 		model.addAttribute("veranstaltung_einheitentyp", new Veranstaltung_Einheitentyp());

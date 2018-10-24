@@ -59,6 +59,7 @@ public class MitEinController
 	// ************************************* MitEin List + hinzufügen ************************************
 	
 	@RequestMapping(value="/mitarbeitereinheit/{id}" , method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
 	public String list(@PathVariable("id") long id, Model model)
 	{
 		Einheitentyp existing = einheitentypRepository.findById(id);
@@ -100,6 +101,7 @@ public class MitEinController
 	// ************************************* MitEin Ändern ************************************
     
 	@RequestMapping(value="/miteinupdate/{id}", method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String aendernForm(@PathVariable("id") long id, Model model) {
 		
 		Mitarbeitertyp_Einheitentyp exicting = mitEinRepository.findById(id);

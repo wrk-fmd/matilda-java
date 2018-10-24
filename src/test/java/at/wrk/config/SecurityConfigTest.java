@@ -1,6 +1,5 @@
 package at.wrk.config;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;

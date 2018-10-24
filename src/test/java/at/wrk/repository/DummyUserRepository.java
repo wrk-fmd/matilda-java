@@ -1,17 +1,17 @@
 package at.wrk.repository;
 
-import java.util.List;
-import java.util.Optional;
+import at.wrk.model.Benutzer;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import at.wrk.model.Benutzer;
-import at.wrk.repository.UserRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 public class DummyUserRepository implements UserRepository {
 	@Override
-	public List<Benutzer> findAll(Sort sort) {
+	public List<BenutzerTest> findAll(Sort sort) {
 		return null;
 	}
 
@@ -58,31 +58,31 @@ public class DummyUserRepository implements UserRepository {
 	}
 
 	@Override
-	public <S extends Benutzer> List<S> findAll(Example<S> example) {
+	public <S extends BenutzerTest> List<S> findAll(Example<S> example) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Benutzer> List<S> findAll(Example<S> example, Sort sort) {
+	public <S extends BenutzerTest> List<S> findAll(Example<S> example, Sort sort) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Page<Benutzer> findAll(Pageable pageable) {
+	public Page<BenutzerTest> findAll(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Benutzer> S save(S entity) {
+	public <S extends BenutzerTest> S save(S entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Optional<Benutzer> findById(Long id) {
+	public Optional<BenutzerTest> findById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -100,13 +100,13 @@ public class DummyUserRepository implements UserRepository {
 	}
 
 	@Override
-	public void delete(Benutzer entity) {
+	public void delete(BenutzerTest entity) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteAll(Iterable<? extends Benutzer> entities) {
+	public void deleteAll(Iterable<? extends BenutzerTest> entities) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -118,37 +118,37 @@ public class DummyUserRepository implements UserRepository {
 	}
 
 	@Override
-	public <S extends Benutzer> Optional<S> findOne(Example<S> example) {
+	public <S extends BenutzerTest> Optional<S> findOne(Example<S> example) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Benutzer> Page<S> findAll(Example<S> example, Pageable pageable) {
+	public <S extends BenutzerTest> Page<S> findAll(Example<S> example, Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Benutzer> long count(Example<S> example) {
+	public <S extends BenutzerTest> long count(Example<S> example) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public <S extends Benutzer> boolean exists(Example<S> example) {
+	public <S extends BenutzerTest> boolean exists(Example<S> example) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Benutzer findByBenutzername(String benutzername) {
+	public BenutzerTest findByBenutzername(String benutzername) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Benutzer> findAll() {
+	public List<BenutzerTest> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}

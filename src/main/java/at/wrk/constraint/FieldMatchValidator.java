@@ -9,30 +9,13 @@ import java.util.stream.Collectors;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.passay.CharacterRule;
 import org.passay.DictionaryRule;
-import org.passay.EnglishCharacterData;
-import org.passay.LengthRule;
 import org.passay.PasswordData;
 import org.passay.PasswordValidator;
 import org.passay.RuleResult;
-import org.passay.WhitespaceRule;
 import org.passay.dictionary.WordListDictionary;
 import org.passay.dictionary.WordLists;
 import org.passay.dictionary.sort.ArraysSort;
-
-import org.passay.*;
-import org.passay.dictionary.WordListDictionary;
-import org.passay.dictionary.WordLists;
-import org.passay.dictionary.sort.ArraysSort;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class FieldMatchValidator implements ConstraintValidator<ValidPassword, String> {
 
@@ -63,16 +46,16 @@ public class FieldMatchValidator implements ConstraintValidator<ValidPassword, S
         PasswordValidator validator = new PasswordValidator(Arrays.asList(
 
                 // at least 8 characters
-                new LengthRule(8, 30),
+                // new LengthRule(8, 30),
 
                 // at least one upper-case character
-                new CharacterRule(EnglishCharacterData.UpperCase, 1),
+                // new CharacterRule(EnglishCharacterData.UpperCase, 1),
 
                 // at least one lower-case character
-                new CharacterRule(EnglishCharacterData.LowerCase, 1),
+                // new CharacterRule(EnglishCharacterData.LowerCase, 1),
 
                 // at least one digit character
-                new CharacterRule(EnglishCharacterData.Digit, 1),
+                // new CharacterRule(EnglishCharacterData.Digit, 1),
 
                 // at least one symbol (special character)
                 // new CharacterRule(EnglishCharacterData.Special, 1),
