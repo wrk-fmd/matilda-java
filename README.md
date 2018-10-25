@@ -2,8 +2,6 @@
 
 Resource management software for warehouses.
 
-...
-
 ## Installation
 
 tba
