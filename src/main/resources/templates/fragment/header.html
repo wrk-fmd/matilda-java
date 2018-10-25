@@ -37,7 +37,7 @@
 					<i class="fa fa-caret-down"></i>
 			 	</button>
 				<div class="dropdown-content-admin">
-					<div sec:authorize="hasAuthority('ADMIN')">
+					<div security:authorize access="hasAnyRole('ADMIN', 'BENUTZER')">
 						<a href="mitarbeiterverwaltung">Mitarbeiterverwaltung</a>
 						<a href="registration">Benutzerregistrierung</a>
 						<a href="passwordaenderung">Passwort ändern</a>

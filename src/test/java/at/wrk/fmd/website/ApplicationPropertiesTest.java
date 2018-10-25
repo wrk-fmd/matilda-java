@@ -18,6 +18,30 @@ public class ApplicationPropertiesTest {
 
     @Autowired
     protected Environment env;
+    
+    // Spring Boot Config
+
+    @Test
+    public void verifyPropertyServerPortIsAvailableInEnvironment() {
+        String serverPort = "server.port";
+        assertEquals("8080", env.getProperty(serverPort));
+    }
+    
+    // Spring Boot Config
+
+    // DB Config
+    
+    @Test
+    public void verifyPropertyUsernameIsAvailableInEnvironment() {
+        String username = "spring.datasource.username";
+        assertEquals("postgres", env.getProperty(username));
+    }
+
+    @Test
+    public void verifyPropertDatasourceIsAvailableInEnvironment() {
+        String datasource = "spring.datasource.url";
+        assertEquals("jdbc:postgresql://localhost/matilda", env.getProperty(datasource));
+    }
 
     @Test
     public void verifyPropertyUsernameForDbIsAvailableInEnvironment() {
@@ -37,6 +61,30 @@ public class ApplicationPropertiesTest {
         assertEquals("true", env.getProperty(ddl));
     }
 
+    // DB Config
+    
+    // Logging
+
+    @Test
+        public void verifyPropertyConsoleIsAvailableInEnvironment() {
+        String console = "logging.pattern.console";
+        assertEquals("%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n", env.getProperty(console));
+    }
+    
+    @Test
+    public void verifyPropertySQLDebugIsAvailableInEnvironment() {
+        String console = "logging.level.org.hibernate.SQL";
+        assertEquals("debug", env.getProperty(console));
+    }
+
+    @Test
+    public void verifyPropertySBasicBinderIsAvailableInEnvironment() {
+        String console = "logging.level.org.hibernate.type.descriptor.sql.BasicBinder";
+        assertEquals("TRACE", env.getProperty(console));
+    }
+            
+    // Logging
+    
     // Security - Config
 
     @Test
@@ -53,27 +101,16 @@ public class ApplicationPropertiesTest {
 
     // Security - Config
 
-    // Spring Boot Config
+    // Session Management
 
     @Test
-    public void verifyPropertyServerPortIsAvailableInEnvironment() {
-        String serverPort = "server.port";
-        assertEquals("8080", env.getProperty(serverPort));
+    public void verifyPropertsessionTimeoutIsAvailableInEnvironment() {
+        String legacyMode = "server.servlet.session.timeout";
+        assertEquals("3600s", env.getProperty(legacyMode));
     }
 
-    @Test
-    public void verifyPropertyUsernameIsAvailableInEnvironment() {
-        String username = "spring.datasource.username";
-        assertEquals("postgres", env.getProperty(username));
-    }
-
-    @Test
-    public void verifyPropertDatasourceIsAvailableInEnvironment() {
-        String datasource = "spring.datasource.url";
-        assertEquals("jdbc:postgresql://localhost/matilda", env.getProperty(datasource));
-    }
-
-    // Spring Boot Config
+    // Session Management
+    
     // Thymeleaf configurations
 
     @Test

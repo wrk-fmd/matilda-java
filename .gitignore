@@ -1,14 +1,11 @@
-# General
-.springBeans
-
 # Compiled class file
 *.class
 
 # Directories
-target
+*target*
 
 # Settings
-.settings
+*settings*
 
 # Log file
 *.log
