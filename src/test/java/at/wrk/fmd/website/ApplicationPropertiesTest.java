@@ -129,6 +129,22 @@ public class ApplicationPropertiesTest {
     
     // Thymeleaf configurations
     
+    // General settings
+
+    @Test
+    public void verifyProperEncodingIsAvailableInEnvironment() {
+        String encoding = "spring.messages.encoding";
+        assertEquals("UTF-8", env.getProperty(encoding));
+    }
+
+    @Test
+    public void verifyPropertEncodingCharsetIsAvailableInEnvironment() {
+        String charset = "spring.http.encoding.charset";
+        assertEquals("UTF-8", env.getProperty(charset));
+    }
+    
+    // General settings
+    
     // ----------------------------------------------------------------------- //
     
     @Configuration

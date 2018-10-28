@@ -24,11 +24,3 @@ hs_err_pid*
 
 .idea/
 *.iml
-
-# Directories
-target/
-
-# General Files
-.settings
-.springBeans
-.classPath
