@@ -5,15 +5,17 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@EnableConfigurationProperties
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
-@TestPropertySource("application.propertiesTest")
+@TestPropertySource("classpath:test.properties")
 public class ApplicationPropertiesTest {
 
     @Autowired
@@ -34,31 +36,31 @@ public class ApplicationPropertiesTest {
     @Test
     public void verifyPropertyUsernameIsAvailableInEnvironment() {
         String username = "spring.datasource.username";
-        assertEquals("postgres", env.getProperty(username));
+        assertEquals("sa", env.getProperty(username));
     }
 
     @Test
     public void verifyPropertDatasourceIsAvailableInEnvironment() {
         String datasource = "spring.datasource.url";
-        assertEquals("jdbc:postgresql://localhost/matilda", env.getProperty(datasource));
+        assertEquals("jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1", env.getProperty(datasource));
     }
 
     @Test
     public void verifyPropertyUsernameForDbIsAvailableInEnvironment() {
         String username = "spring.datasource.username";
-        assertEquals("postgres", env.getProperty(username));
-    }
-
-    @Test
-    public void verifyPropertyPasswordForDbIsAvailableInEnvironment() {
-        String password = "spring.datasource.password";
-        assertEquals("ENC(LBRtyWasc+a8xdLHl6xD/S5rzkAaiQIt6NFEZqIT4uI=)", env.getProperty(password));
+        assertEquals("sa", env.getProperty(username));
     }
 
     @Test
     public void verifyPropertyDDLIsAvailableInEnvironment() {
         String ddl = "spring.jpa.generate-ddl";
         assertEquals("true", env.getProperty(ddl));
+    }
+    
+    @Test
+    public void verifyPropertySQLIsAvailableInEnvironment() {
+        String sql = "spring.jpa.show-sql";
+        assertEquals("true", env.getProperty(sql));
     }
 
     // DB Config

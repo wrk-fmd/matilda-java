@@ -3,7 +3,6 @@ package at.wrk.fmd.dto;
 import java.util.Collection;
 import javax.validation.constraints.AssertTrue;
 import org.hibernate.validator.constraints.NotEmpty;
-
 import at.wrk.fmd.constraint.ValidPassword;
 import at.wrk.fmd.model.Rolle;
 

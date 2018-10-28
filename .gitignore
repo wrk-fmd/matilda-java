@@ -1,12 +1,6 @@
 # Compiled class file
 *.class
 
-# Directories
-*target*
-
-# Settings
-*settings*
-
 # Log file
 *.log
 
@@ -30,3 +24,11 @@ hs_err_pid*
 
 .idea/
 *.iml
+
+# Directories
+target/
+
+# General Files
+.settings
+.springBeans
+.classPath
