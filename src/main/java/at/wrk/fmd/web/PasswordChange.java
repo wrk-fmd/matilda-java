@@ -1,11 +1,13 @@
 package at.wrk.fmd.web;
 
+import java.util.Collection;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,14 +19,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import at.wrk.fmd.dto.UserCreationDto;
 import at.wrk.fmd.model.Benutzer;
 import at.wrk.fmd.pojo.User;
 import at.wrk.fmd.repository.UserRepository;
 import at.wrk.fmd.repository.updateOldPasswordRepository;
-import java.util.Collection;
-import java.util.Iterator;
 
 @Controller
 @RequestMapping("/passwordaenderung")
@@ -39,8 +38,11 @@ public class PasswordChange {
     @Autowired
     private updateOldPasswordRepository passwordRepo;
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    
     @GetMapping
     public String showPasswordChangeForm(Model model) {
+        logger.info("PasswordChange called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
         UserCreationDto userForm = new UserCreationDto();
         User user;
         List<Benutzer> users;
@@ -78,6 +80,7 @@ public class PasswordChange {
     public String updateOldPassword(@ModelAttribute UserCreationDto userTableSettings,
             @RequestParam("radiobutton") String radiobutton, BindingResult result, Model model, Errors errors) {
         if (errors.hasErrors()) {
+            logger.error("Error in {}", new Object() {}.getClass().getEnclosingMethod().getName());
             return "error";
         }
 
@@ -90,6 +93,7 @@ public class PasswordChange {
                 passwordRepo.updatePassword(username, newPassword);
             }
         }
+        logger.info("redirecting from {}", new Object() {}.getClass().getEnclosingMethod().getName());
         return "redirect:/passwordaenderung?success";
     }
 }

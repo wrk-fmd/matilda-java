@@ -18,7 +18,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
-        logger.info("Logout successfully with principal: " + authentication.getName());
+        logger.info("Logout successfully with principal: {}", authentication.getName());
 
 //        HttpSession hs = request.getSession();
 //        String username = request.getUserPrincipal().getName();

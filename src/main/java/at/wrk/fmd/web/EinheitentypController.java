@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,9 @@ import at.wrk.fmd.repository.EinheitentypRepository;
 
 @Controller
 public class EinheitentypController {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    
     private EinheitentypRepository einheitentypRepository;
 
     @Autowired
@@ -39,6 +44,7 @@ public class EinheitentypController {
         if (einheitentypen != null) {
             model.addAttribute("einheitentypen", einheitentypen);
         }
+        logger.info("GET einheitentyp called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
         return "einheitentyp";
     }
 
@@ -59,6 +65,7 @@ public class EinheitentypController {
         }
 
         einheitentypRepository.save(einheitentyp);
+        logger.info("POST einheitentyp redirect called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
         return "redirect:/einheitentyp?success";
     }
 
@@ -70,6 +77,7 @@ public class EinheitentypController {
     public String aendernForm(@PathVariable("id") long id, Model model) {
         Einheitentyp exicting = einheitentypRepository.findById(id);
         model.addAttribute("einheitentyp", exicting);
+        logger.info("einheitentypupdate called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
         return "einheitentypupdate";
     }
 
@@ -81,6 +89,7 @@ public class EinheitentypController {
         Einheitentyp andere = einheitentypRepository.findByName(einheitentyp.getName());
 
         if (einheitentyp.getName().equals(existing.getName())) {
+            logger.info("aendernSpeichern with redirect no change called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
             return "redirect:/einheitentyp?nochange";
         }
         if (andere != null) {
@@ -93,6 +102,7 @@ public class EinheitentypController {
         existing.setName(einheitentyp.getName());
 
         einheitentypRepository.save(existing);
+        logger.info("einheitentyp?success called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
         return "redirect:/einheitentyp?success";
     }
 
@@ -103,6 +113,7 @@ public class EinheitentypController {
     public String loeschen(@PathVariable("id") long id) {
         einheitentypRepository.deleteById(id);
 
+        logger.info("einheitentyp?loeschen called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
         return "redirect:/einheitentyp?loeschen";
     }
 }
