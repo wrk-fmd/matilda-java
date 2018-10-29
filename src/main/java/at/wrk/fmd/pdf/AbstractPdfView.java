@@ -1,5 +1,6 @@
 package at.wrk.fmd.pdf;
 
+import com.itextpdf.awt.geom.Rectangle;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
@@ -33,7 +34,13 @@ public abstract class AbstractPdfView extends AbstractView {
 
         ByteArrayOutputStream baos = createTemporaryOutputStream();
 
-        Document document = new Document(PageSize.A4);
+        String pageSize = (String) model.get("pdfDocument");
+        Document document;
+        if(!pageSize.equals("A3")) { // A4 ist default in constructor
+            document = new Document();
+        } else {
+            document = new Document(PageSize.A3);
+        }
         PdfWriter writer = PdfWriter.getInstance(document, baos);
         prepareWriter(model, writer, request);
         buildPdfMetadata(model, document, request);
