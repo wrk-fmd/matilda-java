@@ -54,7 +54,7 @@ public class PasswordChange {
         for (GrantedAuthority grantedAuthority : authorities) {
             authority = grantedAuthority.getAuthority();
         }
-        isAdmin = authorities.contains("ADMIN");
+        isAdmin = authority.contains("ADMIN");
         
         if(isAdmin) {
             users = userRepo.findAll();
