@@ -10,7 +10,9 @@ INSERT INTO benutzer_rolle(benutzer_id,rolle_id) VALUES (1,1);
 
 -- TEST -----------------------------
 
-INSERT INTO veranstaltung (name,beginn, ende, zustand) VALUES ('Steiermark 2012', '2018-11-04', '2018-11-06', 'Frei');
+INSERT INTO veranstaltung (name,beginn, ende, zustand) VALUES ('Steiermark 2018', '2018-11-04', '2018-11-06', 'Frei');
+INSERT INTO veranstaltung (name,beginn, ende, zustand) VALUES ('Wien 2018', '2018-11-04', '2018-11-07', 'Frei');
+INSERT INTO veranstaltung (name,beginn, ende, zustand) VALUES ('Burgenland 2019', '2019-01-04', '2018-02-07', 'Frei');
 INSERT INTO einheitentyp (name) VALUES ('TRI');
 INSERT INTO materialtyp (name,menge) VALUES ('Asprin','Stuck');
 INSERT INTO mitarbeitertyp (kuerzel,name) VALUES ('ZYZ','Zebra Y Zebra');

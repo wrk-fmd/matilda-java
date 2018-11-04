@@ -24,12 +24,12 @@ public class RestWebController {
         String jsonMsg = null;
         try {
             Veranstaltung event = new Veranstaltung();
-            Event pojoEvent = new Event();
             List<Event> listOfEvents = new ArrayList<Event>();
             List<?> events = eventRepo.findAll();
             
             for(Object veranstaltung : events) {
                 Veranstaltung v = (Veranstaltung) veranstaltung;
+                Event pojoEvent = new Event();
                 pojoEvent.setTitle(v.getName());
                 pojoEvent.setStart(v.getBeginn().toString());
                 pojoEvent.setEnd(v.getEnde().toString());
