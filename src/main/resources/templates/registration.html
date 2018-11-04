@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
  	<link rel="stylesheet" th:href="@{/css/index.css}"/>
  	<link rel="import" href="/fragment/topnav.html">
- 	<title>Registration</title>
+ 	<title th:text="@{${@environment.getProperty('matilda.registration')}}" />
 </head>
 	<body>
 		<head th:replace="/fragment/header :: header"></head>	
