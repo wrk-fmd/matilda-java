@@ -4,7 +4,7 @@ Resource management software for warehouses.
 
 ## Installation
 
-tba
+* ADMIN User is created automatically - for password see document.
 
 ## Dependencies
 

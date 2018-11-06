@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-<title>Material</title>
+	<title th:text="@{${@environment.getProperty('matilda.material')}}" />
 </head>
 <body>
 <h1>Material-Verwaltung</h1>

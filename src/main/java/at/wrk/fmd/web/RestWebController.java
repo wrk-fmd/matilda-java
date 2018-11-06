@@ -23,7 +23,6 @@ public class RestWebController {
     public String getEvents() {
         String jsonMsg = null;
         try {
-            Veranstaltung event = new Veranstaltung();
             List<Event> listOfEvents = new ArrayList<Event>();
             List<?> events = eventRepo.findAll();
             

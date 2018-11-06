@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
  	<link rel="stylesheet" th:href="@{/css/index.css}"/>
  	<link rel="import" href="/fragment/topnav.html">
- 	<title>Registration</title>
+ 	<title th:text="@{${@environment.getProperty('matilda.registration')}}" />
 </head>
 	<body>
 		<head th:replace="/fragment/header :: header"></head>	
@@ -26,15 +26,7 @@
             </div>
 
             <h1>Registration</h1>
-            <p>
-            
-				Password must meet the following requirements at least:</br>
-					*) eight characters</br>
-					*) one upper-case character [A-Z]</br>
-					*) one lower-case character [a-z]</br>
-                	*) one digit character [0-9]</br>
-            
-            </p>
+
             <form th:action="@{/registration}" th:object="${benutzer}" method="post" autocomplete="off">
 
                 <p class="error-message"

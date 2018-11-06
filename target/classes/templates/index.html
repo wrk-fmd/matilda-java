@@ -1,50 +1,31 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-
-<head th:fragment="head">
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
- 	<link rel="stylesheet" th:href="@{/css/index.css}"/>
- 	<link rel="import" href="/fragment/topnav.html">
-</head>
-	<body>
-		<head th:replace="/fragment/header :: header"></head>	
+	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+		<head th:fragment="head">
+		<title th:text="@{${@environment.getProperty('matilda.mainsite')}}" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<div th:replace="/fragment/footer :: footer"></div>
-
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Benutzername</th>
-					<th>Anzeigename</th>
-					<th>Dienstnummer</th>
-				</tr>
-			</thead>
-			<dl th:each="user : ${loggedInUser}">
-			<tr>
-				<td th:text="${user.username}">benutzername</td>
-			</tr>
-		</table>
-
-        Authenticated username:
-        <div sec:authentication="name"></div>
-        Authenticated user roles:
-        <div sec:authentication="principal.authorities"></div>
-        
-
-		<div sec:authorize="isAuthenticated()">
-		  This content is only shown to authenticated users.
-		</div>
-		<div sec:authorize="hasRole('ADMIN')">
-		  This content is only shown to administrators.
-		</div>
-		<div sec:authorize="hasRole('ROLE_USER')">
-		  This content is only shown to users.
-		</div>
-		<div sec:authorize="hasAuthority('ADMIN')">Only for admin</div>
-
+	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+	    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+	 	<link rel="stylesheet" th:href="@{/css/index.css}"/>
+	 	<link rel="import" href="/fragment/topnav.html">
+		<link rel='stylesheet' href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
+		<script src="webjars/jquery/2.0.3/jquery.min.js"></script>
+		<script src='webjars/moment/2.19.1/min/moment.min.js'></script>
+		<script src='webjars/fullcalendar/3.5.1/dist/fullcalendar.js'></script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$('#calendar').fullCalendar({
+				height: 655,
+				events: {
+					url : '/api/event/all'
+				}
+			});
+		});
+		</script>
+	</head>
+	<body>
+		<head th:replace="/fragment/header :: header"></head>
+		<div id='calendar'></div>
 	</body>
 </html>

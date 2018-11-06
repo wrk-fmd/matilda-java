@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-<title>Veranstaltung</title>
+	<title th:text="@{${@environment.getProperty('matilda.events')}}" />
 </head>
 <body>
 <h2>Veranstaltungen List</h2>

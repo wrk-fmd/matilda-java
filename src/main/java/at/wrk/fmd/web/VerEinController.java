@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import at.wrk.fmd.model.Einheitentyp;
-import at.wrk.fmd.model.Material;
-import at.wrk.fmd.model.Ntransaktion;
 import at.wrk.fmd.model.Veranstaltung;
 import at.wrk.fmd.model.Veranstaltung_Einheitentyp;
 import at.wrk.fmd.repository.EinheitentypRepository;
