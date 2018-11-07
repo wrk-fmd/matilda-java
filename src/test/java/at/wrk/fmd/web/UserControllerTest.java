@@ -1,28 +1,36 @@
 package at.wrk.fmd.web;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
+
+import at.wrk.fmd.repository.DummyUserRepository;
+import at.wrk.fmd.repository.UserRepository;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest
+@SpringBootTest(classes = { UserController.class, DummyUserRepository.class })
+@EnableConfigurationProperties
+@ActiveProfiles("test")
 public class UserControllerTest {
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @Mock
+    UserRepository userRepository;
     
     @Autowired
-    private MockMvc mockMvc;
+    private UserController user;
     
     @Test
-    public void shouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
-        .andExpect(content().string(containsString("Hello World")));
+    public void deleteUserTest() throws Exception {
+        user.deleteUser(1);
     }
 }

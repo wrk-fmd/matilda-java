@@ -22,13 +22,8 @@ public class HttpRequestTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void testLoginSite() throws Exception {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/", String.class)).contains("Login");
-    }
-
-    @Test
-    public void testUserSiteBenutzername() throws Exception {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/", String.class))
-                .contains("Benutzername");
+    public void shouldReturnDefaultMessage() throws Exception {
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
+                String.class)).contains("einheitentyp");
     }
 }
