@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -25,16 +24,17 @@ public class UserRegistrationTest {
 
     @Test
     public void submitRegistrationAccountExists() throws Exception {
-        this.mockMvc
-            .perform(
-                    post("/registration")
-                        .with(csrf())
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                         .param("Benutzername", "ADMIN")
-                         .param("password", "#WRK#")
-                    )
-            .andExpect(model().hasErrors())
-            .andExpect(model().attributeHasFieldErrors("benutzer"))
-            .andExpect(status().isOk());
+        mockMvc
+        .perform(post("/registration")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("Benutzername", "ADMIN")
+                .param("password", "#WRK#")
+                .with(csrf())).andExpect(status().is(302));
     }
+    
+    @Test
+    public void submitRegistrationAccountExistsWithoutCSRF() throws Exception {
+        mockMvc.perform(post("/registration"))
+        .andExpect(status().is(302));
+    }    
 }
