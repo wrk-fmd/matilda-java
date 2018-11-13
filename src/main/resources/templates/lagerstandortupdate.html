@@ -1,9 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Lagerstandort Aktualisieren</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="index.css">
+		
+		<title>Lagerstandortaktualisierung</title>
+		
+	</head>
 <body>
 	<h1>Lagerstandort</h1>
     <form action="#" th:action="@{/lagerstandortupdate/{id}(id=${lagerstandort.id})}" th:object="${lagerstandort}" method="post">
@@ -71,6 +75,12 @@
 	    window.history.back();
 	}
 	</script>
+
+	<footer>
+		<div class="footer">
+			<a href="#Impressum" class="footerText">Impressum</a>
+		</div>
+	</footer>
 
 </body>
 </html>
