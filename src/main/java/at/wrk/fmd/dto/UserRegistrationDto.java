@@ -20,10 +20,6 @@ public class UserRegistrationDto {
     private String passwort;
 
     @NotEmpty
-    @ValidPassword
-    private String konfPasswort;
-
-    @NotEmpty
     private String benutzername;
 
     @NotEmpty
@@ -43,10 +39,6 @@ public class UserRegistrationDto {
 
     public String getPasswort() {
         return passwort;
-    }
-
-    public String getKonfPasswort() {
-        return konfPasswort;
     }
 
     public String getBenutzername() {
@@ -71,10 +63,6 @@ public class UserRegistrationDto {
 
     public void setPasswort(String passwort) {
         this.passwort = passwort;
-    }
-
-    public void setKonfPasswort(String konfPasswort) {
-        this.konfPasswort = konfPasswort;
     }
 
     public void setBenutzername(String benutzername) {

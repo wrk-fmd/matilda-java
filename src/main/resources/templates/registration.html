@@ -10,6 +10,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
  	<link rel="stylesheet" th:href="@{/css/index.css}"/>
  	<link rel="import" href="/fragment/topnav.html">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-show-password/1.0.3/bootstrap-show-password.min.js"></script>
  	<title th:text="@{${@environment.getProperty('matilda.registration')}}" />
 </head>
 	<body>
@@ -76,59 +80,42 @@
                 </div>
                 <div class="form-group"
                      th:classappend="${#fields.hasErrors('passwort')}? 'has-error':''">
-                    <label for="passwort" class="control-label">Passwort</label>
-                    <input id="passwort"
-                           class="form-control"
-                           type="password"
-                           th:field="*{passwort}"/>
+                     <label for="passwort" class="control-label">Passwort</label>
+					<input id="passwort" class="form-control" type="password" th:field="*{passwort}" data-toggle="password">
                     <p class="error-message"
                        th:each="error : ${#fields.errors('passwort')}"
                        th:text="${error}">Validation error</p>
                 </div>
-                <div class="form-group"
-                     th:classappend="${#fields.hasErrors('konfPasswort')}? 'has-error':''">
-                    <label for="konfPasswort" class="control-label">Bestätigungs-Passwort</label>
-                    
-                    <input id="konfPasswort"
-                           class="form-control"
-                           type="password"
-                           th:field="*{konfPasswort}"/>
-                           
-                    <p class="error-message"
-                       th:each="error : ${#fields.errors('konfPasswort')}"
-                       th:text="${error}">Validation error</p>
-                </div>
 
-                
                 <div class="form-group"
                      th:classappend="${#fields.hasErrors('rollen')}? 'has-error':''">
                     <label for="rollen" class="control-label">Rollen: </label>
                     <input id="rollen"
                     	   type="radio"
                     	   value="ADMIN"
-                           class="form-control"
+                           class="form-check-input radio-inline"
                            th:field="*{rollen}"/> ADMIN 
                     <input id="rollen"
                     	   type="radio"
                     	   value="SUPERVISOR"
-                           class="form-control"
+                           class="form-check-input radio-inline"
                            th:field="*{rollen}"/> SUPERVISOR 
                     <input id="rollen"
                     	   type="radio"
                     	   value="BENUTZER" 
-                           class="form-control"
+                           class="form-check-input radio-inline"
                            th:field="*{rollen}"/> BENUTZER <br>
                     <p class="error-message"
                        th:each="error : ${#fields.errors('rollen')}"
                        th:text="${error}">Validation error</p>
                 </div>
-                <div class="form-group"
+                <div class="form-check"
                      th:classappend="${#fields.hasErrors('terms')}? 'has-error':''">
                     <p class="error-message"
                        th:each="error : ${#fields.errors('terms')}"
                        th:text="${error}">Validation error</p>
                 </div>
-                <div class="form-group">
+                <div class="form-check">
                     <button type="submit" class="btn btn-success">Register</button>
                 </div>
 
@@ -139,6 +126,12 @@
 
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+<!-- used for toggling plain password -->
+<script type="text/javascript">
+	$("#password").password('toggle');
+</script>
+<!-- used for toggling plain password -->
 
 <div th:replace="/fragment/footer :: footer"></div>
 
