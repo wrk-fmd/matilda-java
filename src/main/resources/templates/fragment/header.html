@@ -13,7 +13,7 @@
 			</div>
 			
 			<div class="dropdown">
-			 <button class="dropbtn">Veranstaltung
+			 <button class="dropbtn" th:text="#{veranstaltung}">
 				<i class="fa fa-caret-down"></i>
 			 </button>
 			 <div class="dropdown-content">
@@ -34,14 +34,14 @@
 			<a href="/lagerstandort" class="active">Lagerstandort</a>
 
 			<div class="dropdownAdmin">
-				<button class="dropbtnAdmin">Konto
+				<button class="dropbtnAdmin" th:text="#{konto}">
 					<i class="fa fa-caret-down"></i>
 			 	</button>
 				<div class="dropdown-content-admin">
 					<div security:authorize access="hasAnyRole('ADMIN', 'BENUTZER')">
 						<a href="mitarbeiterverwaltung">Mitarbeiterverwaltung</a>
-						<a href="registration">Benutzerregistrierung</a>
-						<a href="passwordaenderung">Passwort ändern</a>
+						<a href="registration" th:text="#{benutzerregistrierung}" />
+						<a href="passwordaenderung" th:text="#{passwort_aendern}" />
 					</div>
 					<div>
 						<a href="javascript: document.logoutForm.submit()" > Sign out </a>
