@@ -9,20 +9,8 @@
 	    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
 	 	<link rel="stylesheet" th:href="@{/css/index.css}"/>
 	 	<link rel="import" href="/fragment/topnav.html">
-		<link rel='stylesheet' href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
 		<script src="webjars/jquery/2.0.3/jquery.min.js"></script>
 		<script src='webjars/moment/2.19.1/min/moment.min.js'></script>
-		<script src='webjars/fullcalendar/3.5.1/dist/fullcalendar.js'></script>
-		<script type="text/javascript">
-		$(document).ready(function() {
-			$('#calendar').fullCalendar({
-				height: 655,
-				events: {
-					url : '/api/event/all'
-				}
-			});
-		});
-		</script>
 	</head>
 	<body>
 		<head th:replace="/fragment/header :: header"></head>
