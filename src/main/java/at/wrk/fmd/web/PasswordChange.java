@@ -78,7 +78,7 @@ public class PasswordChange {
 
     @PostMapping
     public String updateOldPassword(@ModelAttribute UserCreationDto userTableSettings,
-            @RequestParam("radiobutton") String radiobutton, BindingResult result, Model model, Errors errors) {
+            @RequestParam("radiobutton") String radiobuttonName, BindingResult result, Model model, Errors errors) {
         if (errors.hasErrors()) {
             logger.error("Error in {}", new Object() {}.getClass().getEnclosingMethod().getName());
             return "error";
@@ -87,8 +87,8 @@ public class PasswordChange {
         List<User> users = userTableSettings.getUsers();
 
         for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getUsername().equals(radiobutton)) {
-                String username = users.get(i).getUsername();
+            if (users.get(i).getUsername() == null && users.get(i).getPassword() != null) {
+                String username = radiobuttonName;
                 String newPassword = passwordEncoder.encode(users.get(i).getPassword());
                 passwordRepo.updatePassword(username, newPassword);
             }
