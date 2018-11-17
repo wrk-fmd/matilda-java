@@ -44,7 +44,7 @@ public class EinheitentypController {
         if (einheitentypen != null) {
             model.addAttribute("einheitentypen", einheitentypen);
         }
-        logger.info("GET einheitentyp called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         return "einheitentyp";
     }
 
@@ -65,7 +65,7 @@ public class EinheitentypController {
         }
 
         einheitentypRepository.save(einheitentyp);
-        logger.info("POST einheitentyp redirect called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         return "redirect:/einheitentyp?success";
     }
 
@@ -77,7 +77,7 @@ public class EinheitentypController {
     public String aendernForm(@PathVariable("id") long id, Model model) {
         Einheitentyp exicting = einheitentypRepository.findById(id);
         model.addAttribute("einheitentyp", exicting);
-        logger.info("einheitentypupdate called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         return "einheitentypupdate";
     }
 
@@ -89,20 +89,21 @@ public class EinheitentypController {
         Einheitentyp andere = einheitentypRepository.findByName(einheitentyp.getName());
 
         if (einheitentyp.getName().equals(existing.getName())) {
-            logger.info("aendernSpeichern with redirect no change called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
+            logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
             return "redirect:/einheitentyp?nochange";
         }
         if (andere != null) {
             result.rejectValue("name", null, "Es ist bereits ein Einheitentyp mit gleichem Namen eingetragen");
         }
         if (result.hasErrors()) {
+            logger.error("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
             return "einheitentypupdate";
         }
 
         existing.setName(einheitentyp.getName());
 
         einheitentypRepository.save(existing);
-        logger.info("einheitentyp?success called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         return "redirect:/einheitentyp?success";
     }
 
@@ -113,7 +114,7 @@ public class EinheitentypController {
     public String loeschen(@PathVariable("id") long id) {
         einheitentypRepository.deleteById(id);
 
-        logger.info("einheitentyp?loeschen called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         return "redirect:/einheitentyp?loeschen";
     }
 }

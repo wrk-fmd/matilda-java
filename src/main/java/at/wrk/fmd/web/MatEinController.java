@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -27,11 +29,11 @@ public class MatEinController {
     private MatEinRepository matEinRepository;
     private EinheitentypRepository einheitentypRepository;
     private MaterialtypRepository materialtypRepository;
-
     private long aktEinheitentypId;
     private Einheitentyp aktEinheitentyp;
-
     private List<Materialtyp_Einheitentyp> materialeinheiten;
+    
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public MatEinController(MatEinRepository matEinRepository, EinheitentypRepository einheitentypRepository,
@@ -77,14 +79,13 @@ public class MatEinController {
     public String addSpeichern(Model model,
             @ModelAttribute("materialtyp_einheitentyp") @Valid Materialtyp_Einheitentyp materialtyp_einheitentyp,
             BindingResult result) {
-
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         materialtyp_einheitentyp.setEinheitentyp(aktEinheitentyp);
 
         if (materialtyp_einheitentyp.getMaterialtyp() == null) {
             result.rejectValue("materialtyp", null, "Der Materialtyp kann nicht Null sein!");
         }
         if (result.hasErrors()) {
-
             if (materialeinheiten != null) {
                 model.addAttribute("materialeinheiten", materialeinheiten);
             }
@@ -101,8 +102,10 @@ public class MatEinController {
     @RequestMapping(value = "/mateinupdate/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String aendernForm(@PathVariable("id") long id, Model model) {
-        Materialtyp_Einheitentyp existing = matEinRepository.findById(id);
+        
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());        
 
+        Materialtyp_Einheitentyp existing = matEinRepository.findById(id);
         model.addAttribute("materialtyp_einheitentyp", existing);
         return "mateinupdate";
     }
@@ -112,6 +115,8 @@ public class MatEinController {
             @ModelAttribute("materialtyp_einheitentyp") @Valid Materialtyp_Einheitentyp materialtyp_einheitentyp,
             BindingResult result) {
 
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         Materialtyp_Einheitentyp existing = matEinRepository.findById(id);
 
         existing.setManzahl(materialtyp_einheitentyp.getManzahl());
@@ -120,7 +125,7 @@ public class MatEinController {
         existing.setBeschreibung(materialtyp_einheitentyp.getBeschreibung());
 
         if (result.hasErrors()) {
-
+            logger.error("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
             return "mateinupdate";
         }
 
@@ -133,6 +138,9 @@ public class MatEinController {
 
     @RequestMapping(value = "/mateinupdate/{id}/loeschen", method = RequestMethod.POST)
     public String loeschen(@PathVariable("id") long id) {
+        
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         matEinRepository.deleteById(id);
 
         return "redirect:/materialeinheit/" + aktEinheitentypId + "/?loeschen";

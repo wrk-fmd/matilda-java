@@ -42,7 +42,7 @@ public class PasswordChange {
     
     @GetMapping
     public String showPasswordChangeForm(Model model) {
-        logger.info("PasswordChange called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         UserCreationDto userForm = new UserCreationDto();
         User user;
         List<Benutzer> users;
@@ -80,7 +80,7 @@ public class PasswordChange {
     public String updateOldPassword(@ModelAttribute UserCreationDto userTableSettings,
             @RequestParam("radiobutton") String radiobuttonName, BindingResult result, Model model, Errors errors) {
         if (errors.hasErrors()) {
-            logger.error("Error in {}", new Object() {}.getClass().getEnclosingMethod().getName());
+            logger.error("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
             return "error";
         }
 
@@ -93,7 +93,7 @@ public class PasswordChange {
                 passwordRepo.updatePassword(username, newPassword);
             }
         }
-        logger.info("redirecting from {}", new Object() {}.getClass().getEnclosingMethod().getName());
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         return "redirect:/passwordaenderung?success";
     }
 }

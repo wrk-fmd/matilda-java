@@ -13,25 +13,13 @@ public class MainController {
     
     @GetMapping("/")
     public String root() {
-        logger.info("index called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         return "index";
     }
 
     @GetMapping("/login")
     public String login(Model model) {
-        logger.info("login called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         return "login";
-    }
-
-    @GetMapping("/user")
-    public String userIndex() {
-        logger.info("user called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
-        return "user/index";
-    }
-
-    @GetMapping("/mitarbeiterverwaltung")
-    public String mitarbeiterverwaltung() {
-        logger.info("mitarbeiterverwaltung called in {}", new Object() {}.getClass().getEnclosingMethod().getName());
-        return "mitarbeiterverwaltung";
     }
 }
