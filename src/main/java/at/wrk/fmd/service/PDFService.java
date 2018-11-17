@@ -1,28 +1,18 @@
 package at.wrk.fmd.service;
 
+import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-import at.wrk.fmd.model.Benutzer;
-import at.wrk.fmd.repository.IPDFService;
-
-@Service
-public class PDFService implements IPDFService {
-
-    @Autowired
-    private JdbcTemplate jtm;
-
-    @Override
-    public List<Benutzer> findAll() {
-
-        String sql = "SELECT * FROM Benutzer";
-
-        List<Benutzer> cars = jtm.query(sql, new BeanPropertyRowMapper(Benutzer.class));
-
-        return cars;
-    }
+@Repository
+public interface PDFService {
+    @Query(value = "SELECT v.name AS Veranstaltungsname, b.anzeigename, l.name AS Lagerstandortname FROM Benutzer b "
+            + "INNER JOIN Veranstaltung v ON b.id = v.id " + "INNER JOIN Lagerstandort l ON l.benutzer = b.id "
+            + "INNER JOIN Material m ON m.lagerstandort = l.id "
+            + "INNER JOIN Materialtyp mtyp ON mtyp.id = m.materialtyp " + "WHERE m.einkaufsdatum BETWEEN ?1 AND ?2 "
+            + "GROUP BY v.name, b.anzeigename, l.name", nativeQuery = true)
+    List<?> findByDate(@Param("findAllByDate") Date dateBeginn, Date dateEnde);
 }

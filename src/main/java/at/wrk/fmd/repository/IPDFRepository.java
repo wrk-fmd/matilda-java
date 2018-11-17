@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import at.wrk.fmd.model.Benutzer;
 
+@Repository
 public interface IPDFRepository extends JpaRepository<Benutzer, Long> {
     @Query(value = "SELECT v.name AS Veranstaltungsname, b.anzeigename, l.name AS Lagerstandortname FROM Benutzer b "
             + "INNER JOIN Veranstaltung v ON b.id = v.id " + "INNER JOIN Lagerstandort l ON l.benutzer = b.id "
