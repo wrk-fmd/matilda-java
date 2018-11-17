@@ -12,4 +12,7 @@ public class User {
     @SafeHtml
     private String username;
     private String password;
+    private String anzeigename;
+    private String dienstnummer;
+    private long id;
 }

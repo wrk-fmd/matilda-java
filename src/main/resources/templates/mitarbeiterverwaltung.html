@@ -14,60 +14,73 @@
 	<body>
 		<head th:replace="/fragment/header :: header"></head>	
 		<div th:replace="/fragment/footer :: footer"></div>
-
- 	<div sec:authorize="hasAuthority('ADMIN')">
-	
-		<h3 align = "center">Mitarbeiter&u;umlbersicht</h3>
+		<div class="container">
+		    <div class="row">
+		        <div class="col-md-6 col-md-offset-3">
 		
-		<form method="GET" id="mitverwaltung"></form>
+					<form action="#" th:action="@{/mitarbeiterverwaltung}" th:object="${users}" method="post">
+					    <fieldset>
+					        <table>
+					            <thead>
+					                <tr>
+					                	<th>Active ( Tick ) / Passive</th>
+					                	<th>ID</th>
+					                	<th>Username</th>
+					                    <th>Anzeigename</th>
+					                    <th>Dienstnummer</th>
+					                </tr>
+					            </thead>
+					            <tbody>
+									<tr th:each="user, itemStat : *{users}">
+									    <td><input	type="checkBox"
+									    			name="checkBox" 
+									    			class="checkBox" 
+									    /></td>
+									    <td><input	th:field="*{users[__${itemStat.index}__].id}" 
+									    			readonly/></td>
+									    <td><input	th:field="*{users[__${itemStat.index}__].username}" 
+									    			readonly/></td>
+									    <td><input	class="anzeigename" 
+									    			type="text" 
+									    			name="anzeigename" 
+									    			th:field="*{users[__${itemStat.index}__].anzeigename}" 
+									    			th:id="${itemStat.index}" 
+									    			readonly/></td>
+									    <td><input	class="dienstnummer" 
+									    			type="text" 
+									    			name="dienstnummer" 
+									    			th:field="*{users[__${itemStat.index}__].dienstnummer}" 
+									    			th:id="${itemStat.index}" 
+									    			readonly/></td>
+									</tr>
+					            </tbody>
+					        </table>
+							<input type="submit" id="submitButton" th:value="Speichern"/>
+					    </fieldset>
+					</form>
+
+		            <div th:if="${param.success}">
+		                <div class="alert alert-info">
+		                    The user status was successfully changed.
+		                </div>
+		            </div>
+		         </div>
+		    </div>
+		</div>
+
+		<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+		<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+		<script>
+		    function inputClick(id) {
+		        var passwordFields = document.getElementsByClassName("passwordField");
+		        for(i = 0; i < passwordFields.length; i++) {
+		            passwordFields[i].disabled = true;
+		        }
+		        document.getElementById(id).removeAttribute('disabled');
+		    }
+		</script>
 		
-		<table border="1">
-			<tr>
-				<th>Anzeigename</th>
-				<th>Benutzername</th>
-				<th>Aktiv</th>
-			</tr>
-			<tr th:each="smokeTest : ${smokeTests}">
-			   <td th:text="${smokeTest.name}"></td>
-			</tr>
-		</table>
-		
-		<button type="button" form="my_form">Bestätige Änderung</button>
-	
-	</security:authorize>
-
-	     <div th:replace="/fragment/footer :: footer"></div>
-
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Benutzername</th>
-					<th>Anzeigename</th>
-					<th>Dienstnummer</th>
-				</tr>
-			</thead>
-			<dl th:each="user : ${loggedInUser}">
-			<tr>
-				<td th:text="${user.username}">benutzername</td>
-			</tr>
-		</table>
-
-        Authenticated username:
-        <div sec:authentication="name"></div>
-        Authenticated user roles:
-        <div sec:authentication="principal.authorities"></div>
-        
-
-		<div sec:authorize="isAuthenticated()">
-		  This content is only shown to authenticated users.
-		</div>
-		<div sec:authorize="hasRole('ADMIN')">
-		  This content is only shown to administrators.
-		</div>
-		<div sec:authorize="hasRole('ROLE_USER')">
-		  This content is only shown to users.
-		</div>
-		<div sec:authorize="hasAuthority('ADMIN')">Only for admin</div>
-
+		<div th:replace="/fragment/footer :: footer"></div>
 	</body>
 </html>
