@@ -26,6 +26,7 @@ public class Benutzer extends Audit {
     private String passwort;
     private String anzeigename;
     private String dienstnummer;
+//    private boolean active;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "benutzer_rolle", joinColumns = @JoinColumn(name = "benutzer_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "rolle_id", referencedColumnName = "id"))
