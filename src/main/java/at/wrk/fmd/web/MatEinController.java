@@ -1,9 +1,7 @@
 package at.wrk.fmd.web;
 
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import at.wrk.fmd.model.Einheitentyp;
 import at.wrk.fmd.model.Materialtyp;
 import at.wrk.fmd.model.Materialtyp_Einheitentyp;
-import at.wrk.fmd.model.Mitarbeitertyp_Einheitentyp;
 import at.wrk.fmd.repository.EinheitentypRepository;
 import at.wrk.fmd.repository.MatEinRepository;
 import at.wrk.fmd.repository.MaterialtypRepository;
@@ -49,11 +45,13 @@ public class MatEinController {
 
     @ModelAttribute("alleEinheitentypen")
     public List<Einheitentyp> alleEinheitentypen() {
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         return einheitentypRepository.findAll();
     }
 
     @ModelAttribute("alleMaterialtypen")
     public List<Materialtyp> alleMaterialtypen() {
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         return materialtypRepository.findAll();
     }
 
@@ -63,6 +61,8 @@ public class MatEinController {
     @RequestMapping(value = "/materialeinheit/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String list(@PathVariable("id") long id, Model model) {
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         Einheitentyp existing = einheitentypRepository.findById(id);
         aktEinheitentyp = existing;
         model.addAttribute("materialtyp_einheitentyp", new Materialtyp_Einheitentyp(existing));

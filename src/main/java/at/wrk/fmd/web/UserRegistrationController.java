@@ -1,5 +1,7 @@
 package at.wrk.fmd.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +20,9 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/registration")
 public class UserRegistrationController {
-
+    
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    
     @Autowired
     private UserService userService;
 
@@ -29,19 +33,24 @@ public class UserRegistrationController {
 
     @GetMapping
     public String showRegistrationForm(Model model) {
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         return "registration";
     }
 
     @PostMapping
     public String registerUserAccount(@ModelAttribute("benutzer") @Valid UserRegistrationDto userDto,
             BindingResult result) {
-
+        
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         Benutzer existing = userService.findByBenutzername(userDto.getBenutzername());
         if (existing != null) {
             result.rejectValue("benutzername", null, "Es ist bereits ein Konto mit diesem Benutzernamen registriert");
         }
 
         if (result.hasErrors()) {
+            logger.error("Error in method {}, called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
             return "registration";
         }
 

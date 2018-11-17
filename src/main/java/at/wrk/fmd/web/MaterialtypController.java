@@ -1,11 +1,10 @@
 package at.wrk.fmd.web;
 
 import java.util.List;
-
 import javax.validation.Valid;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +18,8 @@ import at.wrk.fmd.repository.MaterialtypRepository;
 
 @Controller
 public class MaterialtypController {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    
     private MaterialtypRepository materialtypRepository;
 
     @Autowired
@@ -31,6 +32,8 @@ public class MaterialtypController {
 
     @RequestMapping(value = "/materialtyp", method = RequestMethod.GET)
     public String list(Model model) {
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         model.addAttribute("materialtyp", new Materialtyp());
 
         List<Materialtyp> materialtypen = materialtypRepository.findAll();
@@ -43,19 +46,18 @@ public class MaterialtypController {
     @RequestMapping(value = "/materialtyp", method = RequestMethod.POST)
     public String addSpeichern(Model model, @ModelAttribute("materialtyp") @Valid Materialtyp materialtyp,
             BindingResult result) {
-
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         Materialtyp existing = materialtypRepository.findByName(materialtyp.getName());
 
         if (existing != null) {
             result.rejectValue("name", null, "Es ist bereits ein Materialtyp mit gleichem Namen eingetragen");
         }
         if (result.hasErrors()) {
-
             List<Materialtyp> materialtypen = materialtypRepository.findAll();
             if (materialtypen != null) {
                 model.addAttribute("materialtypen", materialtypen);
             }
-
             return "materialtyp";
         }
 
@@ -68,7 +70,8 @@ public class MaterialtypController {
 
     @RequestMapping(value = "/materialtypupdate/{id}", method = RequestMethod.GET)
     public String aendernForm(@PathVariable("id") long id, Model model) {
-
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         Materialtyp exicting = materialtypRepository.findById(id);
         model.addAttribute("materialtyp", exicting);
         return "materialtypupdate";
@@ -78,6 +81,8 @@ public class MaterialtypController {
     public String aendernSpeichern(@PathVariable("id") long id,
             @ModelAttribute("materialtyp") @Valid Materialtyp materialtyp, BindingResult result) {
 
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         Materialtyp existing = materialtypRepository.findById(id);
         Materialtyp andere = materialtypRepository.findByName(materialtyp.getName());
 
@@ -88,6 +93,7 @@ public class MaterialtypController {
             existing.setLink(materialtyp.getLink());
 
             if (result.hasErrors()) {
+                logger.error("Error in method {}, called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
                 return "materialtypupdate";
             }
 
@@ -115,8 +121,9 @@ public class MaterialtypController {
 
     @RequestMapping(value = "/materialtypupdate/{id}/loeschen", method = RequestMethod.POST)
     public String loeschen(@PathVariable("id") long id) {
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         materialtypRepository.deleteById(id);
-
         return "redirect:/materialtyp?loeschen";
     }
 }

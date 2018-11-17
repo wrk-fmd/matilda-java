@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ import at.wrk.fmd.repository.VeranstaltungRepository;
 
 @Controller
 public class VeranstaltungController {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    
     private VeranstaltungRepository veranstaltungRepository;
     private VerEinRepository verEinRepository;
 
@@ -35,6 +39,8 @@ public class VeranstaltungController {
     @RequestMapping(value = "/veranstaltung", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String list(Model model) {
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         model.addAttribute("veranstaltung", new Veranstaltung());
 
         List<Veranstaltung> veranstaltungen = veranstaltungRepository.findAll();
@@ -48,7 +54,8 @@ public class VeranstaltungController {
     @RequestMapping(value = "/veranstaltung", method = RequestMethod.POST)
     public String addSpeichern(Model model, @ModelAttribute("veranstaltung") @Valid Veranstaltung veranstaltung,
             BindingResult result) {
-
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         Veranstaltung existing = veranstaltungRepository.findByName(veranstaltung.getName());
         if (existing != null) {
             result.rejectValue("name", null, "Es ist bereits eine Veranstaltung mit gleichem Namen eingetragen");
@@ -60,12 +67,10 @@ public class VeranstaltungController {
             result.rejectValue("ende", null, "Das Enddatum der Veranstaltung kann nicht Null sein!");
         }
         if (result.hasErrors()) {
-
             List<Veranstaltung> veranstaltungen = veranstaltungRepository.findAll();
             if (veranstaltungen != null) {
                 model.addAttribute("veranstaltungen", veranstaltungen);
             }
-
             return "veranstaltung";
         }
         veranstaltungRepository.save(veranstaltung);
@@ -79,6 +84,8 @@ public class VeranstaltungController {
     @RequestMapping(value = "/veranstaltungupdate/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String aendernForm(@PathVariable("id") long id, Model model) {
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         Veranstaltung exicting = veranstaltungRepository.findById(id);
         model.addAttribute("veranstaltung", exicting);
         return "veranstaltungupdate";
@@ -88,6 +95,8 @@ public class VeranstaltungController {
     public String aendernSepeichern(@PathVariable("id") long id,
             @ModelAttribute("veranstaltung") @Valid Veranstaltung veranstaltung, BindingResult result) {
 
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         Veranstaltung existing = veranstaltungRepository.findById(id);
         Veranstaltung andere = veranstaltungRepository.findByName(veranstaltung.getName());
 
@@ -108,9 +117,9 @@ public class VeranstaltungController {
             existing.setEnde(veranstaltung.getEnde());
 
             if (result.hasErrors()) {
+                logger.error("Error in method {}, called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
                 return "veranstaltungupdate";
             }
-
             veranstaltungRepository.save(existing);
             return "redirect:/veranstaltung?success";
         }
@@ -123,9 +132,9 @@ public class VeranstaltungController {
         existing.setEnde(veranstaltung.getEnde());
 
         if (result.hasErrors()) {
+            logger.error("Error in method {}, called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
             return "veranstaltungupdate";
         }
-
         veranstaltungRepository.save(existing);
         return "redirect:/veranstaltung?success";
     }
@@ -136,7 +145,10 @@ public class VeranstaltungController {
     @RequestMapping(value = "/veranstaltung/{id}/loeschen", method = RequestMethod.POST)
     public String loeschen(@PathVariable("id") long id, BindingResult result) {
 
+        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+        
         if (result.hasErrors()) {
+            logger.error("Error in method {}, called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
             return "veranstaltungupdate";
         }
 
