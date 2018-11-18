@@ -26,6 +26,7 @@ public class Benutzer extends Audit {
     private String passwort;
     private String anzeigename;
     private String dienstnummer;
+    //TODO create boolean active datatype
 //    private boolean active;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
