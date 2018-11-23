@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import at.wrk.fmd.service.UserService;
@@ -29,13 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LoggingAccessDeniedHandler accessDeniedHandler;
 
-    @Autowired
-    CustomLogoutSuccessHandler customLogoutSuccessHandler;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/", "/js/**", "/css/**", "/img/**", "/webjars/**").permitAll()
-                .antMatchers("/registration/**", "/h2_console/**").hasAuthority("ADMIN")
+        http.authorizeRequests().antMatchers("/js/**", "/css/**", "/img/**", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().logout()
@@ -44,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler)
                 .and()
                   .sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
+        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
     @Bean
