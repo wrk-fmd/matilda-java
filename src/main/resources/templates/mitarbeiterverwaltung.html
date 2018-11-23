@@ -17,12 +17,13 @@
 		<div class="container">
 		    <div class="row">
 		        <div class="col-md-6 col-md-offset-3">
-		
+
 					<form action="#" th:action="@{/mitarbeiterverwaltung}" th:object="${users}" method="post">
 					    <fieldset>
-					        <table>
+					        <table border="1" align="center">
 					            <thead>
 					                <tr>
+					                	<!-- <th:text = "#{mitarbeiterverwaltung.active}>Active ( Tick ) / Passive</th>-->
 					                	<th>Active ( Tick ) / Passive</th>
 					                	<th>ID</th>
 					                	<th>Username</th>
@@ -55,9 +56,13 @@
 									</tr>
 					            </tbody>
 					        </table>
-							<input type="submit" id="submitButton" th:value="Speichern"/>
+					        <br />
+					        <div style="text-align:center;">
+								<input type="submit" id="submitButton" th:value="Speichern"/>
+							</div>
 					    </fieldset>
 					</form>
+					</div>
 
 		            <div th:if="${param.success}">
 		                <div class="alert alert-info">
