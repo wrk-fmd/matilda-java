@@ -1,23 +1,19 @@
 package at.wrk.fmd.model;
 
-import java.time.LocalDate;
-import java.time.Year;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -33,16 +29,24 @@ public class Veranstaltung extends Audit {
     @Size(min = 2, max = 20)
     private String name;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate beginn;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate ende;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    private LocalDate beginn;
+//
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    private LocalDate ende;
+    
+    private LocalDateTime beginn;
+    
+    private LocalDateTime ende;
+    
+    @ManyToOne
+    @JoinColumn(name="lagerstandort")
+    private Lagerstandort lagerstandort;
 
     private String zustand;
 
     public Veranstaltung() {
         super();
-        zustand = "Frei";
+        zustand = "In Bearbeitung";
     }
 }

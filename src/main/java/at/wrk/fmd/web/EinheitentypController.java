@@ -110,11 +110,11 @@ public class EinheitentypController {
     // ************************************* Einheitentyp Löschen
     // ************************************
 
-    @RequestMapping(value = "/einheitentypupdate/{id}/loeschen", method = RequestMethod.POST)
-    public String loeschen(@PathVariable("id") long id) {
-        einheitentypRepository.deleteById(id);
-
-        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
-        return "redirect:/einheitentyp?loeschen";
-    }
+//    @RequestMapping(value = "/einheitentypupdate/{id}/loeschen", method = RequestMethod.POST)
+//    public String loeschen(@PathVariable("id") long id) {
+//        einheitentypRepository.deleteById(id);
+//
+//        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+//        return "redirect:/einheitentyp?loeschen";
+//    }
 }

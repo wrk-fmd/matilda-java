@@ -12,19 +12,6 @@
 	    th:if="${#fields.hasGlobalErrors()}"
 	    th:each="error : ${#fields.errors('global')}"
  		th:text="${error}">Validation error</p>
-    	
-    	<div class="form-group"
-        th:classappend="${#fields.hasErrors('eanzahl')}? 'has-error':''">
-        <label for="eanzahl" class="control-label">Anzahl</label>
-        <input id="eanzahl"
-        type="number"
-        min="1"
-        class="form-control"
-        th:field="*{eanzahl}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('eanzahl')}"
-        th:text="${error}">Validation error</p>
-       	</div>
        	
        	<div class="form-group"
         th:classappend="${#fields.hasErrors('einheitentyp')}? 'has-error':''">
@@ -33,11 +20,11 @@
 		<p class="error-message"
        	th:each="error: ${#fields.errors('einheitentyp')}"
         th:text="${error}">Validation error</p>
-       	</div>     		
+       	</div>     		  	
     	
     	<div class="form-group"
         th:classappend="${#fields.hasErrors('manzahl')}? 'has-error':''">
-        <label for="manzahl" class="control-label">Anzahl</label>
+        <label for="manzahl" class="control-label">Anzahl des Materialtyps</label>
         <input id="manzahl"
         type="number"
         min="1"
@@ -46,9 +33,9 @@
         <p class="error-message"
        	th:each="error: ${#fields.errors('manzahl')}"
         th:text="${error}">Validation error</p>
-       	</div>
-       	
-       	<div class="form-group"
+       	</div>                 	
+		
+		<div class="form-group"
         th:classappend="${#fields.hasErrors('materialtyp')}? 'has-error':''">
         <label for="materialtyp" class="control-label">Materialtyp</label>
         <select th:field="*{materialtyp}">
@@ -59,25 +46,10 @@
 		<p class="error-message"
        	th:each="error: ${#fields.errors('materialtyp')}"
         th:text="${error}">Validation error</p>
-       	</div>   
-       	
-		<div class="form-group"
-        th:classappend="${#fields.hasErrors('beschreibung')}? 'has-error':''">
-        <label for="beschreibung" class="control-label">Beschreibung</label>
-        <input id="beschreibung"
-        class="form-control"
-        th:field="*{beschreibung}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('beschreibung')}"
-        th:text="${error}">Validation error</p>
-       	</div>	
+       	</div> 
 		
         <p><input type="submit" value="Submit" /> </p>
     </form>
-    <form th:action="@{/mateinupdate/{id}/loeschen(id=${materialtyp_einheitentyp.id})}" th:object="${materialtyp_einheitentyp}" method="post" >
-		<button type="submit" onclick="return Confirm('sicher?')">L&ouml;schen</button>
-	</form>
-    	</br>
 	<button onclick="goBack()">Abbrechen</button>
 	<script>
 	function goBack() {

@@ -6,18 +6,20 @@
 </head>
 <body>
 	
-    <form action="#" th:action="@{/lieferung/{id}(id=${lieferung.material.id})}" th:object="${lieferung}" method="post">
+    <form action="#" th:action="@{/lieferung}" th:object="${lieferung}" method="post">
     
      <h3>Aktuell</h3> 
      <table>
   		<tr>
-		    <th>Material</th>
+		    <th>Materialtyp</th>
+		    <th>Bezeichnung</th> 
 		    <th>Akt.Bestand</th> 
 		    <th>Seriennummer</th>
 		    <th>Lager</th>  
 		  </tr>
 		  <tr>
 		    <td th:text="${lieferung.material.materialtyp.name}"></td>
+		    <td th:text="${lieferung.material.bezeichnung}"></td>
 		    <td th:text="${lieferung.material.bestand}"></td>
 		    <td th:text="${lieferung.material.seriennummer}"></td>
 		    <td th:text="${lieferung.material.lagerstandort.name}"></td>
@@ -79,7 +81,6 @@
      <p><input type="submit" value="Submit" /> </p>
     </form>
     
-		</br>
 	<button onclick="goBack()">Abbrechen</button>
 	<script>
 	function goBack() {

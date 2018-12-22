@@ -125,10 +125,10 @@ public class LagerstandortController {
     // ************************************* Lagerstandort Löschen
     // ************************************
 
-    @RequestMapping(value = "/lagerstandortupdate/{id}/loeschen", method = RequestMethod.POST)
-    public String loeschen(@PathVariable("id") long id) {
-        lagerstandortRepository.deleteById(id);
-
-        return "redirect:/lagerstandort?loeschen";
-    }
+//    @RequestMapping(value = "/lagerstandortupdate/{id}/loeschen", method = RequestMethod.POST)
+//    public String loeschen(@PathVariable("id") long id) {
+//        lagerstandortRepository.deleteById(id);
+//
+//        return "redirect:/lagerstandort?loeschen";
+//    }
 }

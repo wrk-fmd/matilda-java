@@ -28,7 +28,7 @@ public class Veranstaltung_Einheitentyp extends Audit {
     @JoinColumn(name = "einheitentyp")
     private Einheitentyp einheitentyp;
 
-    private int nummer;
+    private String bezeichnung;
 
     public Veranstaltung_Einheitentyp() {
         super();

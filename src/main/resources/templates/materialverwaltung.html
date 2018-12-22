@@ -14,38 +14,16 @@
 	</head>
 	<body>
 		<head th:replace="/fragment/header :: header"></head>
-	     
-<h3>Ein neues Material hinzufügen</h3>
-<form action="#" th:action="@{/material}" th:object="${material}" method="post">
-    	<p> Materialtyp:
-        <select th:field="*{materialtyp}">
-  			<option th:each="materialtyp : ${alleMaterialtypen}" 
-         	 th:value="${materialtyp.id}" 
-       	     th:text="${materialtyp.name}"></option>
-		</select></p>
-		
-    	<p>Seriennummer: <input type="text" th:field="*{seriennummer}" /></p>
-    	<p>Bestand: <input type="number" th:field="*{bestand}" /></p>
-    	<div th:if="${param.nobestand}">
-		<div class="alert alert-info">
-		Bestand muss größer als 0 sein.
-		</div>
-		</div>   	
-    	<p>Einkaufsdatum: <input type="date" th:field="*{einkaufsdatum}" /></p>
-    	<p>Letztes Überprüfungsdatum:<input type="date" th:field="*{letztesudatum}" /></p>
-    	<p>Nächstes Überprüfungsdatum:<input type="date" th:field="*{naechstesudatum}" /></p>
-    	<p>Einsatzbereitschaft: <input type="checkbox" th:field="*{einsatzbereitschaft}" />
-    	
-        <p><input type="submit" value="Submit" /> </p>
-</form><div class="container">
-<h2>Aktuelle Materialen im Lager</h2>
+<a href="#" data-th-href="@{/neumaterial}">Ein neues Material hinzufügen</a>	     
+<h2>Aktuelle Materialien im Lager</h2>
 <div th:unless="${#lists.isEmpty(materialien)}">
 <table class="table table-striped">
 <thead>
 <tr>
-<th>Material</th>
-<th>Bestand</th>
+<th>Materialtyp</th>
+<th>Bezeichnung</th>
 <th>Seriennummer</th>
+<th>Bestand</th>
 <th>Einkaufsdatum</th>
 <th>Letzte Überprüfungsdatum</th>
 <th>Nächste Überprüfungsdatum</th>
@@ -55,8 +33,9 @@
 <dl th:each="material : ${materialien}">
 <tr>
 <td th:text="${material.materialtyp.name}"></td>
-<td th:text="${material.bestand}"></td>
+<td th:text="${material.bezeichnung}"></td>
 <td th:text="${material.seriennummer}"></td>
+<td th:text="${material.bestand}"></td>
 <td th:text="${material.einkaufsdatum}"></td>
 <td th:text="${material.letztesudatum}"></td>
 <td th:text="${material.naechstesudatum}"></td>

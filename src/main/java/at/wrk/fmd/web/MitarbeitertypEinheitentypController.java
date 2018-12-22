@@ -106,14 +106,13 @@ public class MitarbeitertypEinheitentypController {
 
     @RequestMapping(value = "/miteinupdate/{id}", method = RequestMethod.POST)
     public String aendernSpeichern(@PathVariable("id") long id,
-            @ModelAttribute("") @Valid Mitarbeitertyp_Einheitentyp mitarbeitertyp_einheitentyp, BindingResult result) {
+            @ModelAttribute("mitarbeitertyp_einheitentyp") @Valid Mitarbeitertyp_Einheitentyp mitarbeitertyp_einheitentyp,
+            BindingResult result) {
 
         Mitarbeitertyp_Einheitentyp existing = mitEinRepository.findById(id);
 
         existing.setManzahl(mitarbeitertyp_einheitentyp.getManzahl());
         existing.setMitarbeitertyp(mitarbeitertyp_einheitentyp.getMitarbeitertyp());
-        existing.setEanzahl(mitarbeitertyp_einheitentyp.getEanzahl());
-        existing.setBeschreibung(mitarbeitertyp_einheitentyp.getBeschreibung());
         if (result.hasErrors()) {
             return "miteinupdate";
         }
@@ -124,10 +123,10 @@ public class MitarbeitertypEinheitentypController {
     // ************************************* MitEin Löschen
     // ************************************
 
-    @RequestMapping(value = "/miteinupdate/{id}/loeschen", method = RequestMethod.POST)
-    public String loeschen(@PathVariable("id") long id) {
-        mitEinRepository.deleteById(id);
-
-        return "redirect:/mitarbeitereinheit/" + aktEinheitentypId + "/?loeschen";
-    }
+//    @RequestMapping(value = "/miteinupdate/{id}/loeschen", method = RequestMethod.POST)
+//    public String loeschen(@PathVariable("id") long id) {
+//        mitEinRepository.deleteById(id);
+//
+//        return "redirect:/mitarbeitereinheit/" + aktEinheitentypId + "/?loeschen";
+//    }
 }

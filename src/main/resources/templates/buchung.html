@@ -6,18 +6,20 @@
 </head>
 <body>
 	
-    <form action="#" th:action="@{/buchung/{id}(id=${buchung.material.id})}" th:object="${buchung}" method="post">
+    <form action="#" th:action="@{/buchung}" th:object="${buchung}" method="post">
     
      <h3>Aktuell</h3> 
      <table>
   		<tr>
-		    <th>Material</th>
+		    <th>Materialtyp</th>
+		    <th>Bezeichnung</th> 
 		    <th>Akt.Bestand</th> 
 		    <th>Seriennummer</th>
 		    <th>Lager</th>  
 		  </tr>
 		  <tr>
 		    <td th:text="${buchung.material.materialtyp.name}"></td>
+		    <td th:text="${buchung.material.bezeichnung}"></td>
 		    <td th:text="${buchung.material.bestand}"></td>
 		    <td th:text="${buchung.material.seriennummer}"></td>
 		    <td th:text="${buchung.material.lagerstandort.name}"></td>
@@ -63,6 +65,20 @@
        	th:each="error: ${#fields.errors('beschreibung')}"
         th:text="${error}">Validation error</p>
        	</div>
+       	
+       	<div class="form-group"
+        th:classappend="${#fields.hasErrors('veranstaltung')}? 'has-error':''">
+        <label for="veranstaltung" class="control-label">Veranstaltung</label>
+        <select th:field="*{veranstaltung}">
+     		<option th:value="null">None</option>
+  			<option th:each="veranstaltung : ${alleVeranstaltungen}" 
+         	 th:value="${veranstaltung.id}" 
+       	     th:text="${veranstaltung.name}"></option>
+		</select></p>
+		<p class="error-message"
+       	th:each="error: ${#fields.errors('veranstaltung')}"
+        th:text="${error}">Validation error</p>
+       	</div> 
 			
      <p><input type="submit" value="Submit" /> </p>
     </form>

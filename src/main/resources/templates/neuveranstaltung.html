@@ -1,12 +1,18 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Materialtyp Aktualisieren</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+<title>Verantaltung hinzufügen</title>
 </head>
 <body>
-	<h1>Veranstaltung</h1>
-    <form action="#" th:action="@{/veranstaltungupdate/{id}(id=${veranstaltung.id})}" th:object="${veranstaltung}" method="post">
+<h3>Eine neue Veranstaltung erstellen</h3>
+<body>
+    <form action="#" th:action="@{/neuveranstaltung}" th:object="${veranstaltung}" method="post">
     	
     	<p class="error-message"
 	    th:if="${#fields.hasGlobalErrors()}"
@@ -23,6 +29,19 @@
        	th:each="error: ${#fields.errors('name')}"
         th:text="${error}">Validation error</p>
        	</div>
+       	
+       	<div class="form-group"
+        th:classappend="${#fields.hasErrors('lagerstandort')}? 'has-error':''">
+        <label for="lagerstandort" class="control-label">Lagerstandort</label>
+        <select th:field="*{lagerstandort}">
+  			<option th:each="lagerstandort : ${alleLagerstandorten}" 
+         	 th:value="${lagerstandort.id}" 
+       	     th:text="${lagerstandort.name}"></option>
+		</select></p>
+		<p class="error-message"
+       	th:each="error: ${#fields.errors('lagerstandort')}"
+        th:text="${error}">Validation error</p>
+       	</div>      
        	
 		<div class="form-group"
         th:classappend="${#fields.hasErrors('beginn')}? 'has-error':''">
@@ -46,16 +65,10 @@
         <p class="error-message"
        	th:each="error: ${#fields.errors('ende')}"
         th:text="${error}">Validation error</p>
-		</div>
+		</div>    	
     	
         <p><input type="submit" value="Submit" /> </p>
     </form>
-    
-	<button onclick="goBack()">Abbrechen</button>
-	<script>
-	function goBack() {
-	    window.history.back();
-	}
-	</script>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 </body>
-</html>

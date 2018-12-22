@@ -37,10 +37,6 @@
        	
         <p><input type="submit" value="Submit" /> </p>
     </form>
-    <form th:action="@{/mitarbeitertypupdate/{id}/loeschen(id=${mitarbeitertyp.id})}" th:object="${mitarbeitertyp}" method="post" >
-		<button type="submit" onclick="return Confirm('sicher?')">L&ouml;schen</button>
-	</form>
-		</br>
 	<button onclick="goBack()">Abbrechen</button>
 	<script>
 	function goBack() {

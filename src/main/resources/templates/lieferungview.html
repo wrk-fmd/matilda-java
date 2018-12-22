@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+<title>Lieferungen</title>
+</head>
+<body>
+<h1>Lieferung Übersicht (Letzte 29 Tagen)</h1>
+<div th:unless="${#lists.isEmpty(lieferungsInLager)}">
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Bezeichnung</th>
+<th>Menge</th>
+<th>Art</th>
+<th>Lieferungsdatum</th>
+<th>Beschreibung</th>
+<th>Erstellt am</th>
+<th>Erstellt von</th>
+</tr>
+</thead>
+<dl th:each="lieferung : ${lieferungsInLager}">
+<tr>
+<td th:text="${lieferung.material.bezeichnung}"></td>
+<td th:text="${lieferung.menge}"></td>
+<td th:text="${lieferung.art}"></td>
+<td th:text="${lieferung.lieferungsDatum}"></td>
+<td th:text="${lieferung.beschreibung}"></td>
+<td th:text="${lieferung.createdAt}"></td>
+<td th:text="${lieferung.modifiedBy}"></td>
+</tr>
+</table>
+</div>
+<div th:if="${#lists.isEmpty(lieferungsInLager)}">
+<p>Es gibt keine Lieferungen</p>
+</div>
+<hr/>
+
+
+</div>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+</body>

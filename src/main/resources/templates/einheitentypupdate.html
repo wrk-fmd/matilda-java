@@ -27,21 +27,11 @@
         <p><input type="submit" value="Submit" /> </p>
         <td>
     </form>
-    <form th:action="@{/einheitentypupdate/{id}/loeschen(id=${einheitentyp.id})}" th:object="${einheitentyp}" method="post" >
-		<button type="submit" onclick="clicked();">L&ouml;schen</button>
-	</form>
-			</br>
+
 	<button onclick="goBack()">Abbrechen</button>
 	<script>
 	function goBack() {
 	    window.history.back();
-	}
-	function clicked() {
-        if (confirm('Möchten Sie den Einheitentyp löschen?!')) {
-            yourformelement.submit();
-        } else {
-            return false;
-        }
      }
 	</script>
 </body>

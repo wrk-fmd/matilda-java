@@ -9,8 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,32 +21,35 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Lieferung extends Audit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
+	
+	@ManyToOne
+	@JoinColumn(name="material")
+	private Material material;
+	
+	@Positive
+	private int menge;
+	
+	@NotBlank
+	private String art;
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate lieferungsDatum;
+	
+	@NotBlank
+	@Size(min=3, max=25)
+	private String beschreibung;
 
-    @ManyToOne
-    @JoinColumn(name = "material")
-    private Material material;
+	public Lieferung(Material material)
+	{
+		super();
+		this.material = material;
+	}
 
-    @Positive
-    private int menge;
-
-    @NotBlank
-    private String art;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate lieferungsDatum;
-
-    @NotBlank
-    private String beschreibung;
-
-    public Lieferung(Material material) {
-        super();
-        this.material = material;
-    }
-
-    public Lieferung() {
-        super();
-    }
+	public Lieferung()
+	{
+		super();
+	}
 }

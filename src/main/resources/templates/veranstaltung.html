@@ -14,71 +14,24 @@
 	<body>
 		<head th:replace="/fragment/header :: header"></head>	
 		<div th:replace="/fragment/footer :: footer"></div>
-
-    <form action="#" th:action="@{/veranstaltung}" th:object="${veranstaltung}" method="post">
-    	
-    	<p class="error-message"
-	    th:if="${#fields.hasGlobalErrors()}"
-	    th:each="error : ${#fields.errors('global')}"
- 		th:text="${error}">Validation error</p>
-                   
-		<div class="form-group"
-        th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
-        <label for="name" class="control-label">Name</label>
-        <input id="name"
-        class="form-control"
-        th:field="*{name}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('name')}"
-        th:text="${error}">Validation error</p>
-       	</div>
-       	
-		<div class="form-group"
-        th:classappend="${#fields.hasErrors('beginn')}? 'has-error':''">
-        <label for="beginn" class="control-label">Beginn</label>
-        <input id="beginn"
-        type="date"
-        class="form-control"
-        th:field="*{beginn}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('beginn')}"
-        th:text="${error}">Validation error</p>
-		</div>
-		
-    	<div class="form-group"
-        th:classappend="${#fields.hasErrors('ende')}? 'has-error':''">
-        <label for="ende" class="control-label">Ende</label>
-        <input id="ende"
-        type="date"
-        class="form-control"
-        th:field="*{ende}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('ende')}"
-        th:text="${error}">Validation error</p>
-		</div>
-    	
-        <p><input type="submit" value="Submit" /> </p>
-    </form>
-
-	<p>&nbsp;</p>
-
-	<h2>Übersicht Veranstaltungen</h2>
-	
-	<div th:unless="${#lists.isEmpty(veranstaltungen)}">
-
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Beginn</th>
-					<th>Ende</th>
-					<th>Zustand</th>
-					<th>Ersteller</th>
-				</tr>
-			</thead>
+<a href="#" data-th-href="@{/neuveranstaltung}">Eine neue Veranstaltung hinzufügen</a>
+<h2>Übersicht Veranstaltungen</h2>
+<div th:unless="${#lists.isEmpty(veranstaltungen)}">
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Name</th>
+<th>Lagerstandort</th>
+<th>Beginn</th>
+<th>Ende</th>
+<th>Zustand</th>
+<th>Ersteller</th>
+</tr>
+</thead>
 <dl th:each="veranstaltung : ${veranstaltungen}">
 <tr>
 <td th:text="${veranstaltung.name}"></td>
+<td th:text="${veranstaltung.lagerstandort.name}"></td>
 <td th:text="${veranstaltung.beginn}"></td>
 <td th:text="${veranstaltung.ende}"></td>
 <td th:text="${veranstaltung.zustand}"></td>
@@ -89,6 +42,12 @@
 <td>
 <a href="#" data-th-href="@{/veranstaltungeinheit/{id}(id=${veranstaltung.id})}"> -> Einheitentyp</a>
 </td>
+<td>
+<a href="#" data-th-href="@{/veranstaltungbuchung/{id}(id=${veranstaltung.id})}"> -> Buchen</a>
+</td>
+<td>
+<a href="#" data-th-href="@{/veranstaltunggebucht/{id}(id=${veranstaltung.id})}">Gebuchte Materialien</a>
+</td>
 </tr>
 </table>
 </div>
@@ -96,21 +55,53 @@
 <p>Es gibt keine Veranstaltung</p>
 </div>
 <hr/>
-
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
 
             <div th:if="${param.success}">
                 <div class="alert alert-info">
                     Die neue Veranstaltung wurde erfolgreich eingetragen!
                 </div>
             </div>
-		    <div th:if="${param.loeschen}">
+            <div th:if="${param.loeschen}">
                 <div class="alert alert-info">
                     Die Veranstaltung wurde erfolgreich gelöscht!
                 </div>
-            </div>          
+            </div>           
+            <div th:if="${param.gebucht}">
+                <div class="alert alert-info">
+                    Die Veralstaltung wurde schon gebucht!
+                </div>
+            </div>    
+            <div th:if="${param.einheit}">
+                <div class="alert alert-info">
+                    Für diese Veralstaltung wurde noch keinen Einheitentyp zugewiesen!
+                </div>
+            </div>
+            <div th:if="${param.material}">
+                <div class="alert alert-info">
+                    Es gibt kein Eintrag in der Tabelle: Materialtyp-Einheitentyp!
+                </div>
+            </div>
+            <div th:if="${param.lager}">
+                <div class="alert alert-info">
+                    Es gibt kein benötigtes Material im Lager!
+                </div>
+            </div>
+             <div th:if="${param.nobuchung}">
+                <div class="alert alert-info">
+                    Kein Material für die Veranstaltung gebucht: Kein Wunschmaterial ausgewählt!
+                </div>
+            </div>
+              <div th:if="${param.nozuweisung}">
+                <div class="alert alert-info">
+                    Zuweisung eines Einheitentyps ist nur im Zustand "In Bearbeitung" möglich!
+                </div>
+            </div>
+             <div th:if="${param.nogebucht}">
+                <div class="alert alert-info">
+                    Für diese Veranstaltung wurde noch kein Material gebucht!
+                </div>
+            </div>
 </div>
-	</body>
+</body>
 </html>

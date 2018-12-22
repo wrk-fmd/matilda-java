@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 
 import org.apache.tomcat.jni.Local;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,36 +23,36 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Material extends Audit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
+	
+	@ManyToOne
+	@JoinColumn(name="lagerstandort")
+	private Lagerstandort lagerstandort;
+	
+	@ManyToOne
+	@JoinColumn(name="materialtyp")
+	private Materialtyp materialtyp;
+	
+	@NotBlank
+	private String bezeichnung;
+	
+	private String seriennummer;
+		
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate einkaufsdatum;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate letztesudatum;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate naechstesudatum;
+	
+	private boolean einsatzbereitschaft;
+	
+	private int bestand;
 
-    @ManyToOne
-    @JoinColumn(name = "lagerstandort")
-    private Lagerstandort lagerstandort;
-
-    @ManyToOne
-    @JoinColumn(name = "materialtyp")
-    private Materialtyp materialtyp;
-
-    private String seriennummer;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate einkaufsdatum;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate letztesudatum;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate naechstesudatum;
-
-    private boolean einsatzbereitschaft;
-
-    private int bestand;
-
-    public boolean isEinsatzbereitschaft() {
-        return einsatzbereitschaft;
-    }
-
-    public Material() {
-        super();
-    }
+	public Material()
+	{
+		super();
+	}	
 }

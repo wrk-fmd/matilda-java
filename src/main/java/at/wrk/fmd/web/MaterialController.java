@@ -1,5 +1,8 @@
 package at.wrk.fmd.web;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -28,32 +31,36 @@ import at.wrk.fmd.repository.VeranstaltungRepository;
 
 @Controller
 public class MaterialController {
-    private MaterialRepository materialRepository;
-    private MaterialtypRepository materialtypRepository;
-    private LagerstandortRepository lagerstandortRepository;
-    private LieferungRepository lieferungRepository;
-    private BuchungRepository buchungRepository;
-    private VeranstaltungRepository veranstaltungRepository;
+	
+	private MaterialRepository materialRepository;
+	private MaterialtypRepository materialtypRepository;
+	private LagerstandortRepository lagerstandortRepository;
+	private LieferungRepository lieferungRepository;
+	private BuchungRepository buchungRepository;
+	private VeranstaltungRepository veranstaltungRepository;
 
-    // beide werden für hinzufügen verwendet
-    private Lagerstandort aktLagerstandort;
-    private long aktLagerId;
-    // beide werden für lieferschein verwendet
-    private Material aktMaterial;
-    private long aktMaterialId;
-
-    @Autowired
-    public MaterialController(MaterialRepository materialRepository, MaterialtypRepository materialtypRepository,
-            LagerstandortRepository lagerstandortRepository, LieferungRepository lieferungRepository,
-            BuchungRepository buchungRepository, VeranstaltungRepository veranstaltungRepository) {
-        super();
-        this.materialRepository = materialRepository;
-        this.materialtypRepository = materialtypRepository;
-        this.lagerstandortRepository = lagerstandortRepository;
-        this.lieferungRepository = lieferungRepository;
-        this.buchungRepository = buchungRepository;
-        this.veranstaltungRepository = veranstaltungRepository;
-    }
+	private List<Material> materialien;
+	
+	// die beide sind für hinzufügen verwendet:
+	private Lagerstandort aktLagerstandort;
+	private long aktLagerId;
+	// die beide sind für lieferschein verwendet:
+	private Material aktMaterial;
+	private long aktMaterialId;
+	
+	@Autowired
+	public MaterialController(MaterialRepository materialRepository, MaterialtypRepository materialtypRepository,
+			LagerstandortRepository lagerstandortRepository , LieferungRepository lieferungRepository,
+			BuchungRepository buchungRepository, VeranstaltungRepository veranstaltungRepository)
+	{
+		super();
+		this.materialRepository = materialRepository;
+		this.materialtypRepository = materialtypRepository;
+		this.lagerstandortRepository = lagerstandortRepository;
+		this.lieferungRepository = lieferungRepository;
+		this.buchungRepository = buchungRepository;
+		this.veranstaltungRepository = veranstaltungRepository;
+	}
 
     // ************************************* Modelattribute
     // ***************************************
@@ -80,12 +87,14 @@ public class MaterialController {
     @RequestMapping(value = "/material", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String list(Model model) {
-        List<Lagerstandort> lagerstandorten = lagerstandortRepository.findAll();
-        if (lagerstandorten != null) {
-            model.addAttribute("lagerstandorten", lagerstandorten);
-        }
-        return "material";
-    }
+		List<Lagerstandort> lagerstandorten = lagerstandortRepository.findAll();
+		if(lagerstandorten!=null)
+		{
+			model.addAttribute("lagerstandorten",lagerstandorten);
+		}
+		
+		return "material";
+	}
 
     // ************************************* Materialverwaltung List + Hinzufügen
     // ************************************
@@ -94,32 +103,49 @@ public class MaterialController {
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String materialVerwaltungForm(@PathVariable("id") long id, Model model) {
 
-        Lagerstandort lagerstandort = lagerstandortRepository.findById(id);
-        List<Material> materialien = materialRepository.findByLagerstandort(lagerstandort);
-        aktLagerstandort = lagerstandort;
-        aktLagerId = lagerstandort.getId();
-
-        model.addAttribute("material", new Material());
-
-        if (materialien != null) {
-            model.addAttribute("materialien", materialien);
-        } else {
-            return "materialverwaltung?nomaterial";
-        }
-
+		Lagerstandort lagerstandort = lagerstandortRepository.findById(id);
+		materialien = materialRepository.findByLagerstandort(lagerstandort);
+		aktLagerstandort = lagerstandort;
+		aktLagerId = lagerstandort.getId();
+		
+		model.addAttribute("material", new Material());
+		
+		if(materialien!=null)
+		{
+			model.addAttribute("materialien", materialien);
+		}
+		else
+		{
+			return "materialverwaltung?nomaterial";
+		}
+		
         return "materialverwaltung";
     }
+   
+	@RequestMapping(value="/neumaterial", method=RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
+    public String neuMaterial(Model model) {
+			
+		model.addAttribute("material", new Material());
+				
+        return "neumaterial";
+    }
+    
+	
+    @RequestMapping(value="/neumaterial", method=RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
+    public String addSpeichern(Model model, @ModelAttribute("material") @Valid Material material, BindingResult result) {
+    	
+    	
+		material.setLagerstandort(aktLagerstandort);
+		
+	    if (result.hasErrors()){
+	    	return "neumaterial";
+	    }
+	    
+		materialRepository.save(material);
+        return "redirect:/materialverwaltung/"+aktLagerId; 
 
-    @RequestMapping(value = "/material", method = RequestMethod.POST)
-    public String addSpeichern(@ModelAttribute Material material) {
-
-        material.setLagerstandort(aktLagerstandort);
-        if (material.getBestand() < 1) {
-            return "redirect:/materialverwaltung/" + aktLagerId + "?nobestand";
-        } else {
-            materialRepository.save(material);
-            return "redirect:/materialverwaltung/" + aktLagerId;
-        }
     }
 
     // ************************************* Lieferschein - Lieferung
@@ -137,50 +163,52 @@ public class MaterialController {
         return "lieferung";
     }
 
-    @RequestMapping(value = "/lieferung/{id}", method = RequestMethod.POST)
-    public String ntransaktionSpeichern(@PathVariable("id") long id,
+    @RequestMapping(value = "/lieferung", method = RequestMethod.POST)
+    public String ntransaktionSpeichern(
             @ModelAttribute("lieferung") @Valid Lieferung lieferung, BindingResult result) {
 
-        lieferung.setMaterial(aktMaterial);
-
-        if (lieferung.getLieferungsDatum() == null) {
-            result.rejectValue("lieferungsDatum", null, "Bitte wählen Sie ein Lieferungsdatum aus!");
-        }
-        if (result.hasErrors()) {
-            return "lieferung";
-        }
-        if (lieferung.getArt().equals("eingabe")) {
-            int x = aktMaterial.getBestand();
-            x = x + lieferung.getMenge();
-            aktMaterial.setBestand(x);
-            materialRepository.save(aktMaterial);
-
-            lieferungRepository.save(lieferung);
-
-            return "redirect:/materialverwaltung/" + aktLagerId;
-        }
-
-        int x = aktMaterial.getBestand();
-        x = x - lieferung.getMenge();
-        if (x < 0) {
-            result.rejectValue("menge", null, "Nicht genug Material im Lager!");
-        }
-        if (result.hasErrors()) {
-            return "lieferung";
-        }
-        aktMaterial.setBestand(x);
-        materialRepository.save(aktMaterial);
-
-        lieferungRepository.save(lieferung);
-
-        return "redirect:/materialverwaltung/" + aktLagerId;
-    }
+    	lieferung.setMaterial(aktMaterial);
+	 	
+		if(lieferung.getLieferungsDatum()==null)
+		{
+			result.rejectValue("lieferungsDatum", null, "Bitte wählen Sie ein Lieferungsdatum aus!");
+		}			
+    	if(result.hasErrors()) {
+    		return "lieferung";
+    	}  
+		if(lieferung.getArt().equals("eingabe"))
+		{
+			int x = aktMaterial.getBestand();
+			x = x + lieferung.getMenge();
+			aktMaterial.setBestand(x);
+			materialRepository.save(aktMaterial);
+			      	
+			lieferungRepository.save(lieferung);
+			
+			return "redirect:/materialverwaltung/"+aktLagerId;
+		}
+		
+		int x = aktMaterial.getBestand();
+		x = x - lieferung.getMenge();
+		if(x<0)
+		{
+			result.rejectValue("menge", null, "Nicht genug Material im Lager!");
+		}	
+    	if(result.hasErrors()) {
+    		return "lieferung";
+    	}
+		aktMaterial.setBestand(x);
+		materialRepository.save(aktMaterial);
+		      	
+		lieferungRepository.save(lieferung);
+		
+		return "redirect:/materialverwaltung/"+aktLagerId;
+	} 
 
     // ************************************* Buchungsschein - Buchung
     // ************************************
 
     @RequestMapping(value = "/buchung/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String addBuchungForm(@PathVariable("id") long id, Model model) {
 
         aktMaterial = materialRepository.findById(id);
@@ -191,48 +219,51 @@ public class MaterialController {
         return "buchung";
     }
 
-    @RequestMapping(value = "/buchung/{id}", method = RequestMethod.POST)
-    public String btransaktionSpeichern(@PathVariable("id") long id, @ModelAttribute("buchung") @Valid Buchung buchung,
+    @RequestMapping(value = "/buchung", method = RequestMethod.POST)
+    public String btransaktionSpeichern(@ModelAttribute("buchung") @Valid Buchung buchung,
             BindingResult result) {
 
-        buchung.setMaterial(aktMaterial);
-
-        if (result.hasErrors()) {
-            return "buchung";
-        }
-        if (buchung.getArt().equals("stornieren")) {
-            int x = aktMaterial.getBestand();
-            x = x + buchung.getMenge();
-            aktMaterial.setBestand(x);
-            materialRepository.save(aktMaterial);
-
-            buchungRepository.save(buchung);
-
-            return "redirect:/materialverwaltung/" + aktLagerId;
-        }
-
-        int x = aktMaterial.getBestand();
-        x = x - buchung.getMenge();
-        if (x < 0) {
-            result.rejectValue("menge", null, "Nicht genug Material im Lager!");
-        }
-        if (result.hasErrors()) {
-            return "buchung";
-        }
-        aktMaterial.setBestand(x);
-        materialRepository.save(aktMaterial);
-
-        buchungRepository.save(buchung);
-
-        return "redirect:/materialverwaltung/" + aktLagerId;
-
-    }
+    	buchung.setMaterial(aktMaterial);
+    	
+    	if(result.hasErrors()) {
+    		return "buchung";
+    	}
+		if(buchung.getArt().equals("stornieren"))
+		{
+			int x = aktMaterial.getBestand();
+			x = x + buchung.getMenge();
+			aktMaterial.setBestand(x);
+			materialRepository.save(aktMaterial);
+			      	
+			buchungRepository.save(buchung);
+			
+			return "redirect:/materialverwaltung/"+aktLagerId;
+		}
+    	
+		int x = aktMaterial.getBestand();
+		x = x - buchung.getMenge();
+		if(x<0)
+		{
+			result.rejectValue("menge", null, "Nicht genug Material im Lager!");
+		}	
+    	if(result.hasErrors()) {
+    		return "buchung";
+    	}
+    	
+		aktMaterial.setBestand(x);
+		materialRepository.save(aktMaterial);
+		      	
+		
+		buchungRepository.save(buchung);
+		
+		return "redirect:/materialverwaltung/"+aktLagerId;
+    	
+	} 
 
     // ************************************* Inventur
     // ************************************
 
     @RequestMapping(value = "/inventur/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String aendernForm(@PathVariable("id") long id, Model model) {
 
         Material exicting = materialRepository.findById(id);
@@ -247,24 +278,89 @@ public class MaterialController {
     public String aendernSpeichern(@PathVariable("id") long id, @ModelAttribute("material") @Valid Material material,
             BindingResult result) {
 
-        Material exicting = materialRepository.findById(id);
-
-        if (material.getBestand() < 0) {
-            result.rejectValue("bestand", null, "Bestand kann nicht ein negatives Wert haben!");
-        }
-        if (result.hasErrors()) {
-            return "inventur";
-        }
-
-        exicting.setBestand(material.getBestand());
-        exicting.setSeriennummer(material.getSeriennummer());
-        exicting.setEinkaufsdatum(material.getEinkaufsdatum());
-        exicting.setLetztesudatum(material.getLetztesudatum());
-        exicting.setNaechstesudatum(material.getNaechstesudatum());
-        exicting.setEinsatzbereitschaft(material.isEinsatzbereitschaft());
-
-        materialRepository.save(exicting);
-
-        return "redirect:/materialverwaltung/" + aktLagerId;
+		Material exicting = materialRepository.findById(id);
+    	
+    	if(material.getBestand()<0)
+    	{
+    		result.rejectValue("bestand", null, "Bestand kann nicht ein negatives Wert haben!");
+    	}
+    	if(result.hasErrors()) {
+    		return "inventur";
+    	}
+    	
+    	exicting.setBestand(material.getBestand());
+    	exicting.setSeriennummer(material.getSeriennummer());
+    	exicting.setEinkaufsdatum(material.getEinkaufsdatum());
+    	exicting.setLetztesudatum(material.getLetztesudatum());
+    	exicting.setNaechstesudatum(material.getNaechstesudatum());
+    	exicting.setEinsatzbereitschaft(material.isEinsatzbereitschaft());
+    	
+    	materialRepository.save(exicting);
+    		
+    	return "redirect:/materialverwaltung/"+aktLagerId;
+    }
+    
+    @RequestMapping(value="/lieferungview/{id}", method=RequestMethod.GET)
+    public String LieferungView(Model model, @PathVariable("id") long id)
+    {
+    	aktLagerId = id;
+    	
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(Calendar.getInstance().getTime());
+		cal.add(Calendar.DATE, -29);
+		Date dateBefore29Days = cal.getTime();
+		
+		List<Lieferung> lieferungs = lieferungRepository.findByCreatedAtGreaterThan(dateBefore29Days);
+		List<Lieferung> lieferungsInLager = new ArrayList<>();
+		
+		if(!lieferungs.isEmpty())
+		{
+			for(Lieferung l: lieferungs)
+			{
+				if(l.getMaterial().getLagerstandort().getId()==aktLagerId)
+				{
+					lieferungsInLager.add(l);
+				}
+			}
+		}
+		
+		if(!lieferungsInLager.isEmpty())
+		{
+			model.addAttribute("lieferungsInLager", lieferungsInLager);
+		}
+		
+		return "lieferungview";
+    }
+    
+    @RequestMapping(value="/buchungview/{id}", method=RequestMethod.GET)
+    public String buchungView(Model model, @PathVariable("id") long id)
+    {
+    	aktLagerId = id;
+    	
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(Calendar.getInstance().getTime());
+		cal.add(Calendar.DATE, -29);
+		Date dateBefore29Days = cal.getTime();
+		
+		List<Buchung> buchungs = buchungRepository.findByCreatedAtGreaterThan(dateBefore29Days);
+		List<Buchung> buchungsInLager = new ArrayList<>();
+		
+		if(!buchungs.isEmpty())
+		{
+			for(Buchung b: buchungs)
+			{
+				if(b.getMaterial().getLagerstandort().getId()==aktLagerId)
+				{
+					buchungsInLager.add(b);
+				}
+			}
+		}
+		
+		if(!buchungsInLager.isEmpty())
+		{
+			model.addAttribute("buchungsInLager", buchungsInLager);
+		}
+		
+		return "buchungview";
     }
 }

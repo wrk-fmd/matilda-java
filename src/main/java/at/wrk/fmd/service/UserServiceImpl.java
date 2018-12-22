@@ -16,7 +16,7 @@ import at.wrk.fmd.repository.UserRepository;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@Service
+@Service(value="test")
 public class UserServiceImpl implements UserService {
 
     @Autowired

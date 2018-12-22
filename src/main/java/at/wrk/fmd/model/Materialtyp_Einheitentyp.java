@@ -16,32 +16,29 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Materialtyp_Einheitentyp extends Audit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Positive
-    private int manzahl;
-
-    @ManyToOne
-    @JoinColumn(name = "materialtyp")
-    private Materialtyp materialtyp;
-
-    @Positive
-    private int eanzahl;
-
-    @ManyToOne
-    @JoinColumn(name = "einheitentyp")
-    private Einheitentyp einheitentyp;
-
-    private String beschreibung;
-
-    public Materialtyp_Einheitentyp() {
-        super();
-    }
-
-    public Materialtyp_Einheitentyp(Einheitentyp einheitentyp) {
-        super();
-        this.einheitentyp = einheitentyp;
-    }
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
+	
+	@Positive
+	private int manzahl;
+	
+	@ManyToOne
+	@JoinColumn(name="materialtyp")
+	private Materialtyp materialtyp;
+	
+	@ManyToOne
+	@JoinColumn(name="einheitentyp")
+	private Einheitentyp einheitentyp;	
+	
+	public Materialtyp_Einheitentyp()
+	{
+		super();
+	}
+	
+	public Materialtyp_Einheitentyp(Einheitentyp einheitentyp)
+	{
+		super();
+		this.einheitentyp = einheitentyp;
+	}
 }

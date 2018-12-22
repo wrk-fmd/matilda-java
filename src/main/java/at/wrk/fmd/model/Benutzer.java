@@ -26,19 +26,20 @@ public class Benutzer extends Audit {
     private String passwort;
     private String anzeigename;
     private String dienstnummer;
-    //TODO create boolean active datatype
-//    private boolean active;
-
+    private Boolean active;
+    
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "benutzer_rolle", joinColumns = @JoinColumn(name = "benutzer_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "rolle_id", referencedColumnName = "id"))
     private Collection<Rolle> rollen;
 
     public Benutzer() {
+    	active=true;
     }
 
     public Benutzer(String benutzername, String dienstnummer) {
         this.benutzername = benutzername;
         this.dienstnummer = dienstnummer;
+        active=true;
     }
 
     public Benutzer(String benutzername, String passwort, String anzeigename, String dienstnummer,
@@ -48,6 +49,7 @@ public class Benutzer extends Audit {
         this.anzeigename = anzeigename;
         this.dienstnummer = dienstnummer;
         this.rollen = rollen;
+        active=true;
     }
 
     public Long getId() {
@@ -101,4 +103,14 @@ public class Benutzer extends Audit {
     public boolean isNew() {
         return (this.id == null);
     }
+
+	public Boolean getActive()
+	{
+		return active;
+	}
+
+	public void setActive(Boolean active)
+	{
+		this.active = active;
+	}
 }

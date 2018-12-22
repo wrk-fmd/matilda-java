@@ -63,38 +63,53 @@ public class MaterialtypEinheitentypController {
     public String list(@PathVariable("id") long id, Model model) {
         logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         
-        Einheitentyp existing = einheitentypRepository.findById(id);
-        aktEinheitentyp = existing;
-        model.addAttribute("materialtyp_einheitentyp", new Materialtyp_Einheitentyp(existing));
-        materialeinheiten = matEinRepository.findByEinheitentyp(existing);
-        aktEinheitentypId = existing.getId();
-
-        if (materialeinheiten != null) {
-            model.addAttribute("materialeinheiten", materialeinheiten);
-        }
-        return "materialeinheit";
-    }
+		Einheitentyp existing = einheitentypRepository.findById(id);
+		aktEinheitentyp = existing;
+		model.addAttribute("materialtyp_einheitentyp", new Materialtyp_Einheitentyp(existing));			
+		materialeinheiten = matEinRepository.findByEinheitentyp(existing);
+		aktEinheitentypId = existing.getId();
+		
+		if(materialeinheiten !=null)
+		{
+			model.addAttribute("materialeinheiten",materialeinheiten);
+		}
+		return "materialeinheit";
+	}
 
     @RequestMapping(value = "/materialeinheit", method = RequestMethod.POST)
     public String addSpeichern(Model model,
             @ModelAttribute("materialtyp_einheitentyp") @Valid Materialtyp_Einheitentyp materialtyp_einheitentyp,
             BindingResult result) {
         logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
-        materialtyp_einheitentyp.setEinheitentyp(aktEinheitentyp);
-
-        if (materialtyp_einheitentyp.getMaterialtyp() == null) {
-            result.rejectValue("materialtyp", null, "Der Materialtyp kann nicht Null sein!");
-        }
-        if (result.hasErrors()) {
-            if (materialeinheiten != null) {
-                model.addAttribute("materialeinheiten", materialeinheiten);
-            }
-            return "materialeinheit";
-        }
-
-        matEinRepository.save(materialtyp_einheitentyp);
-        return "redirect:/materialeinheit/" + aktEinheitentypId;
-    }
+	    materialtyp_einheitentyp.setEinheitentyp(aktEinheitentyp);
+	    
+	    boolean eindeutig = true;
+	    List<Materialtyp_Einheitentyp> matein = matEinRepository.findByEinheitentyp(aktEinheitentyp);
+	    for(Materialtyp_Einheitentyp me: matein)
+	    {
+	    	if(me.getMaterialtyp()==materialtyp_einheitentyp.getMaterialtyp())
+	    		eindeutig = false;
+	    }
+	    if(!eindeutig)
+	    {
+	    	result.rejectValue("materialtyp", null, "Es gibt schon ein Einheitentyp mit gleichem Materialtyp!");
+	    }
+    	if(materialtyp_einheitentyp.getMaterialtyp()==null)
+    	{
+    		result.rejectValue("materialtyp", null, "Der Materialtyp kann nicht Null sein!");
+    	}
+	    if (result.hasErrors()){	    	
+	    	
+			if(materialeinheiten !=null)
+			{
+				model.addAttribute("materialeinheiten",materialeinheiten);
+			}
+	        return "materialeinheit";
+	    }
+	    
+		matEinRepository.save(materialtyp_einheitentyp);
+        return "redirect:/materialeinheit/"+aktEinheitentypId;		
+    }	
 
     // ************************************* MatEin Ändern
     // ************************************
@@ -117,32 +132,31 @@ public class MaterialtypEinheitentypController {
 
         logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         
-        Materialtyp_Einheitentyp existing = matEinRepository.findById(id);
+    	Materialtyp_Einheitentyp existing = matEinRepository.findById(id);   	  
+		
+		existing.setManzahl(materialtyp_einheitentyp.getManzahl());
+		existing.setMaterialtyp(materialtyp_einheitentyp.getMaterialtyp());
 
-        existing.setManzahl(materialtyp_einheitentyp.getManzahl());
-        existing.setMaterialtyp(materialtyp_einheitentyp.getMaterialtyp());
-        existing.setEanzahl(materialtyp_einheitentyp.getEanzahl());
-        existing.setBeschreibung(materialtyp_einheitentyp.getBeschreibung());
-
-        if (result.hasErrors()) {
-            logger.error("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
-            return "mateinupdate";
-        }
-
-        matEinRepository.save(existing);
-        return "redirect:/materialeinheit/" + aktEinheitentypId;
-    }
+	    if (result.hasErrors()){
+	    	
+	    	return "mateinupdate";
+	    }   
+	    
+	    
+    	matEinRepository.save(existing);       	
+    	return "redirect:/materialeinheit/"+aktEinheitentypId;
+	}   
 
     // ************************************* MatEin Löschen
     // ************************************
 
-    @RequestMapping(value = "/mateinupdate/{id}/loeschen", method = RequestMethod.POST)
-    public String loeschen(@PathVariable("id") long id) {
-        
-        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
-        
-        matEinRepository.deleteById(id);
-
-        return "redirect:/materialeinheit/" + aktEinheitentypId + "/?loeschen";
-    }
+//    @RequestMapping(value = "/mateinupdate/{id}/loeschen", method = RequestMethod.POST)
+//    public String loeschen(@PathVariable("id") long id) {
+//        
+//        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+//        
+//        matEinRepository.deleteById(id);
+//
+//        return "redirect:/materialeinheit/" + aktEinheitentypId + "/?loeschen";
+//    }
 }

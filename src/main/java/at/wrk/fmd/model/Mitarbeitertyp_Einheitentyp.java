@@ -28,14 +28,9 @@ public class Mitarbeitertyp_Einheitentyp extends Audit {
     @JoinColumn(name = "mitarbeitertyp")
     private Mitarbeitertyp mitarbeitertyp;
 
-    @Positive
-    private int eanzahl;
-
     @ManyToOne
     @JoinColumn(name = "einheitentyp")
     private Einheitentyp einheitentyp;
-
-    private String beschreibung;
 
     public Mitarbeitertyp_Einheitentyp() {
         super();

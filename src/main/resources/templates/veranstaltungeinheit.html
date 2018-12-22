@@ -32,11 +32,11 @@
        	</div>
        	
        	<div class="form-group"
-        th:classappend="${#fields.hasErrors('nummer')}? 'has-error':''">
-        <label for="nummer" class="control-label">Num</label>
-    	<input type="number" min="1" th:field="*{nummer}" /></p>
+        th:classappend="${#fields.hasErrors('bezeichnung')}? 'has-error':''">
+        <label for="bezeichnung" class="control-label">Bezeichnung</label>
+    	<input type="text" th:field="*{bezeichnung}" /></p>
    		<p class="error-message"
-       	th:each="error: ${#fields.errors('nummer')}"
+       	th:each="error: ${#fields.errors('bezeichnung')}"
         th:text="${error}">Validation error</p>
        	</div>
        	
@@ -50,14 +50,14 @@
 <tr>
 <th>Veranstaltung</th>
 <th>Einheitentyp</th>
-<th>Num</th>
+<th>Bezeichnung</th>
 </tr>
 </thead>
 <dl th:each="veranstaltung_einheitentyp : ${verein}">
 <tr>
 <td th:text="${veranstaltung_einheitentyp.veranstaltung.name}"></td>
 <td th:text="${veranstaltung_einheitentyp.einheitentyp.name}"></td>
-<td th:text="${veranstaltung_einheitentyp.nummer}"></td>
+<td th:text="${veranstaltung_einheitentyp.bezeichnung}"></td>
 </tr>
 </table>
 </div>
