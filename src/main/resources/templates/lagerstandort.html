@@ -1,7 +1,6 @@
 <!doctype html>
 	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 		<head th:fragment="head">
-		<title th:text="@{${@environment.getProperty('matilda.mainsite')}}" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<div th:replace="/fragment/footer :: footer"></div>
@@ -24,6 +23,7 @@
 		});
 		</script>
 	</head>
+	<title th:text="@{${@environment.getProperty('matilda.lagerstandort')}}" />
 	<body>
 		<head th:replace="/fragment/header :: header"></head>
 		<h3>Einen neuen Lagerstandort hinzuf&uuml;gen</h3>

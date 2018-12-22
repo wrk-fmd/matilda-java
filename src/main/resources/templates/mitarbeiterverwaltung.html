@@ -11,6 +11,7 @@
  	<link rel="stylesheet" th:href="@{/css/index.css}"/>
  	<link rel="import" href="/fragment/topnav.html">
 </head>
+	<title th:text="@{${@environment.getProperty('matilda.events')}}"></title>
 	<body>
 		<head th:replace="/fragment/header :: header"></head>	
 		<div th:replace="/fragment/footer :: footer"></div>
