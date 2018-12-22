@@ -16,7 +16,7 @@ import at.wrk.fmd.repository.UserRepository;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@Service(value="test")
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -42,9 +42,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String benutzername) throws UsernameNotFoundException {
         Benutzer benutzer = userRepository.findByBenutzername(benutzername);
-        if (benutzer == null) {
+        if (benutzer == null || ! benutzer.isActive()) {
             throw new UsernameNotFoundException("Falscher Benutzername oder Passwort.");
         }
+        
         return new org.springframework.security.core.userdetails.User(benutzer.getBenutzername(),
                 benutzer.getPasswort(), mapRolesToAuthorities(benutzer.getRollen()));
     }
