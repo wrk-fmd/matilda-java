@@ -8,6 +8,10 @@ INSERT INTO benutzer(created_at, anzeigename, benutzername, dienstnummer, passwo
 UPDATE benutzer set active = true;
 INSERT INTO benutzer_rolle(benutzer_id,rolle_id) VALUES (1,1);
 
+INSERT INTO benutzer(created_at, anzeigename, benutzername, dienstnummer, passwort) VALUES (now(), 'SomeUser', 'SomeUser', 'SomeUser', '$2a$10$eoJXaB5sKquqydjBbkxiHOIT7iowKUI6A2HUfpyYTrwaibJ5SfPFW');
+UPDATE benutzer set active = false WHERE anzeigename = 'SomeUser';
+INSERT INTO benutzer_rolle(benutzer_id,rolle_id) VALUES (2,1);
+
 
 -- TEST -----------------------------
 
