@@ -8,14 +8,17 @@ INSERT INTO benutzer(created_at, anzeigename, benutzername, dienstnummer, passwo
 UPDATE benutzer set active = true;
 INSERT INTO benutzer_rolle(benutzer_id,rolle_id) VALUES (1,1);
 
-INSERT INTO benutzer(created_at, anzeigename, benutzername, dienstnummer, passwort) VALUES (now(), 'SomeUser', 'SomeUser', 'SomeUser', '$2a$10$eoJXaB5sKquqydjBbkxiHOIT7iowKUI6A2HUfpyYTrwaibJ5SfPFW');
-UPDATE benutzer set active = false WHERE anzeigename = 'SomeUser';
+INSERT INTO benutzer(created_at, anzeigename, benutzername, dienstnummer, passwort) VALUES (now(), 'Bernd', 'Bernd', 'Bernd', '$2a$10$eoJXaB5sKquqydjBbkxiHOIT7iowKUI6A2HUfpyYTrwaibJ5SfPFW');
+UPDATE benutzer set active = false WHERE anzeigename = 'Bernd';
 INSERT INTO benutzer_rolle(benutzer_id,rolle_id) VALUES (2,1);
+
 
 
 -- TEST -----------------------------
 
-
+INSERT INTO veranstaltung (name, beginn, ende, zustand) VALUES ('Wien', '2018-11-04T00:00', '2018-11-04T23:59', 'Frei');
+INSERT INTO veranstaltung (name, beginn, ende, zustand) VALUES ('Steiermark 2018', '2018-12-04T08:00', '2018-12-04T17:59', 'Frei');
+INSERT INTO veranstaltung (name, beginn, ende, zustand) VALUES ('Burgenland 2019', '2019-01-04T00:00', '2019-01-07T23:59', 'Frei');
 INSERT INTO einheitentyp (name) VALUES ('ERSTE');
 INSERT INTO einheitentyp (name) VALUES ('ZWEITE');
 INSERT INTO materialtyp (name,menge) VALUES ('Asprin','Stuck');
@@ -28,5 +31,4 @@ INSERT INTO lagerstandort (name,adresse,benutzer) VALUES ('Wien-Kenyongasse','Ke
 INSERT INTO material (lagerstandort, materialtyp, bezeichnung, bestand, einsatzbereitschaft) VALUES (1, 1, 'ASPRIN BAYER', 100, true);
 INSERT INTO material (lagerstandort, materialtyp, bezeichnung, bestand, einsatzbereitschaft) VALUES (1, 1, 'ASPRIN OSCAR', 250, true);
 INSERT INTO material (lagerstandort, materialtyp, bezeichnung, bestand, einsatzbereitschaft) VALUES (1, 2, 'AMERICAN', 300, false);
-INSERT INTO veranstaltung (name, lagerstandort, zustand) VALUES ('WIEN 2012', 1 , 'In Bearbeitung');
 INSERT INTO veranstaltung_einheitentyp (veranstaltung, einheitentyp, bezeichnung) VALUES (1,1, '1');
