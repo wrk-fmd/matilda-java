@@ -16,9 +16,9 @@ INSERT INTO benutzer_rolle(benutzer_id,rolle_id) VALUES (2,1);
 
 -- TEST -----------------------------
 
-INSERT INTO veranstaltung (name, beginn, ende, zustand) VALUES ('Wien', '2018-11-04T00:00', '2018-11-04T23:59', 'Frei');
-INSERT INTO veranstaltung (name, beginn, ende, zustand) VALUES ('Steiermark 2018', '2018-12-04T08:00', '2018-12-04T17:59', 'Frei');
-INSERT INTO veranstaltung (name, beginn, ende, zustand) VALUES ('Burgenland 2019', '2019-01-04T00:00', '2019-01-07T23:59', 'Frei');
+INSERT INTO veranstaltung (name, beginn, ende, zustand,lagerstandort) VALUES ('Wien 2018', '2018-11-04T00:00', '2018-11-04T23:59', 'In Bearbeitung',1);
+INSERT INTO veranstaltung (name, beginn, ende, zustand,lagerstandort) VALUES ('Steiermark 2018', '2018-12-04T08:00', '2018-12-04T17:59', 'In Bearbeitung',1);
+INSERT INTO veranstaltung (name, beginn, ende, zustand,lagerstandort) VALUES ('Burgenland 2019', '2019-01-04T00:00', '2019-01-07T23:59', 'In Bearbeitung',1);
 INSERT INTO einheitentyp (name) VALUES ('ERSTE');
 INSERT INTO einheitentyp (name) VALUES ('ZWEITE');
 INSERT INTO materialtyp (name,menge) VALUES ('Asprin','Stuck');

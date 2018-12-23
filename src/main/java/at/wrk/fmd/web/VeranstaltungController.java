@@ -1,10 +1,18 @@
 package at.wrk.fmd.web;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.LinkedList;
+
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +24,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import at.wrk.fmd.model.Buchung;
 import at.wrk.fmd.model.Einheitentyp;
 import at.wrk.fmd.model.Lagerstandort;
 import at.wrk.fmd.model.Material;
+import at.wrk.fmd.model.Materialtyp;
 import at.wrk.fmd.model.Materialtyp_Einheitentyp;
 import at.wrk.fmd.model.Veranstaltung;
 import at.wrk.fmd.model.Veranstaltung_Einheitentyp;
@@ -428,6 +438,7 @@ public class VeranstaltungController {
     public String buchungView(Model model, @PathVariable("id") long id)
     {
     	aktVeranstaltung = veranstaltungRepository.findById(id);
+    	aktVeranstaltungId = id;
     	if(aktVeranstaltung.getZustand().equals("In Bearbeitung"))
     	{
     		return "redirect:/veranstaltung?nogebucht"; 
@@ -440,6 +451,37 @@ public class VeranstaltungController {
 		}
 		
 		return "veranstaltunggebucht";
+    }
+    
+    @RequestMapping(value="/veranstaltungstornieren", method=RequestMethod.POST)
+    public String stornieren(Model model)
+    {
+    	
+    	if(!aktVeranstaltung.getZustand().equals("Gebucht"))
+    	{
+    		return "redirect:/veranstaltunggebucht/"+aktVeranstaltungId+"?nostorno"; 
+    	}
+    	
+    	List<Buchung> buchungs = buchungRepository.findByVeranstaltung(aktVeranstaltung);
+    	
+
+    	for(Buchung b: buchungs)
+    	{
+    		Material m = b.getMaterial();
+    		m.setBestand(m.getBestand()+b.getMenge());
+    		materialRepository.save(m);
+    	}   	
+    	
+    	aktVeranstaltung.setZustand("Storniert");
+    	veranstaltungRepository.save(aktVeranstaltung);
+    	
+		List<Buchung> veranstaltunggebucht = buchungRepository.findByVeranstaltung(aktVeranstaltung);
+		if(!veranstaltunggebucht.isEmpty())
+		{
+			model.addAttribute("veranstaltunggebucht", veranstaltunggebucht);
+		}
+		
+		return "redirect:/veranstaltung?storniert"; 
     }
     
     private LocalDateTime convertor(String dateTime)

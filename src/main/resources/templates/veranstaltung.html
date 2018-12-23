@@ -5,12 +5,12 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title th:text="@{${@environment.getProperty('matilda.events')}}" />
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
  	<link rel="stylesheet" th:href="@{/css/index.css}"/>
  	<link rel="import" href="/fragment/topnav.html">
 </head>
-	<title th:text="@{${@environment.getProperty('matilda.events')}}"></title>
 	<body>
 		<head th:replace="/fragment/header :: header"></head>	
 		<div th:replace="/fragment/footer :: footer"></div>
@@ -48,6 +48,7 @@
 <td>
 <a href="#" data-th-href="@{/veranstaltunggebucht/{id}(id=${veranstaltung.id})}">Gebuchte Materialien</a>
 </td>
+
 </tr>
 </table>
 </div>
@@ -102,6 +103,12 @@
                     Für diese Veranstaltung wurde noch kein Material gebucht!
                 </div>
             </div>
+            <div th:if="${param.storniert}">
+                <div class="alert alert-info">
+                   	Gebuchte Materialien wurde storniert.
+                </div>
+            </div>
+            
 </div>
 </body>
 </html>
