@@ -159,4 +159,9 @@ public class DummyUserRepository implements UserRepository {
         
     }
 
+    @Override
+    public void setUserActive(Boolean active, long id) {
+        // TODO Auto-generated method stub
+        
+    }
 }

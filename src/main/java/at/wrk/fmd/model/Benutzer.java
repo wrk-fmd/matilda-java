@@ -1,6 +1,7 @@
 package at.wrk.fmd.model;
 
 import java.util.Collection;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -104,7 +105,7 @@ public class Benutzer extends Audit {
         return (this.id == null);
     }
 
-	public Boolean getActive()
+	public Boolean isActive()
 	{
 		return active;
 	}

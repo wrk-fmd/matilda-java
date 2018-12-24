@@ -2,11 +2,9 @@ package at.wrk.fmd.pojo;
 
 import org.hibernate.validator.constraints.SafeHtml;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class User {
     //@SafeHtml prevents XSS ( Cross-Site Scripting )
     @SafeHtml
@@ -15,4 +13,5 @@ public class User {
     private String anzeigename;
     private String dienstnummer;
     private long id;
+    private Boolean isActive;
 }

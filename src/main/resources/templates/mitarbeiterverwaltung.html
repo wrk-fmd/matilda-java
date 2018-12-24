@@ -19,13 +19,13 @@
 		    <div class="row">
 		        <div class="col-md-6 col-md-offset-3">
 
-					<form action="#" th:action="@{/mitarbeiterverwaltung}" th:object="${users}" method="post">
+					<form action="#" th:action="@{/mitarbeiterverwaltung}" th:object="${userForm}" method="post">
 					    <fieldset>
 					        <table border="1" align="center">
 					            <thead>
 					                <tr>
 					                	<!-- <th:text = "#{mitarbeiterverwaltung.active}>Active ( Tick ) / Passive</th>-->
-					                	<th>Active ( Tick ) / Passive</th>
+					                	<th>Active / Inaktiv</th>
 					                	<th>ID</th>
 					                	<th>Username</th>
 					                    <th>Anzeigename</th>
@@ -34,10 +34,12 @@
 					            </thead>
 					            <tbody>
 									<tr th:each="user, itemStat : *{users}">
-									    <td><input	type="checkBox"
-									    			name="checkBox" 
-									    			class="checkBox" 
-									    /></td>
+										<td><input	type="checkbox"
+													name="searchValues"
+													th:value="${user.id}"
+													th:checked="${user.isActive}"
+										/>
+
 									    <td><input	th:field="*{users[__${itemStat.index}__].id}" 
 									    			readonly/></td>
 									    <td><input	th:field="*{users[__${itemStat.index}__].username}" 
@@ -46,13 +48,11 @@
 									    			type="text" 
 									    			name="anzeigename" 
 									    			th:field="*{users[__${itemStat.index}__].anzeigename}" 
-									    			th:id="${itemStat.index}" 
 									    			readonly/></td>
 									    <td><input	class="dienstnummer" 
 									    			type="text" 
 									    			name="dienstnummer" 
 									    			th:field="*{users[__${itemStat.index}__].dienstnummer}" 
-									    			th:id="${itemStat.index}" 
 									    			readonly/></td>
 									</tr>
 					            </tbody>
