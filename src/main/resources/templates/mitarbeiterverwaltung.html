@@ -38,8 +38,7 @@
 													name="searchValues"
 													th:value="${user.id}"
 													th:checked="${user.isActive}"
-										/>
-
+													th:onclick="${'inputClick('''+ itemStat.index +''')'}" /></td>
 									    <td><input	th:field="*{users[__${itemStat.index}__].id}" 
 									    			readonly/></td>
 									    <td><input	th:field="*{users[__${itemStat.index}__].username}" 
@@ -59,7 +58,7 @@
 					        </table>
 					        <br />
 					        <div style="text-align:center;">
-								<input type="submit" id="submitButton" th:value="Speichern"/>
+								<input type="submit" id="submitButton" th:value="Speichern" name="submit" disabled="disabled"/>
 							</div>
 					    </fieldset>
 					</form>
@@ -72,20 +71,24 @@
 		            </div>
 		         </div>
 		    </div>
-		</div>
+		
+			<script>	
+			$(function(){
+				$("input[type='checkBox']").change(function(){
+					var len = $("input[type='checkBox']:checked").length;
+				    if(len <= 0)
+						$("input[type='submit']").attr("disabled", true);
+				    else
+				    	$("input[type='submit']").removeAttr("disabled");
+				});
+				$("input[type='checkBox']").trigger('change');
+			});
+		    </script>
 
 		<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 		<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 
-		<script>
-		    function inputClick(id) {
-		        var passwordFields = document.getElementsByClassName("passwordField");
-		        for(i = 0; i < passwordFields.length; i++) {
-		            passwordFields[i].disabled = true;
-		        }
-		        document.getElementById(id).removeAttribute('disabled');
-		    }
-		</script>
+
 		
 		<div th:replace="/fragment/footer :: footer"></div>
 	</body>
