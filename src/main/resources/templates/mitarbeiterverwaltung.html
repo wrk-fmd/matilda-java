@@ -24,12 +24,11 @@
 					        <table border="1" align="center">
 					            <thead>
 					                <tr>
-					                	<!-- <th:text = "#{mitarbeiterverwaltung.active}>Active ( Tick ) / Passive</th>-->
-					                	<th>Active / Inaktiv</th>
+					                	<th th:text = "#{mitarbeiterverwaltung.active}"></th>
 					                	<th>ID</th>
-					                	<th>Username</th>
-					                    <th>Anzeigename</th>
-					                    <th>Dienstnummer</th>
+					                	<th th:text="#{benutzername}"></th>
+					                    <th th:text="#{anzeigename}"></th>
+					                    <th th:text="#{dienstnummer}"></th>
 					                </tr>
 					            </thead>
 					            <tbody>
