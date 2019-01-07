@@ -7,12 +7,16 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
 <title>Materialtyp-Einheitentyp</title>
 </head>
 
 <body>
-	<h3>Einen neuen Materialtyp-Einheitentyp hinzuf&uuml;gen</h3>
+	<head th:replace="/fragment/header :: header"></head>
 	
+	<h3>Der Einheit Materialtypen zuweisen</h3>
+<div class="container">
     <form action="#" th:action="@{/materialeinheit}" th:object="${materialtyp_einheitentyp}" method="post">
     
 		<p class="error-message"
@@ -20,47 +24,49 @@
 	    th:each="error : ${#fields.errors('global')}"
  		th:text="${error}">Validation error</p>
        	
-       	<div class="form-group"
+       	<div class="row"
         th:classappend="${#fields.hasErrors('einheitentyp')}? 'has-error':''">
+        <div class="col-50">
         <label for="einheitentyp" class="control-label">Einheitentyp</label>
-        <p th:text="${materialtyp_einheitentyp.einheitentyp.name}"></p>
+        <p th:text="${materialtyp_einheitentyp.einheitentyp.name}" style="font-size: 22px; color:darkred; text-decoration: underline;"></p>
+		</div>
 		<p class="error-message"
        	th:each="error: ${#fields.errors('einheitentyp')}"
         th:text="${error}">Validation error</p>
        	</div>     		
     	
-    	<div class="form-group"
-        th:classappend="${#fields.hasErrors('manzahl')}? 'has-error':''">
-        <label for="manzahl" class="control-label">Anzahl</label>
-        <input id="manzahl"
-        type="number"
-        min="1"
-        class="form-control"
-        th:field="*{manzahl}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('manzahl')}"
-        th:text="${error}">Validation error</p>
-       	</div>
-       	
-       	<div class="form-group"
+    	<div class="row"
         th:classappend="${#fields.hasErrors('materialtyp')}? 'has-error':''">
+        <div class="col-50">
         <label for="materialtyp" class="control-label">Materialtyp</label>
         <select th:field="*{materialtyp}">
   			<option th:each="materialtyp : ${alleMaterialtypen}" 
          	 th:value="${materialtyp.id}" 
        	     th:text="${materialtyp.name}"></option>
-		</select></p>
+		</select>
+		</div>
 		<p class="error-message"
        	th:each="error: ${#fields.errors('materialtyp')}"
         th:text="${error}">Validation error</p>
        	</div>         	
-       		
+    	
+    	<div class="row"
+        th:classappend="${#fields.hasErrors('manzahl')}? 'has-error':''">
+        <div class="col-50">
+        <label for="manzahl" class="control-label">Anzahl</label>
+        <input id="manzahl" type="number" min="1" th:field="*{manzahl}"/>
+        </div>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('manzahl')}"
+        th:text="${error}">Validation error</p>
+       	</div>
+     		
         <p><input type="submit" value="Submit" /> </p>
     </form>
-
-<h2>Übersicht Materialtyp-Einheitentyp</h2>
+</div>
+<h2>Übersicht zugewiesener Materialtypen</h2>
 <div th:unless="${#lists.isEmpty(materialeinheiten)}">
-<table class="table table-striped">
+<table id="sortTable" class="mainTable">
 <thead>
 <tr>
 <th>Einheitentyp</th>
@@ -74,7 +80,9 @@
 <td th:text="${materialtyp_einheitentyp.manzahl}"></td>
 <td th:text="${materialtyp_einheitentyp.materialtyp.name}"></td>
 <td>
-<a href="#" data-th-href="@{/mateinupdate/{id}(id=${materialtyp_einheitentyp.id})}">&Auml;ndern</a>
+	<a href="#" data-th-href="@{/mateinupdate/{id}(id=${materialtyp_einheitentyp.id})}">
+	<input type="button" value="Ändern" class="buttons">
+	</a>
 </td>
 </tr>
 </table>
@@ -84,6 +92,12 @@
 </div>
 <hr/>
 <div class="container">
+<input type="button" value="Zurück" class="bigButtons" onClick="gotoEinheitentyp()"/>
+        	<script>
+        	function gotoEinheitentyp() {
+			    window.location.href="../einheitentyp";
+		     }
+        	</script>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
@@ -97,8 +111,10 @@
                     Die Materialtyp-Einheitentyp wurde erfolgreich gelöscht!
                 </div>
             </div>
-
+        </div>
+	</div>
 </div>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/sortTable.js}"/></script>
 </body>

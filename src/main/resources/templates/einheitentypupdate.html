@@ -1,11 +1,21 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+ 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+ 	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
+ 	<link rel="import" href="/fragment/topnav.html">
     <title>Einheitentyp Aktualisieren</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+<head th:replace="/fragment/header :: header"></head>
 	<h1>Einheitentyp</h1>
+<div class="container">
     <form action="#" th:action="@{/einheitentypupdate/{id}(id=${einheitentyp.id})}" th:object="${einheitentyp}" method="post">
     
 	    <p class="error-message"
@@ -13,26 +23,27 @@
 	    th:each="error : ${#fields.errors('global')}"
  		th:text="${error}">Validation error</p>
                    
-		<div class="form-group"
+		<div class="row"
         th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
-        <label for="name" class="control-label">Name</label>
-        <input id="name"
-        class="form-control"
-        th:field="*{name}"/>
+        <div class="col-50">
+	        <label for="name" class="control-label">Name</label>
+	        <input id="name" type="text" th:field="*{name}"/>
+        </div>
         <p class="error-message"
        	th:each="error: ${#fields.errors('name')}"
         th:text="${error}">Validation error</p>
        	</div>
        	
-        <p><input type="submit" value="Submit" /> </p>
-        <td>
+        <p><input type="submit" value="Submit" /> 
+        <input type="button" value="Abbrechen" class="bigButtons" onClick="gotoEinheitentyp()" />
+			<script>
+			function gotoEinheitentyp() {
+			    window.location.href="../einheitentyp";
+		     }
+			</script>
+        </p>
     </form>
-
-	<button onclick="goBack()">Abbrechen</button>
-	<script>
-	function goBack() {
-	    window.history.back();
-     }
-	</script>
+</div>
+	
 </body>
 </html>

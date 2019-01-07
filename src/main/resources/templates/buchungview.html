@@ -7,20 +7,23 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
 <title>Buchungen</title>
 </head>
 <body>
-<h1>Buchung Übersicht (Letzte 29 Tagen)</h1>
+<head th:replace="/fragment/header :: header"></head>
+<h1>Buchungen</h1>
+<h3>Übersicht der Buchungen der letzten 29 Tagen</h3>
 <div th:unless="${#lists.isEmpty(buchungsInLager)}">
-<table class="table table-striped">
+<table class="mainTable" id="sortTable">
 <thead>
 <tr>
-<th>Bezeichnung</th>
-<th>Menge</th>
-<th>Art</th>
-<th>Beschreibung</th>
-<th>Erstellt am</th>
-<th>Erstellt von</th>
+<th onclick="sortTable(0)">Bezeichnung</th>
+<th onclick="sortTable(1)">Menge</th>
+<th onclick="sortTable(2)">Art</th>
+<th onclick="sortTable(3)">Beschreibung</th>
+<th onclick="sortTable(4)">Erstellt am</th>
+<th onclick="sortTable(5)">Erstellt von</th>
 </tr>
 </thead>
 <dl th:each="buchung : ${buchungsInLager}">
@@ -38,9 +41,15 @@
 <p>Es gibt keine Buchungen</p>
 </div>
 <hr/>
-
+<button onclick="goBack()" class="bigButtons">Zurück</button>
+		<script>
+			function goBack() {
+				window.history.back();
+			}
+		</script>
 
 </div>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/sortTable.js}"/></script>
 </body>

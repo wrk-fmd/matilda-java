@@ -1,94 +1,109 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Buchung</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+
+<title>Buchung</title>
 </head>
 <body>
-	
-    <form action="#" th:action="@{/buchung}" th:object="${buchung}" method="post">
-    
-     <h3>Aktuell</h3> 
-     <table>
-  		<tr>
-		    <th>Materialtyp</th>
-		    <th>Bezeichnung</th> 
-		    <th>Akt.Bestand</th> 
-		    <th>Seriennummer</th>
-		    <th>Lager</th>  
-		  </tr>
-		  <tr>
-		    <td th:text="${buchung.material.materialtyp.name}"></td>
-		    <td th:text="${buchung.material.bezeichnung}"></td>
-		    <td th:text="${buchung.material.bestand}"></td>
-		    <td th:text="${buchung.material.seriennummer}"></td>
-		    <td th:text="${buchung.material.lagerstandort.name}"></td>
-		 </tr>
-     </table>
-     
-	<h3>Buchungsschein</h3>
-	
-       <div class="form-group"
- 	   th:classappend="${#fields.hasErrors('art')}? 'has-error':''">
-        <label for="art" class="control-label">Art</label>
-		 <input type="radio"
-        value="buchen"
-        th:field="*{art}"/> Buchen 
-        <input type="radio"
-        value="stornieren"
-        th:field="*{art}"/> Stornieren 
-        <p class="error-message"
-        th:each="error: ${#fields.errors('art')}"
-        th:text="${error}">Validation error</p>
-        </div>
-        
-		<div class="form-group"
-        th:classappend="${#fields.hasErrors('menge')}? 'has-error':''">
-        <label for="menge" class="control-label">Menge</label>
-        <input id="menge"
-        type="number"
-        min="1"
-        class="form-control"
-        th:field="*{menge}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('menge')}"
-        th:text="${error}">Validation error</p>
-       	</div>
-       	
-        <div class="form-group"
-        th:classappend="${#fields.hasErrors('beschreibung')}? 'has-error':''">
-        <label for="beschreibung" class="control-label">Beschreibung</label>
-        <input id="beschreibung"
-        class="form-control"
-        th:field="*{beschreibung}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('beschreibung')}"
-        th:text="${error}">Validation error</p>
-       	</div>
-       	
-       	<div class="form-group"
-        th:classappend="${#fields.hasErrors('veranstaltung')}? 'has-error':''">
-        <label for="veranstaltung" class="control-label">Veranstaltung</label>
-        <select th:field="*{veranstaltung}">
-     		<option th:value="null">None</option>
-  			<option th:each="veranstaltung : ${alleVeranstaltungen}" 
-         	 th:value="${veranstaltung.id}" 
-       	     th:text="${veranstaltung.name}"></option>
-		</select></p>
-		<p class="error-message"
-       	th:each="error: ${#fields.errors('veranstaltung')}"
-        th:text="${error}">Validation error</p>
-       	</div> 
-			
-     <p><input type="submit" value="Submit" /> </p>
-    </form>
-    
+	<div class="container">
+		<form action="#" th:action="@{/buchung}" th:object="${buchung}"
+			method="post">
+
+			<h3>Aktuell</h3>
+			<table class="mainTable">
+				<tr>
+					<th>Materialtyp</th>
+					<th>Bezeichnung</th>
+					<th>Akt.Bestand</th>
+					<th>Seriennummer</th>
+					<th>Lager</th>
+				</tr>
+				<tr>
+					<td th:text="${buchung.material.materialtyp.name}"></td>
+					<td th:text="${buchung.material.bezeichnung}"></td>
+					<td th:text="${buchung.material.bestand}"></td>
+					<td th:text="${buchung.material.seriennummer}"></td>
+					<td th:text="${buchung.material.lagerstandort.name}"></td>
+				</tr>
+			</table>
+
+			<h2>Buchungsschein</h2>
+
+			<div class="row"
+				th:classappend="${#fields.hasErrors('art')}? 'has-error':''">
+				<div class="col-50">
+				<label for="art">Art:</label>
+				<div>
+				 <input id="buchen" type="radio" value="buchen" th:field="*{art}" />
+				 <label for="buchen"><span><span></span></span>Buchen</label>
+				  <input id="stornieren" type="radio" value="stornieren" th:field="*{art}"/>
+				  <label for="stornieren"><span><span></span></span> Stornieren</label>
+				</div>
+				<p class="error-message" th:each="error: ${#fields.errors('art')}"
+					th:text="${error}">Validation error</p>
+				</div>
+			</div>
+
+
+			<div class="row"
+				th:classappend="${#fields.hasErrors('menge')}? 'has-error':''">
+				<div class="col-50">
+				<label for="menge" class="control-label">Menge</label> <input
+					id="menge" type="number" min="1" class="form-control"
+					th:field="*{menge}" />
+				<p class="error-message" th:each="error: ${#fields.errors('menge')}"
+					th:text="${error}">Validation error</p>
+				</div>
+			</div>
+
+			<div class="row"
+				th:classappend="${#fields.hasErrors('beschreibung')}? 'has-error':''">
+				<div class="col-50">
+				<label for="beschreibung" class="control-label">Beschreibung</label>
+				<input id="beschreibung" type="text"
+					th:field="*{beschreibung}" placeholder="Beschreibung.."/>
+				<p class="error-message"
+					th:each="error: ${#fields.errors('beschreibung')}"
+					th:text="${error}">Validation error</p>
+				</div>
+			</div>
+
+			<div class="row"
+				th:classappend="${#fields.hasErrors('veranstaltung')}? 'has-error':''">
+				<div class="col-50">
+				<label for="veranstaltung" class="control-label">Veranstaltung</label>
+				<select th:field="*{veranstaltung}">
+					<option th:value="null">None</option>
+					<option th:each="veranstaltung : ${alleVeranstaltungen}"
+						th:value="${veranstaltung.id}" th:text="${veranstaltung.name}"></option>
+				</select>
+				<p class="error-message"
+					th:each="error: ${#fields.errors('veranstaltung')}"
+					th:text="${error}">Validation error</p>
+				</div>
+			</div>
+
+			<p>
+				<input type="submit" value="Submit" onclick="goBack()"/>
+			</p>
+			<button onclick="goBack()" class="bigButtons">Abbrechen</button>
+		<script>
+			function goBack() {
+				window.history.back();
+			}
+		</script>
+		</form>
+
 		</br>
-	<button onclick="goBack()">Abbrechen</button>
-	<script>
-	function goBack() {
-	    window.history.back();
-	}
-	</script>
+		
+	</div>
 </body>
 </html>

@@ -5,20 +5,19 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/> 
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
- 	<link rel="stylesheet" th:href="@{/css/index.css}"/>
+ 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
  	<link rel="import" href="/fragment/topnav.html">
 </head>
-	<body>
+<body class="genBackground">
 		<head th:replace="/fragment/header :: header"></head>	
 		<div th:replace="/fragment/footer :: footer"></div>
 	     
 <h1>Aktuelle Lager</h1>
-<h3>Wählen Sie einen Lager aus, um Materialien zu verwalten!</h3>
+<h3>Wählen Sie ein Lager aus, um das Material zu verwalten!</h3>
 <div th:unless="${#lists.isEmpty(lagerstandorten)}">
-<table class="table table-striped">
+<table class="mainTable">
 <thead>
 <tr>
 <th>Name</th>
@@ -30,19 +29,25 @@
 <td th:text="${lagerstandort.name}"></td>
 <td th:text="${lagerstandort.adresse}"></td>
 <td>
-<a href="#" data-th-href="@{/materialverwaltung/{id}(id=${lagerstandort.id})}">Materialien Verwalten</a>
+	<a href="#" data-th-href="@{/materialverwaltung/{id}(id=${lagerstandort.id})}">
+	<input type="Button" value="Material" class="buttons"/>
+	</a>
 </td>
 <td>
-<a href="#" data-th-href="@{/lieferungview/{id}(id=${lagerstandort.id})}">Letzte Lieferungen</a>
+	<a href="#" data-th-href="@{/lieferungview/{id}(id=${lagerstandort.id})}">
+	<input type="Button" value="Lieferungen" class="buttons"/>
+	</a>
 </td>
 <td>
-<a href="#" data-th-href="@{/buchungview/{id}(id=${lagerstandort.id})}">Letzte Buchungen</a>
+	<a href="#" data-th-href="@{/buchungview/{id}(id=${lagerstandort.id})}">
+	<input type="Button" value="Buchungen" class="buttons"/>
+	</a>
 </td>
 </tr>
 </table>
 </div>
 <div th:if="${#lists.isEmpty(lagerstandorten)}">
-<p>Es gibt kein Lagerstandort</p>
+<p>Es gibt keinen Lagerstandort</p>
 </div>
 <hr/>
 

@@ -1,33 +1,33 @@
 <!doctype html>
 	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 		<head th:fragment="head">
-		<title th:text="@{${@environment.getProperty('matilda.mainsite')}}" />
+		<title th:text="@{${@environment.getProperty('matilda.mainsite')}}"></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<div th:replace="/fragment/footer :: footer"></div>
 	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
 	    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-	 	<link rel="stylesheet" th:href="@{/css/index.css}"/>
+	 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
 	 	<link rel="import" href="/fragment/topnav.html">
 		<script src="webjars/jquery/2.0.3/jquery.min.js"></script>
 		<script src='webjars/moment/2.19.1/min/moment.min.js'></script>
-	</head>
-	<body>
+		
+</head>
+<body>
 		<head th:replace="/fragment/header :: header"></head>
-<a href="#" data-th-href="@{/neumaterial}">Ein neues Material hinzufügen</a>	     
+		<div th:replace="/fragment/footer :: footer"></div>     
 <h2>Aktuelle Materialien im Lager</h2>
 <div th:unless="${#lists.isEmpty(materialien)}">
-<table class="table table-striped">
+<table class="mainTable">
 <thead>
 <tr>
 <th>Materialtyp</th>
 <th>Bezeichnung</th>
 <th>Seriennummer</th>
 <th>Bestand</th>
-<th>Einkaufsdatum</th>
-<th>Letzte Überprüfungsdatum</th>
-<th>Nächste Überprüfungsdatum</th>
-<th>Einsatzbereichtschaft</th>
+<th>Einkaufs- datum</th>
+<th>Letztes Überprüfungs- datum</th>
+<th>Nächstes Überprüfungs- datum</th>
+<th>Einsatz- bereitschaft</th>
 </tr>
 </thead>
 <dl th:each="material : ${materialien}">
@@ -41,13 +41,19 @@
 <td th:text="${material.naechstesudatum}"></td>
 <td th:text="${material.einsatzbereitschaft}"></td>
 <td>
-<a href="#" data-th-href="@{/lieferung/{id}(id=${material.id})}">Lieferung(Eingabe/Ausgabe)</a>
+	<a href="#" data-th-href="@{/buchung/{id}(id=${material.id})}">
+	<input type="Button" value="Buchen/Stornieren" class="buttons"/>
+	</a>
 </td>
 <td>
-<a href="#" data-th-href="@{/buchung/{id}(id=${material.id})}">Buchen/Stornieren</a>
+	<a href="#" data-th-href="@{/lieferung/{id}(id=${material.id})}">
+	<input type="Button" value="neue Lieferung" class="buttons"/>
+	</a>
 </td>
 <td>
-<a href="#" data-th-href="@{/inventur/{id}(id=${material.id})}">Inventur</a>
+	<a href="#" data-th-href="@{/inventur/{id}(id=${material.id})}">
+	<input type="Button" value="Inventur" class="buttons"/>
+	</a>
 </td>
 </tr>
 </table>
@@ -55,20 +61,29 @@
 <div th:if="${#lists.isEmpty(materialien)}">
 <p>Es gibt kein Material in diesem Lager</p>
 </div>
+	<a href="#" data-th-href="@{/neumaterial}">
+	<input type="button" value="Material hinzufügen" class="bigButtons"/>
+	</a>
 <hr/>
+<input type="button" value="Zurück" class="bigButtons" onClick="gotoMaterial()" />
+			<script>
+			function gotoMaterial() {
+			    window.location.href="../material";
+		     }
+			</script>
 
         <div class="col-md-6 col-md-offset-3">
 
 
             <div th:if="${param.nomaterial}">
                 <div class="alert alert-info">
-                    Es Gibt kein Material in diesem Lager!
+                    Es gibt kein Material in diesem Lager!
                 </div>
             </div>
             
             <div th:if="${param.erfolgreich}">
                 <div class="alert alert-info">
-                    Der Lieferschein wurde erflogreich eingetragen!
+                    Der Lieferschein wurde erfolgreich eingetragen!
                 </div>
             </div>
 

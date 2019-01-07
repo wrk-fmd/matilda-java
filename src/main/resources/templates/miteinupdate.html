@@ -1,11 +1,19 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
+    
     <title>Einheitentyp-Mitarbeitertyp Aktualisieren</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Einheitentyp-Mitarbeitertyp</h1>
+	<h1>Mitarbeitertypen ändern</h1>
+<div class="container">
     <form action="#" th:action="@{/miteinupdate/{id}(id=${mitarbeitertyp_einheitentyp.id})}" th:object="${mitarbeitertyp_einheitentyp}" method="post">
     	
     	<p class="error-message"
@@ -13,48 +21,53 @@
 	    th:each="error : ${#fields.errors('global')}"
  		th:text="${error}">Validation error</p>    	
        	
-       	<div class="form-group"
+       	<div class="row"
         th:classappend="${#fields.hasErrors('einheitentyp')}? 'has-error':''">
-        <label for="einheitentyp" class="control-label">Einheitentyp</label>
-        <p th:text="${mitarbeitertyp_einheitentyp.einheitentyp.name}"></p>
+        <div class="col-50">
+        <label for="einheitentyp">Einheitentyp:</label>
+        <p th:text="${mitarbeitertyp_einheitentyp.einheitentyp.name}" style="font-size: 22px; color:darkred; text-decoration: underline;">
+        </div>
 		<p class="error-message"
        	th:each="error: ${#fields.errors('einheitentyp')}"
         th:text="${error}">Validation error</p>
        	</div>   		
     	
-    	<div class="form-group"
-        th:classappend="${#fields.hasErrors('manzahl')}? 'has-error':''">
-        <label for="manzahl" class="control-label">Anzahl</label>
-        <input id="manzahl"
-        type="number"
-        min="1"
-        class="form-control"
-        th:field="*{manzahl}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('manzahl')}"
-        th:text="${error}">Validation error</p>
-       	</div>
-       	
-       	<div class="form-group"
+    	<div class="row"
         th:classappend="${#fields.hasErrors('mitarbeitertyp')}? 'has-error':''">
+        <div class="col-50">
         <label for="mitarbeitertyp" class="control-label">Mitarbeitertyp</label>
         <select th:field="*{mitarbeitertyp}">
   			<option th:each="mitarbeitertyp : ${alleMitarbeitertypen}" 
          	 th:value="${mitarbeitertyp.id}" 
        	     th:text="${mitarbeitertyp.kuerzel}"></option>
-		</select></p>
+		</select>
+		</div>
 		<p class="error-message"
        	th:each="error: ${#fields.errors('mitarbeitertyp')}"
         th:text="${error}">Validation error</p>
-       	</div>      
+       	</div>    	
+    	
+    	<div class="row"
+        th:classappend="${#fields.hasErrors('manzahl')}? 'has-error':''">
+        <div class="col-50">
+        <label for="manzahl" class="control-label">Anzahl</label>
+        <input id="manzahl" type="number" min="1" th:field="*{manzahl}"/>
+        </div>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('manzahl')}"
+        th:text="${error}">Validation error</p>
+       	</div>
        	
-        <p><input type="submit" value="Submit" /> </p>
+        <p><input type="submit" value="Submit" />
+        <button onclick="goBack()" class="bigButtons">Abbrechen</button>
+			<script>
+			function goBack() {
+			    window.history.back();
+			}
+			</script> 
+		</p>
     </form>
-	<button onclick="goBack()">Abbrechen</button>
-	<script>
-	function goBack() {
-	    window.history.back();
-	}
-	</script>
+</div>
+	
 </body>
 </html>

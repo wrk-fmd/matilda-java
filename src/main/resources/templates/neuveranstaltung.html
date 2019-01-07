@@ -1,74 +1,100 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
 <title>Verantaltung hinzufügen</title>
 </head>
 <body>
-<h3>Eine neue Veranstaltung erstellen</h3>
+	<h3>Eine neue Veranstaltung erstellen</h3>
 <body>
-    <form action="#" th:action="@{/neuveranstaltung}" th:object="${veranstaltung}" method="post">
-    	
-    	<p class="error-message"
-	    th:if="${#fields.hasGlobalErrors()}"
-	    th:each="error : ${#fields.errors('global')}"
- 		th:text="${error}">Validation error</p>
-                   
-		<div class="form-group"
-        th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
-        <label for="name" class="control-label">Name</label>
-        <input id="name"
-        class="form-control"
-        th:field="*{name}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('name')}"
-        th:text="${error}">Validation error</p>
-       	</div>
-       	
-       	<div class="form-group"
-        th:classappend="${#fields.hasErrors('lagerstandort')}? 'has-error':''">
-        <label for="lagerstandort" class="control-label">Lagerstandort</label>
-        <select th:field="*{lagerstandort}">
-  			<option th:each="lagerstandort : ${alleLagerstandorten}" 
-         	 th:value="${lagerstandort.id}" 
-       	     th:text="${lagerstandort.name}"></option>
-		</select></p>
-		<p class="error-message"
-       	th:each="error: ${#fields.errors('lagerstandort')}"
-        th:text="${error}">Validation error</p>
-       	</div>      
-       	
-		<div class="form-group"
-        th:classappend="${#fields.hasErrors('beginn')}? 'has-error':''">
-        <label for="beginn" class="control-label">Beginn</label>
-        <input id="beginn"
-        type="datetime-local"
-        class="form-control"
-        th:field="*{beginn}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('beginn')}"
-        th:text="${error}">Validation error</p>
-		</div>
-		
-    	<div class="form-group"
-        th:classappend="${#fields.hasErrors('ende')}? 'has-error':''">
-        <label for="ende" class="control-label">Ende</label>
-        <input id="ende"
-        type="datetime-local"
-        class="form-control"
-        th:field="*{ende}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('ende')}"
-        th:text="${error}">Validation error</p>
-		</div>    	
-    	
-        <p><input type="submit" value="Submit" /> </p>
-    </form>
-<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+	<div class="container">
+		<form action="#" th:action="@{/neuveranstaltung}"
+			th:object="${veranstaltung}" method="post">
+
+			<p class="error-message" th:if="${#fields.hasGlobalErrors()}"
+				th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation
+				error</p>
+
+			<div class="row"
+				th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
+				<div class="col-50">
+					<label for="name" class="control-label">Name</label>
+					 <input	type="text" id="name" th:field="*{name}" />
+				</div>
+				<p class="error-message" th:each="error: ${#fields.errors('name')}"
+					th:text="${error}">Validation error</p>
+			</div>
+
+			<div class="row"
+				th:classappend="${#fields.hasErrors('lagerstandort')}? 'has-error':''">
+				<div class="col-50">
+				<label for="lagerstandort" class="control-label">Lagerstandort</label>
+				<select th:field="*{lagerstandort}">
+					<option th:each="lagerstandort : ${alleLagerstandorten}"
+						th:value="${lagerstandort.id}" th:text="${lagerstandort.name}"></option>
+				</select>
+				</div>
+				<p class="error-message"
+					th:each="error: ${#fields.errors('lagerstandort')}"
+					th:text="${error}">Validation error</p>
+			</div>
+
+			<div class="row"
+				th:classappend="${#fields.hasErrors('beginn')}? 'has-error':''">
+				<div class="col-50">
+				<label for="beginn" class="control-label">Beginn</label>
+				 <input id="beginn" type="datetime-local" th:field="*{beginn}"
+				  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} / [0-9]{2}:[0-9]{2}" placeholder="dd-mm-yyyy / hh:mm" />
+				</div>
+				<p class="error-message"
+					th:each="error: ${#fields.errors('beginn')}" th:text="${error}">Validation
+					error</p>
+			</div>
+
+			<div class="row"
+				th:classappend="${#fields.hasErrors('ende')}? 'has-error':''">
+				<div class="col-50">
+					<label for="ende" class="control-label">Ende</label> 
+					<input id="ende" type="datetime-local" th:field="*{ende}"
+					pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} / [0-9]{2}:[0-9]{2}" placeholder="dd-mm-yyyy / hh:mm" />
+				</div>
+				<p class="error-message" th:each="error: ${#fields.errors('ende')}"
+					th:text="${error}">Validation error</p>
+			</div>
+
+			<p>
+				<input type="submit" value="Erstellen"/>
+				<input type="button" value="Einheiten hinzufügen" onclick="gotoEinheiten()" class="bigButtons"/>
+				<script>
+					function gotoEinheiten()
+					{
+						window.location.href="../veranstaltungeinheit/1";
+					}
+				</script>
+				<input type="button" value="Zurück" onClick="gotoVeranstaltung()" class="bigButtons"/>
+				<script>
+					function gotoVeranstaltung()
+					{
+						window.location.href="../veranstaltung";
+					}
+				</script>
+			</p>
+			<!-- Buttons zu Einheitentyp, Buchen einfügen, dann erst Submit
+			(nicht möglich weil dann neue Veranstaltung nicht submitted wird?) -->
+        	
+        	
+		</form>
+	</div>
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+	<script type="text/javascript"
+		th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 </body>
