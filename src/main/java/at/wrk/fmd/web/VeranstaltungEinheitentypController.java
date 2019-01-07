@@ -41,16 +41,14 @@ public class VeranstaltungEinheitentypController {
         this.veranstaltungBuchungRepository = veranstaltungBuchungRepository;
     }
 
-    // ************************************* Modelattribute
-    // ***************************************
+    // ************************************* Modelattribute **************************************
 
     @ModelAttribute("alleEinheitentypen")
     public List<Einheitentyp> alleEinheitentypen() {
         return einheitentypRepository.findAll();
     }
 
-    // ************************************* Ver-Ein List
-    // ***************************************
+    // ************************************* Ver-Ein List ***************************************
 
     @RequestMapping(value = "/veranstaltungeinheit/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")

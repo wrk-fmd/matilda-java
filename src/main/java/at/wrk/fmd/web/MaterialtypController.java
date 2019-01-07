@@ -27,8 +27,7 @@ public class MaterialtypController {
         this.materialtypRepository = materialtypRepository;
     }
 
-    // ************************************* MaterialtypenList + Hinzufügen
-    // ************************************
+    // ************************************* MaterialtypenList + Hinzufügen ************************
 
     @RequestMapping(value = "/materialtyp", method = RequestMethod.GET)
     public String list(Model model) {
@@ -65,8 +64,7 @@ public class MaterialtypController {
         return "redirect:/materialtyp?success";
     }
 
-    // ************************************* Materialtyp Ändern
-    // ************************************
+    // ************************************* Materialtyp Ändern   ************************************
 
     @RequestMapping(value = "/materialtypupdate/{id}", method = RequestMethod.GET)
     public String aendernForm(@PathVariable("id") long id, Model model) {
@@ -114,16 +112,5 @@ public class MaterialtypController {
 
         materialtypRepository.save(existing);
         return "redirect:/materialtyp?success";
-    }
-
-    // ************************************* Materialtyp Löschen
-    // ************************************
-
-    @RequestMapping(value = "/materialtypupdate/{id}/loeschen", method = RequestMethod.POST)
-    public String loeschen(@PathVariable("id") long id) {
-        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
-        
-        materialtypRepository.deleteById(id);
-        return "redirect:/materialtyp?loeschen";
     }
 }
