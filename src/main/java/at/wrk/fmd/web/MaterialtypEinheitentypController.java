@@ -40,8 +40,7 @@ public class MaterialtypEinheitentypController {
         this.materialtypRepository = materialtypRepository;
     }
 
-    // ************************************* Modelattribute
-    // ***************************************
+    // ************************************* Modelattribute ***************************
 
     @ModelAttribute("alleEinheitentypen")
     public List<Einheitentyp> alleEinheitentypen() {
@@ -55,8 +54,7 @@ public class MaterialtypEinheitentypController {
         return materialtypRepository.findAll();
     }
 
-    // ************************************* MatEin List + Hinzufügen
-    // ************************************
+    // ************************************* MaterialtypEintentyp List + Hinzufügen ************************
 
     @RequestMapping(value = "/materialeinheit/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
@@ -111,8 +109,7 @@ public class MaterialtypEinheitentypController {
         return "redirect:/materialeinheit/"+aktEinheitentypId;		
     }	
 
-    // ************************************* MatEin Ändern
-    // ************************************
+    // ************************************* MaterialtypEintentyp Ändern  ************************************
 
     @RequestMapping(value = "/mateinupdate/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
@@ -141,22 +138,8 @@ public class MaterialtypEinheitentypController {
 	    	
 	    	return "mateinupdate";
 	    }   
-	    
-	    
+	    	    
     	matEinRepository.save(existing);       	
     	return "redirect:/materialeinheit/"+aktEinheitentypId;
 	}   
-
-    // ************************************* MatEin Löschen
-    // ************************************
-
-//    @RequestMapping(value = "/mateinupdate/{id}/loeschen", method = RequestMethod.POST)
-//    public String loeschen(@PathVariable("id") long id) {
-//        
-//        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
-//        
-//        matEinRepository.deleteById(id);
-//
-//        return "redirect:/materialeinheit/" + aktEinheitentypId + "/?loeschen";
-//    }
 }
