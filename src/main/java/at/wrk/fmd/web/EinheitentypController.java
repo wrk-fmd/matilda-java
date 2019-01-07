@@ -32,7 +32,8 @@ public class EinheitentypController {
         this.einheitentypRepository = einheitentypRepository;
     }
 
-    // ************************************* EinheitentypList + hinzufügen  ************************************
+    // ************************************* EinheitentypList + hinzufügen
+    // ************************************
 
     @RequestMapping(value = "/einheitentyp", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
@@ -68,7 +69,8 @@ public class EinheitentypController {
         return "redirect:/einheitentyp?success";
     }
 
-    // ************************************* Einheitentyp Ändern ************************************
+    // ************************************* Einheitentyp Ändern
+    // ************************************
 
     @RequestMapping(value = "/einheitentypupdate/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
@@ -104,4 +106,15 @@ public class EinheitentypController {
         logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         return "redirect:/einheitentyp?success";
     }
+
+    // ************************************* Einheitentyp Löschen
+    // ************************************
+
+//    @RequestMapping(value = "/einheitentypupdate/{id}/loeschen", method = RequestMethod.POST)
+//    public String loeschen(@PathVariable("id") long id) {
+//        einheitentypRepository.deleteById(id);
+//
+//        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
+//        return "redirect:/einheitentyp?loeschen";
+//    }
 }

@@ -33,7 +33,8 @@ public class LagerstandortController {
         this.userRepository = userRepository;
     }
 
-    // ************************************* Modelattribute ***************************************
+    // ************************************* Modelattribute
+    // ***************************************
 
     @ModelAttribute("alleBenutzer")
     public List<Benutzer> alleBenutzer() {
@@ -74,7 +75,8 @@ public class LagerstandortController {
         }
     }
 
-    // ************************************* Lagerstandort Ändern  ************************************
+    // ************************************* Lagerstandort Ändern
+    // ************************************
 
     @RequestMapping(value = "/lagerstandortupdate/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
@@ -119,4 +121,14 @@ public class LagerstandortController {
         lagerstandortRepository.save(existing);
         return "redirect:/lagerstandort?success";
     }
+
+    // ************************************* Lagerstandort Löschen
+    // ************************************
+
+//    @RequestMapping(value = "/lagerstandortupdate/{id}/loeschen", method = RequestMethod.POST)
+//    public String loeschen(@PathVariable("id") long id) {
+//        lagerstandortRepository.deleteById(id);
+//
+//        return "redirect:/lagerstandort?loeschen";
+//    }
 }

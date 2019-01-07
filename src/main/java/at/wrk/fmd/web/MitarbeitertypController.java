@@ -25,7 +25,8 @@ public class MitarbeitertypController {
         this.mitarbeitertypRepository = mitarbeitertypRepository;
     }
 
-    // ************************************* MitarbeitertypList + hinzufügen  ***************************
+    // ************************************* MitarbeitertypList + hinzufügen
+    // ************************************
 
     @RequestMapping(value = "/mitarbeitertyp", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
@@ -55,7 +56,8 @@ public class MitarbeitertypController {
         return "redirect:/mitarbeitertyp?success";
     }
 
-    // ************************************* Mitarbeitertyp Ändern *******************************
+    // ************************************* Mitarbeitertyp Ändern
+    // ************************************
 
     @RequestMapping(value = "/mitarbeitertypupdate/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
@@ -95,5 +97,15 @@ public class MitarbeitertypController {
 
         mitarbeitertypRepository.save(existing);
         return "redirect:/mitarbeitertyp?success";
+    }
+
+    // ************************************* Einheitentyp Löschen
+    // ************************************
+
+    @RequestMapping(value = "/mitarbeitertypupdate/{id}/loeschen", method = RequestMethod.POST)
+    public String loeschen(@PathVariable("id") long id) {
+        mitarbeitertypRepository.deleteById(id);
+
+        return "redirect:/mitarbeitertyp?loeschen";
     }
 }

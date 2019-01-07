@@ -62,7 +62,8 @@ public class MaterialController {
 		this.veranstaltungRepository = veranstaltungRepository;
 	}
 
-    // ************************************* Modelattribute ***************************************
+    // ************************************* Modelattribute
+    // ***************************************
 
     @ModelAttribute("alleLagerstandorten")
     public List<Lagerstandort> alleLagerstandorten() {
@@ -80,7 +81,8 @@ public class MaterialController {
         return veranstaltungRepository.findAll();
     }
 
-    // ************************************* Lagerstandort List ************************************
+    // ************************************* Lagerstandort List
+    // ************************************
 
     @RequestMapping(value = "/material", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
@@ -94,7 +96,8 @@ public class MaterialController {
 		return "material";
 	}
 
-    // ************************************* Materialien im Lager  ************************************
+    // ************************************* Materialverwaltung List + Hinzufügen
+    // ************************************
 
     @RequestMapping(value = "/materialverwaltung/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
@@ -119,8 +122,6 @@ public class MaterialController {
         return "materialverwaltung";
     }
    
-    // ************************************* neues Material im Lager hinzufügen  ************************************
-    
 	@RequestMapping(value="/neumaterial", method=RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String neuMaterial(Model model) {
@@ -129,11 +130,13 @@ public class MaterialController {
 				
         return "neumaterial";
     }
-    	
+    
+	
     @RequestMapping(value="/neumaterial", method=RequestMethod.POST)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String addSpeichern(Model model, @ModelAttribute("material") @Valid Material material, BindingResult result) {
-    	   	
+    	
+    	
 		material.setLagerstandort(aktLagerstandort);
 		
 	    if (result.hasErrors()){
@@ -145,7 +148,8 @@ public class MaterialController {
 
     }
 
-    // ************************************* Lieferschein - Lieferung ************************************
+    // ************************************* Lieferschein - Lieferung
+    // ************************************
 
     @RequestMapping(value = "/lieferung/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
@@ -201,7 +205,8 @@ public class MaterialController {
 		return "redirect:/materialverwaltung/"+aktLagerId;
 	} 
 
-    // ************************************* Buchungsschein - Buchung/Stornieren ************************************
+    // ************************************* Buchungsschein - Buchung
+    // ************************************
 
     @RequestMapping(value = "/buchung/{id}", method = RequestMethod.GET)
     public String addBuchungForm(@PathVariable("id") long id, Model model) {
@@ -255,7 +260,8 @@ public class MaterialController {
     	
 	} 
 
-    // ************************************* Inventur ************************************
+    // ************************************* Inventur
+    // ************************************
 
     @RequestMapping(value = "/inventur/{id}", method = RequestMethod.GET)
     public String aendernForm(@PathVariable("id") long id, Model model) {
@@ -294,8 +300,6 @@ public class MaterialController {
     	return "redirect:/materialverwaltung/"+aktLagerId;
     }
     
-    // ****************************** Buchung Übersicht in letzten 30 Tagen **************
-    
     @RequestMapping(value="/lieferungview/{id}", method=RequestMethod.GET)
     public String LieferungView(Model model, @PathVariable("id") long id)
     {
@@ -327,8 +331,6 @@ public class MaterialController {
 		
 		return "lieferungview";
     }
-    
-    // ****************************** Lieferung Übersicht in letzten 30 Tagen **************
     
     @RequestMapping(value="/buchungview/{id}", method=RequestMethod.GET)
     public String buchungView(Model model, @PathVariable("id") long id)
