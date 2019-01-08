@@ -58,6 +58,7 @@ public class VeranstaltungController {
 	private ArrayList<VeranstaltungBuchung> veranstaltungBuchungs =  new ArrayList<>();
 	private VeranstaltungBuchungWrapper veranstaltungBuchungWrapper = new VeranstaltungBuchungWrapper();
 	private Long aktVeranstaltungId;
+	private Long neuVeranstaltungId;
 
     @Autowired
 	public VeranstaltungController(VeranstaltungRepository veranstaltungRepository, VerEinRepository verEinRepository,
