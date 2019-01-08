@@ -4,7 +4,7 @@
 		<title th:text="@{${@environment.getProperty('matilda.mainsite')}}"></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<head th:replace="/fragment/footer :: footer"></head>
+		<!-- <head th:replace="/fragment/footer :: footer"></head>  -->
 	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
 	    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
 	 	<link rel="stylesheet" th:href="@{/css/index.css}"/>
@@ -28,7 +28,7 @@
 			$('#calendar').fullCalendar({
 				locale: '' + language + '',
 				allDayText: '',
-				height: 655,
+				height: "auto",
 				header: {
 			    	left: 'prev',
 					center: 'title',
