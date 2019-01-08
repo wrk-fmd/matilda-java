@@ -80,7 +80,7 @@ public class VeranstaltungController {
 		return lagerstandortRepository.findAll();
 	}
 
-    // ************************************* VeranstaltungList + hinzufügen ************************
+    // ************************************* VeranstaltungList  ************************
 
     @RequestMapping(value = "/veranstaltung", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
@@ -95,6 +95,8 @@ public class VeranstaltungController {
         return "veranstaltung";
     }
 
+    // ************************************** neue Veranstaltung hinzufügen ********************
+    
 	@RequestMapping(value="/neuveranstaltung", method=RequestMethod.GET)
 	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String neuVeranstaltung(Model model) {
@@ -136,10 +138,13 @@ public class VeranstaltungController {
     	
     	veranstaltungRepository.save(neuVeranstaltung);
     	
-	    return "redirect:/veranstaltung?success";		
+    	Veranstaltung v = veranstaltungRepository.findByName(neuVeranstaltung.getName());
+    	neuVeranstaltungId = v.getId();
+    	
+	    return "redirect:/veranstaltungeinheit/"+ neuVeranstaltungId;		
     }
 
-    // ************************************* Veranstaltung Ändern
+    // ************************************* Veranstaltung Ändern ***************************************
 
 
     @RequestMapping(value = "/veranstaltungupdate/{id}", method = RequestMethod.GET)
@@ -201,24 +206,6 @@ public class VeranstaltungController {
     	return "redirect:/veranstaltung?success";    	    	
 	}  
 
-    // ************************************* Veranstaltung Löschen
-
-//    @RequestMapping(value = "/veranstaltung/{id}/loeschen", method = RequestMethod.POST)
-//    public String loeschen(@PathVariable("id") long id, BindingResult result) {
-//
-//        logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
-//        
-//        if (result.hasErrors()) {
-//            logger.error("Error in method {}, called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
-//            return "veranstaltungupdate";
-//        }
-//
-//        veranstaltungRepository.deleteById(id);
-//
-//        return "redirect:/veranstaltung?loeschen";
-//    }
-
-
 	// ************************************* Veranstaltung - Buchen  ************************************
 
 	@RequestMapping(value="/veranstaltungbuchung/{id}", method=RequestMethod.GET)
@@ -232,6 +219,7 @@ public class VeranstaltungController {
 		if(existing.getZustand().equals("In Bearbeitung"))
 		{
 			List<VeranstaltungBuchung> ver = veranstaltungBuchungRepository.findByVeranstaltung(existing);
+			//wenn noch kein Pojosklasse erstellt ist
 			if(ver.isEmpty())
 			{
 				List<Veranstaltung_Einheitentyp> verein = verEinRepository.findByVeranstaltung(existing);
@@ -240,32 +228,37 @@ public class VeranstaltungController {
 		    	{	    
 		    		List<Einheitentyp> einheitentyps = new ArrayList<>();
 		    		
+		    		// alle Einheitentypen die der Veranstaltung zugewiesen sind
 		    		for(Veranstaltung_Einheitentyp ve : verein)
 		    		{
 		    			einheitentyps.add(ve.getEinheitentyp());
 		    		}
 		    		
 		    		List<Materialtyp_Einheitentyp> matein = new ArrayList<>();
-	
 		    		
 		    		for(Einheitentyp e : einheitentyps)
 		    		{
 		    			matein.addAll(matEinRepository.findByEinheitentyp(e));
 		    		}	
+		    		
 		    		ArrayList<VeranstaltungBuchung> verbuch = new ArrayList<>();
+		    		
 		    		if(!matein.isEmpty())
-		    		{	    			
+		    		{	    
+			    		// Buchungsliste (auswahllist) befüllen(Pojosklasse)
 		    			for(Materialtyp_Einheitentyp me : matein)
 		    			{
 		    				verbuch.add(new VeranstaltungBuchung(me.getMaterialtyp(),me.getEinheitentyp(), me.getManzahl(), existing));
 		    			}	    				    			
 		    			
 		    			for(VeranstaltungBuchung vb : verbuch)
-		    			{	        			    					    		
+		    			{	 
+		    				
 		    				List<Material> materials = materialRepository.findByMaterialtyp(vb.getMaterialtyp());
 		    					    				
 		    				if(!materials.isEmpty())
 		    				{
+		    					// alle Materialtypen die der Veranstaltung zugewiesen sind
 		    					for (Iterator<Material> iterator = materials.iterator(); iterator.hasNext();) {
 		    					    Material ma = iterator.next();
 		    					    if(ma.getLagerstandort().getId()!=aktVeranstaltung.getLagerstandort().getId()||!ma.isEinsatzbereitschaft()) {
@@ -273,6 +266,7 @@ public class VeranstaltungController {
 		    					    }
 		    					}
 		    					
+		    					// alle Materialien die der Veranstaltung zugewiesen sind und Einsatzbereit und im Standardlager sind
 		    					for(Material ma : materials)
 		    					{
 		    						if(ma.getLagerstandort().getId()!=aktVeranstaltung.getLagerstandort().getId()||!ma.isEinsatzbereitschaft())
@@ -293,7 +287,7 @@ public class VeranstaltungController {
 		    					vb.setStatus("vorhanden im Lager");
 		    				}
 		    			}	  	    				    	
-		    			
+		    			//wenn noch eine Pojosklasse (veranstaltungbuchung) erstellt ist		    			
 		    			if(!verbuch.isEmpty())
 		    			{	
 		    				veranstaltungBuchungs = verbuch;
@@ -382,6 +376,8 @@ public class VeranstaltungController {
 		return "veranstaltung";
 	}
 	
+	// Wunschmenge ändern (Standardvalue ändern)
+	
     @RequestMapping(value = "/veranstaltungbuchungupdate/{id}", method = RequestMethod.GET)
     public String veranstaltungBuchungAendern(Model model, @PathVariable("id") int id) {
     	
@@ -434,6 +430,8 @@ public class VeranstaltungController {
 		return "redirect:/veranstaltungbuchung/"+aktVeranstaltungId;   
     }
     
+    // Liste der Materialien, die für die Veranstaltung gebucht sind
+    
     @RequestMapping(value="/veranstaltunggebucht/{id}", method=RequestMethod.GET)
     public String buchungView(Model model, @PathVariable("id") long id)
     {
@@ -452,6 +450,8 @@ public class VeranstaltungController {
 		
 		return "veranstaltunggebucht";
     }
+    
+    // ****************************** Buchungen Stornieren *****************
     
     @RequestMapping(value="/veranstaltungstornieren", method=RequestMethod.POST)
     public String stornieren(Model model)
