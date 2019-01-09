@@ -22,4 +22,9 @@ public class MainController {
         logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         return "login";
     }
+    
+    @GetMapping("/access-denied")
+    public String accessDenied() {
+        return "/error/access-denied";
+    }
 }
