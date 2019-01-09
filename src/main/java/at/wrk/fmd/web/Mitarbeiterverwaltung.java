@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,6 +35,7 @@ public class Mitarbeiterverwaltung {
     UserManagementServiceImpl userManagementServiceImpl;
     
     @RequestMapping
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String showUserManagement(Model model) {
         logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
 
@@ -45,8 +47,8 @@ public class Mitarbeiterverwaltung {
         return "mitarbeiterverwaltung";
     }
     
-    //TODO: do not know how to fill field isActive of UserCreationDto
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String updateActivePassiveUser(@Valid @ModelAttribute("userForm") UserCreationDto userTableSettings,
             @RequestParam List<String> searchValues, BindingResult result, Model model, Errors errors) {
         
