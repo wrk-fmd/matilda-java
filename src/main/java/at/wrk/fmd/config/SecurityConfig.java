@@ -17,7 +17,6 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import at.wrk.fmd.service.UserService;
-import at.wrk.fmd.web.LoggingAccessDeniedHandler;
 
 @Configuration
 @EnableWebSecurity
