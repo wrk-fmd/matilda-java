@@ -1,4 +1,4 @@
-package at.wrk.fmd.web;
+package at.wrk.fmd.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
