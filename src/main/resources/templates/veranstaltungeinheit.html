@@ -13,7 +13,7 @@
 	<title>Veranstaltung-Einheitentyp</title>
 </head>
 <body>
-<h3>Einen Veranstaltung-Einheitentyp hinzufügen</h3>
+<h2>Einheiten zuweisen</h2>
 <div class="container">
 <form action="#" th:action="@{/veranstaltungeinheit}" th:object="${veranstaltung_einheitentyp}" method="post">
 		
@@ -41,17 +41,17 @@
         th:classappend="${#fields.hasErrors('bezeichnung')}? 'has-error':''">
         <div class="col-50">
         <label for="bezeichnung" class="control-label">Bezeichnung</label>
-    	<input type="text" th:field="*{bezeichnung}" /></p>
+    	<input type="text" th:field="*{bezeichnung}" />
     	</div>
    		<p class="error-message"
        	th:each="error: ${#fields.errors('bezeichnung')}"
         th:text="${error}">Validation error</p>
        	</div>
-        <p><input type="submit" value="Submit" /> </p>
+        <p><input type="submit" value="Bestätigen" /> </p>
 </form>
 </div>
 
-<h2>Übersicht Veranstaltungen->Einheitentyp</h2>
+<h3>bereits zugewiesene Einheiten</h3>
 <div th:unless="${#lists.isEmpty(verein)}">
 <table class="mainTable">
 <thead>
@@ -73,7 +73,6 @@
 <p>Es gibt keine Veranstaltung</p>
 </div>
 <hr/>
-
 <input type="button" value="Zurück" onClick="gotoVeranstaltung()" class="bigButtons"/>
 				<script>
 					function gotoVeranstaltung()
@@ -81,6 +80,9 @@
 						window.location.href="../veranstaltung";
 					}
 				</script>
+<input type="bigButtons" style="float: right; text-align: center" value="Fertig / Weiter" onClick="gotoVeranstaltung()" class="bigButtons"/>
+
+
       <div class="col-md-6 col-md-offset-3">
             <div th:if="${param.success}">
                 <div class="alert alert-info">

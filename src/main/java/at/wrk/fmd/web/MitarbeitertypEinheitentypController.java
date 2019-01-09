@@ -40,8 +40,7 @@ public class MitarbeitertypEinheitentypController {
         this.einheitentypRepository = einheitentypRepository;
     }
 
-    // ************************************* Modelattribute
-    // ***************************************
+    // ************************************* Modelattribute ***************************************
 
     @ModelAttribute("alleEinheitentypen")
     public List<Einheitentyp> alleEinheitentypen() {
@@ -53,8 +52,7 @@ public class MitarbeitertypEinheitentypController {
         return mitarbeitertypRepository.findAll();
     }
 
-    // ************************************* MitEin List + hinzufügen
-    // ************************************
+    // ************************************* MitarbeitertypEinheitentyp List + hinzufügen   ************************************
 
     @RequestMapping(value = "/mitarbeitereinheit/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
@@ -92,8 +90,7 @@ public class MitarbeitertypEinheitentypController {
         return "redirect:/mitarbeitereinheit/" + aktEinheitentypId;
     }
 
-    // ************************************* MitEin Ändern
-    // ************************************
+    // ************************************* MitarbeitertypEinheitentyp Ändern  ************************************
 
     @RequestMapping(value = "/miteinupdate/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
@@ -119,14 +116,4 @@ public class MitarbeitertypEinheitentypController {
         mitEinRepository.save(existing);
         return "redirect:/mitarbeitereinheit/" + aktEinheitentypId;
     }
-
-    // ************************************* MitEin Löschen
-    // ************************************
-
-//    @RequestMapping(value = "/miteinupdate/{id}/loeschen", method = RequestMethod.POST)
-//    public String loeschen(@PathVariable("id") long id) {
-//        mitEinRepository.deleteById(id);
-//
-//        return "redirect:/mitarbeitereinheit/" + aktEinheitentypId + "/?loeschen";
-//    }
 }
