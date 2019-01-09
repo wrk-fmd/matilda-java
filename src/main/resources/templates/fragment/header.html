@@ -4,35 +4,44 @@
 		<!--	<img class="logo" src="./Pictures/WRK_Logo.jpg" alt="Logo"> -->
 			<a href="/" class="active">MATILDA</a>
 			<div class="dropdown">
-			 <a href="/material" class="active">Material</a>
-			  <a href="/veranstaltung">Veranstaltungen</a>
+			 <button class="dropbtn">Materialverwaltung
+				<i class="fa fa-caret-down"></i>
+			 </button>
+			 <div class="dropdown-content">
+				<a href="material">Materialeingabe</a>
+			 </div>
 			</div>
-						
+			
 			<div class="dropdown">
-				 <button class="dropbtn">Erstellen von:
-					<i class="fa fa-caret-down"></i>
-				 </button>
-				 <div class="dropdown-content">
-					<a href="/einheitentyp">Einheitentyp</a>
-					<a href="/mitarbeitertyp">Mitarbeitertyp</a>
-					<a href="/materialtyp">Materialtyp</a>
-				 </div>
+			 <button class="dropbtn" th:text="#{veranstaltung}">
+				<i class="fa fa-caret-down"></i>
+			 </button>
+			 <div class="dropdown-content">
+				<a href="veranstaltung">Veranstaltung erstellen</a>
+			 </div>
 			</div>
 			
+			<div class="dropdown">
+			 <button class="dropbtn">Typen
+				<i class="fa fa-caret-down"></i>
+			 </button>
+			 <div class="dropdown-content">
+				<a href="/einheitentyp">Einheitentyp</a>
+				<a href="/mitarbeitertyp">Mitarbeitertyp</a>
+				<a href="/materialtyp">Materialtyp</a>
+			 </div>
+			</div>
 			<a href="/lagerstandort" class="active">Lagerstandort</a>
-			<a href="/report" class="active">Report</a>
-			
-			
 
 			<div class="dropdownAdmin">
 				<button class="dropbtnAdmin" th:text="#{konto}">
 					<i class="fa fa-caret-down"></i>
 			 	</button>
 				<div class="dropdown-content-admin">
-					<div security:authorize access="hasAnyRole('ADMIN', 'BENUTZER')">
+					<div sec:authorize="hasAuthority('ADMIN')">
 						<a href="mitarbeiterverwaltung">Mitarbeiterverwaltung</a>
-						<a href="registration" th:text="#{benutzerregistrierung}" />
-						<a href="passwordaenderung" th:text="#{passwort_aendern}" />
+						<a href="registration" th:text="#{benutzerregistrierung}"></a>
+						<a href="passwordaenderung" th:text="#{passwort_aendern}"></a>
 					</div>
 					<div>
 						<a href="javascript: document.logoutForm.submit()" > Sign out </a>
