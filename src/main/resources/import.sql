@@ -2,25 +2,16 @@
 INSERT INTO rolle(created_at, bezeichnung) VALUES (now(), 'ADMIN');
 INSERT INTO rolle(created_at, bezeichnung) VALUES (now(), 'SUPERVISOR');
 INSERT INTO rolle(created_at, bezeichnung) VALUES (now(), 'BENUTZER');
--- Rollen
+-- BENUTZER
 
 INSERT INTO benutzer(created_at, anzeigename, benutzername, dienstnummer, active, passwort) VALUES (now(), 'ADMIN', 'ADMIN', 'ADMIN', true, '$2a$10$eoJXaB5sKquqydjBbkxiHOIT7iowKUI6A2HUfpyYTrwaibJ5SfPFW');
 INSERT INTO benutzer_rolle(benutzer_id,rolle_id) VALUES (1,1);
 
 INSERT INTO benutzer(created_at, anzeigename, benutzername, dienstnummer, active, passwort) VALUES (now(), 'Bernd', 'Bernd', 'Bernd', false, '$2a$10$eoJXaB5sKquqydjBbkxiHOIT7iowKUI6A2HUfpyYTrwaibJ5SfPFW');
 INSERT INTO benutzer_rolle(benutzer_id,rolle_id) VALUES (2,1);
+UPDATE INTO benutzer SET active = false WHERE id = 2 ;
 
--- TEST -----------------------------
 
--- Rollen
-INSERT INTO rolle(created_at, bezeichnung) VALUES (now(), 'ADMIN');
-INSERT INTO rolle(created_at, bezeichnung) VALUES (now(), 'SUPERVISOR');
-INSERT INTO rolle(created_at, bezeichnung) VALUES (now(), 'BENUTZER');
--- Rollen
-
-INSERT INTO benutzer(created_at, anzeigename, benutzername, dienstnummer, passwort) VALUES (now(), 'ADMIN', 'ADMIN', 'ADMIN', '$2a$10$eoJXaB5sKquqydjBbkxiHOIT7iowKUI6A2HUfpyYTrwaibJ5SfPFW');
-UPDATE benutzer set active = true;
-INSERT INTO benutzer_rolle(benutzer_id,rolle_id) VALUES (1,1);
 
 
 -- TEST -----------------------------
