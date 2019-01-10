@@ -39,7 +39,7 @@ public class Buchung extends Audit
 	private Veranstaltung veranstaltung;
 	
 	@NotBlank
-	@Size(min=3, max=25)
+	@Size(min=3, max=150)
 	private String beschreibung;
 	
 	public Buchung()

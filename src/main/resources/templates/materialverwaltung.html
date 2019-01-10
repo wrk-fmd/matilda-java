@@ -14,7 +14,6 @@
 </head>
 <body>
 		<head th:replace="/fragment/header :: header"></head>
-		<div th:replace="/fragment/footer :: footer"></div>     
 <h2>Aktuelle Materialien im Lager</h2>
 <div th:unless="${#lists.isEmpty(materialien)}">
 <table class="mainTable">

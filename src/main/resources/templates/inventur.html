@@ -3,9 +3,9 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-	<link rel="stylesheet" type="text/css"
-	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+	<head th:replace="/fragment/header :: header"></head>
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
@@ -13,7 +13,7 @@
     <title>Inventur</title>
 </head>
 <body>
-
+	
 	<h1>Inventur</h1>
 <div class="container">
     <form action="#" th:action="@{/inventur/{id}(id=${material.id})}" th:object="${material}" method="post">
@@ -37,7 +37,7 @@
 		<div class="row"
         th:classappend="${#fields.hasErrors('seriennummer')}? 'has-error':''">
         <div class=col-50>
-        <label for="seriennummer" class="control-label">Seriennummer</label>
+        <label for="seriennummer">Seriennummer</label>
         <input id="seriennummer" type="text" th:field="*{seriennummer}"/>
         </div>
         <p class="error-message"
@@ -48,7 +48,7 @@
 		<div class="row"
         th:classappend="${#fields.hasErrors('einkaufsdatum')}? 'has-error':''">
         <div class=col-50>
-        <label for="einkaufsdatum" class="control-label">Einkaufsdatum</label>
+        <label for="einkaufsdatum">Einkaufsdatum</label>
         <input id="einkaufsdatum" type="date" th:field="*{einkaufsdatum}"/>
         </div>
         <p class="error-message"
@@ -59,7 +59,7 @@
 		<div class="row"
         th:classappend="${#fields.hasErrors('letztesudatum')}? 'has-error':''">
         <div class=col-50>
-        <label for="letztesudatum" class="control-label">Letztes Überprüfungsdatum</label>
+        <label for="letztesudatum">Letztes Überprüfungsdatum</label>
         <input id="letztesudatum" type="date" th:field="*{letztesudatum}"/>
         </div>
         <p class="error-message"
@@ -70,7 +70,7 @@
         <div class="row"
         th:classappend="${#fields.hasErrors('naechstesudatum')}? 'has-error':''">
         <div class=col-50>
-        <label for="naechstesudatum" class="control-label">Nächstes Überprüfungsdatum</label>
+        <label for="naechstesudatum">Nächstes Überprüfungsdatum</label>
         <input id="naechstesudatum" type="date" th:field="*{naechstesudatum}"/>
         </div>
         <p class="error-message"
@@ -81,7 +81,7 @@
         <div class="row"
         th:classappend="${#fields.hasErrors('einsatzbereitschaft')}? 'has-error':''">
         <div class=col-50>
-        <label for="einsatzbereitschaft" class="control-label">Einsatzbereitschaft</label>
+        <label for="einsatzbereitschaft">Einsatzbereitschaft</label>
         <input id="einsatzbereitschaft" type="checkbox" th:field="*{einsatzbereitschaft}"/>
         </div>
         <p class="error-message"
@@ -89,11 +89,11 @@
         th:text="${error}">Validation error</p>
         </div>
         
-        <p><input type="submit" value="Submit"/></p>
+        <p><input type="submit" value="Bestätigen"/></p>
         <p><input type="button" class="bigButtons" onclick="goBackToMaterialverwaltung()" value="Zurück"/></p>
 			<script>
 			function goBackToVeranstaltung() {
-			    window.location.href="../materialverwaltung/1";
+			    window.location.href="../materialverwaltung";
 			}
 			</script>
     </form>

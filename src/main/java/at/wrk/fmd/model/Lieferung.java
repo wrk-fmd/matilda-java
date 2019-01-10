@@ -39,7 +39,7 @@ public class Lieferung extends Audit {
 	private LocalDate lieferungsDatum;
 	
 	@NotBlank
-	@Size(min=3, max=25)
+	@Size(min=3, max=150)
 	private String beschreibung;
 
 	public Lieferung(Material material)

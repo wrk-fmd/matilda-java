@@ -4,9 +4,12 @@
 }
 /* Navbar container */
 .topnav {
-  overflow: hidden;
+  overflow: auto;
   background-color: #b60e0c;
   font-family: Arial;
+ /* position: fixed;
+  top: 0;
+  width: 100%; */
 }
 
 /* Links in der Navbar */

@@ -16,7 +16,7 @@
 <body>
 		<head th:replace="/fragment/header :: header"></head>	
 
-	<h3>Einen neuen Einheitentyp hinzuf&uuml;gen</h3>
+	<h2>Einen neuen Einheitentyp hinzuf&uuml;gen</h2>
 <div class="container">
     <form action="#" th:action="@{/einheitentyp}" th:object="${einheitentyp}" method="post">
     
@@ -39,7 +39,7 @@
         <p><input type="submit" value="Bestätigen" /> </p>
     </form>
 </div>
-<h2>Übersicht Einheitentypen</h2>
+<h3>Übersicht Einheitentypen</h3>
 
 <div th:unless="${#lists.isEmpty(einheitentypen)}">
 <table class="mainTable" id="sortTable">
