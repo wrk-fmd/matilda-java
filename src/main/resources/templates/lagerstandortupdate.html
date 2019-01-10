@@ -1,15 +1,21 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="index.css">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+	    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+	 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+	 	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
+	 	<link rel="import" href="/fragment/topnav.html">
 		
 		<title>Lagerstandortaktualisierung</title>
 		
 	</head>
 <body>
-	<h1>Lagerstandort</h1>
+<head th:replace="/fragment/header :: header"></head>
+	<h2>Lagerstandort</h2>
+<div class="container">
     <form action="#" th:action="@{/lagerstandortupdate/{id}(id=${lagerstandort.id})}" th:object="${lagerstandort}" method="post">
     
 		<p class="error-message"
@@ -63,24 +69,18 @@
         th:text="${error}">Validation error</p>
        	</div>
 
-        <p><input type="submit" value="Submit" /> </p>
+        <p><input type="submit" value="Bestätigen" />
+        <button onclick="goBack()" class="bigButtons">Abbrechen</button>
+			<script>
+			function goBack() {
+			    window.history.back();
+			} 
+			</script></p>
     </form>
     <form th:action="@{/lagerstandortupdate/{id}/loeschen(id=${lagerstandort.id})}" th:object="${lagerstandort}" method="post" >
-		<button type="submit" onclick="return Confirm('sicher?')">L&ouml;schen</button>
+		<button type="submit" onclick="return Confirm('sicher?')" class="bigButtons">L&ouml;schen</button>
 	</form>
+</div>
 	</br>
-	<button onclick="goBack()">Abbrechen</button>
-	<script>
-	function goBack() {
-	    window.history.back();
-	}
-	</script>
-
-	<footer>
-		<div class="footer">
-			<a href="#Impressum" class="footerText">Impressum</a>
-		</div>
-	</footer>
-
 </body>
 </html>

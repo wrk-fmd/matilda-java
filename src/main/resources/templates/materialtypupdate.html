@@ -1,11 +1,21 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+	 <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+ 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+ 	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
+ 	<link rel="import" href="/fragment/topnav.html">
     <title>Materialtyp Aktualisieren</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Materialtyp</h1>
+	<head th:replace="/fragment/header :: header"></head>	
+	<h2>Materialtyp</h2>
+<div class="container">
     <form action="#" th:action="@{/materialtypupdate/{id}(id=${materialtyp.id})}" th:object="${materialtyp}" method="post">
     
     	<p class="error-message"
@@ -13,57 +23,59 @@
 	    th:each="error : ${#fields.errors('global')}"
  		th:text="${error}">Validation error</p>
                    
-		<div class="form-group"
+		<div class="row"
         th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
-        <label for="name" class="control-label">Name</label>
-        <input id="name"
-        class="form-control"
-        th:field="*{name}"/>
+        <div class="col-50">
+        <label for="name" >Name</label>
+        <input id="name" type="text" th:field="*{name}"/>
+        </div>
         <p class="error-message"
        	th:each="error: ${#fields.errors('name')}"
         th:text="${error}">Validation error</p>
        	</div>
 		
-		<div class="form-group"
+		<div class="row"
         th:classappend="${#fields.hasErrors('menge')}? 'has-error':''">
-        <label for="menge" class="control-label">Menge</label>
-        <input id="menge"
-        class="form-control"
-        th:field="*{menge}"/>
+        <div class="col-50">
+        <label for="menge">Menge</label>
+        <input id="menge" type="text" th:field="*{menge}"/>
+        </div>
         <p class="error-message"
        	th:each="error: ${#fields.errors('menge')}"
         th:text="${error}">Validation error</p>
        	</div>
         
-       	<div class="form-group"
+       	<div class="row"
         th:classappend="${#fields.hasErrors('beschreibung')}? 'has-error':''">
-        <label for="beschreibung" class="control-label">Beschreibung</label>
-        <input id="beschreibung"
-        class="form-control"
-        th:field="*{beschreibung}"/>
+        <div class="col-50">
+        <label for="beschreibung">Beschreibung</label>
+        <input id="beschreibung" type="text" th:field="*{beschreibung}"/>
+        </div>
         <p class="error-message"
        	th:each="error: ${#fields.errors('beschreibung')}"
         th:text="${error}">Validation error</p>
        	</div>
        	
-       	<div class="form-group"
+       	<div class="row"
         th:classappend="${#fields.hasErrors('link')}? 'has-error':''">
-        <label for="link" class="control-label">Link zu Benuterhandbuch</label>
-        <input id="link"
-        class="form-control"
-        th:field="*{link}"/>
+         <div class="col-50">
+        <label for="link" >Link zum Benutzerhandbuch</label>
+        <input id="link" type="url" th:field="*{link}"/>
+        </div>
         <p class="error-message"
        	th:each="error: ${#fields.errors('link')}"
         th:text="${error}">Validation error</p>
        	</div>
        	
-        <p><input type="submit" value="Submit"/></p>
+        <p><input type="submit" value="Bestätigen"/>
+        <button onclick="goBack()" class="bigButtons">Abbrechen</button>
+			<script>
+			function goBack() {
+			    window.history.back();
+			}
+			</script></p>
     </form>
-	<button onclick="goBack()">Abbrechen</button>
-	<script>
-	function goBack() {
-	    window.history.back();
-	}
-	</script>
+ </div>
+	
 </body>
 </html>
