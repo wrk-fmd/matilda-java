@@ -21,16 +21,21 @@ public interface IPDFRepository extends JpaRepository<Benutzer, Long> {
             + "GROUP BY v.name, l.name, m.bezeichnung", nativeQuery = true)
     List<?> findByDate(@Param("findAllByDate") Date dateBeginn, Date dateEnde);
     
-    @Query(value = "SELECT v.name AS Veranstaltungsname, b.anzeigename, l.name AS Lagerstandortname FROM Benutzer b "
-            + "INNER JOIN Veranstaltung v ON b.id = v.id "
-            + "INNER JOIN Lagerstandort l ON l.benutzer = b.id "
-            + "INNER JOIN Material m ON m.lagerstandort = l.id "
-            + "INNER JOIN Materialtyp mtyp ON mtyp.id = m.materialtyp "
+    @Query(value = "SELECT v.name AS veranstaltungsname, "
+            + "ve.bezeichnung AS veranstaltung_einheitentyp, "
+            + "m.bezeichnung AS material, "
+            + "e.name AS einheitentypname "
+            + "FROM veranstaltung v "
+            + "INNER JOIN lagerstandort l ON v.lagerstandort = l.id "
+            + "INNER JOIN material m ON m.id = l.id "
+            + "INNER JOIN veranstaltung_einheitentyp ve ON ve.veranstaltung = v.id "
+            + "INNER JOIN einheitentyp e ON e.id = ve.einheitentyp "
             + "WHERE m.einkaufsdatum BETWEEN ?1 AND ?2 "
-            + "GROUP BY v.name, b.anzeigename, l.name", nativeQuery = true)
+            + "GROUP BY v.name, ve.bezeichnung, m.bezeichnung, e.name", nativeQuery = true)
     List<?> findByAusgabeschein(@Param("findAllByDate") Date dateBeginn, Date dateEnde);
 
-    @Query(value = "SELECT v.name as veranstaltung, l.name as lagerstandort, m.bezeichnung FROM lagerstandort l "
+    @Query(value = "SELECT v.name as veranstaltung, l.name as lagerstandort, m.bezeichnung "
+            + "FROM lagerstandort l "
             + "INNER JOIN material m ON l.id = m.lagerstandort " 
             + "INNER JOIN veranstaltung v ON v.lagerstandort = l.id "
             + "WHERE v.beginn BETWEEN ?1 AND ?2 "
