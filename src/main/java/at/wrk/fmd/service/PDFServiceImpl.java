@@ -17,4 +17,13 @@ public class PDFServiceImpl {
     public List<?> findByDate(Date dateBeginn, Date dateEnde) {
         return pdfRepository.findByDate(dateBeginn, dateEnde);
     }
+    
+    public List<?> findByAusgabeschein(Date dateBeginn, Date dateEnde) {
+        return pdfRepository.findByAusgabeschein(dateBeginn, dateEnde);
+    }
+    
+    public List<?> findByPackliste(Date dateBeginn, Date dateEnde) {
+        return pdfRepository.findByPackliste(dateBeginn, dateEnde);
+    }
+    
 }

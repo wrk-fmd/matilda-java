@@ -28,13 +28,24 @@ public class PDFController {
     public ModelAndView createReport(
             @RequestParam("datePickerBeginn") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateBeginn,
             @RequestParam("datePickerEnde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateEnde,
-            @RequestParam("pageFormat") String pageFormat) {
+            @RequestParam("pageFormat") String pageFormat,
+            @RequestParam("whichReportToPrint") String whichReport) {
 
         logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         
         Map<String, Object> model = new HashMap<>();
 
-        model.put("benutzer", pdfServiceImpl.findByDate(dateBeginn, dateEnde));
+        switch(whichReport) {
+            case "ProStandort":
+                model.put("ProStandort", pdfServiceImpl.findByDate(dateBeginn, dateEnde));
+                break;
+            case "ProVeranstaltungAusgabeschein":
+                model.put("ProVeranstaltungAusgabeschein", pdfServiceImpl.findByAusgabeschein(dateBeginn, dateEnde));
+                break;
+            case "ProVeranstaltungPackliste":
+                model.put("ProVeranstaltungPackliste", pdfServiceImpl.findByPackliste(dateBeginn, dateEnde));
+                break;
+        }
         model.put("pdfDocument", pageFormat);
         return new ModelAndView(new MyPdfView(), model);
     }
