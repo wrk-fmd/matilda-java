@@ -1,6 +1,7 @@
-*{
+* {
 	font-family: Arial;
 }
+
 h1 {
 	color: #b60e0c;
 	text-align: left;
@@ -84,10 +85,13 @@ footer p {
 	justify-content: center;
 }
 
+/* ------------------- HINTERGRUNDFARBE ----------------*/
 .genBackground {
 	background-color: #eeeeee;
+/*	background-image: url("../pics/WRK_Logo.png"); */
 }
 
+/* ---------------------- BUTTONS ----------------------*/
 .buttons {
 	color: rgb(182, 14, 12);
 	font-size: 15px;
@@ -120,6 +124,7 @@ footer p {
 	text-decoration: none;
 }
 
+/* --------------------- BIGBUTTONS ----------------*/
 .bigButtons {
 	color: #fff;
 	font-size: 16px;
@@ -138,7 +143,6 @@ footer p {
 	margin-top: 20px;
 	box-shadow: #b60e0c 1px 1px 1px 1px;
 	cursor: pointer;
-	
 }
 
 .bigButtons:hover {
@@ -162,6 +166,7 @@ footer p {
 	text-decoration: none;
 }
 
+/* ------------------ MAIN TABLE --------------- */
 table.mainTable {
 	border: 2px solid #A40808;
 	background-color: #F5F5F5;
@@ -224,3 +229,41 @@ table.mainTable tfoot .links a {
 	padding: 2px 8px;
 	border-radius: 5px;
 }
+table.mainTabale input[type=text]{
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: vertical;
+	font-size: 16px;
+	text-align: center;
+}
+
+/* ------------------ MINIMALIST ---------------------- 
+table.minimalistBlack {
+  text-align: center;
+  border-collapse: collapse;
+}
+table.minimalistBlack td, table.minimalistBlack th {
+  border: 1px solid #000000;
+  padding: 5px 4px;
+}
+table.minimalistBlack tbody td {
+  font-size: 13px;
+}
+table.minimalistBlack thead {
+  background: #CFCFCF;
+  background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+  background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+  background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+}
+table.minimalistBlack thead th {
+  font-size: 13px;
+  font-weight: bold;
+  color: #B60E0C;
+  text-align: center;
+}
+table.minimalistBlack tfoot td {
+  font-size: 14px;
+}
+*/

@@ -3,13 +3,12 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>Access Denied</title>
+    <title>ERROR-PAGE</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
-    <h1>403</h1>
-    <h2>no permission to see this page</h2>
-    
+    <h1>500</h1>
+    <h2>an error occurred on the page</h2>
     <p><a href="/" th:href="@{/}">Back to home page</a></p>
 </div>
 </body>

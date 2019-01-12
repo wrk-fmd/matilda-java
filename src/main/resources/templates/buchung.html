@@ -17,7 +17,7 @@
 		<form action="#" th:action="@{/buchung}" th:object="${buchung}"
 			method="post">
 
-			<h3>Aktuell</h3>
+			<h2>Augewähltes Material buchen</h2>
 			<table class="mainTable">
 				<tr>
 					<th>Materialtyp</th>
@@ -35,7 +35,7 @@
 				</tr>
 			</table>
 
-			<h2>Buchungsschein</h2>
+			<h3>Buchungsschein</h3>
 
 			<div class="row"
 				th:classappend="${#fields.hasErrors('art')}? 'has-error':''">

@@ -1,4 +1,5 @@
 <html>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
 	<body>
 		<div class="topnav" id="myTopnav" th:fragment="header">
 		<!--	<img class="logo" src="./Pictures/WRK_Logo.jpg" alt="Logo"> -->
@@ -29,8 +30,8 @@
 					<div sec:authorize="hasAuthority('ADMIN')">
 						<a href="mitarbeiterverwaltung">Mitarbeiterverwaltung</a>
 						<a href="registration" th:text="#{benutzerregistrierung}"></a>
-						<a href="passwordaenderung" th:text="#{passwort_aendern}"></a>
 					</div>
+						<a href="passwordaenderung" th:text="#{passwort_aendern}"></a>
 					<div>
 						<a href="javascript: document.logoutForm.submit()" > Sign out </a>
 						<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">

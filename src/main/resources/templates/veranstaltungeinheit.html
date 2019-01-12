@@ -30,7 +30,7 @@
   			<option th:each="einheitentyp : ${alleEinheitentypen}" 
          	 th:value="${einheitentyp.id}" 
        	     th:text="${einheitentyp.name}"></option>
-		</select></p>		
+		</select>	
 		</div>
 		<p class="error-message"
        	th:each="error: ${#fields.errors('einheitentyp')}"
@@ -66,6 +66,11 @@
 <td th:text="${veranstaltung_einheitentyp.veranstaltung.name}"></td>
 <td th:text="${veranstaltung_einheitentyp.einheitentyp.name}"></td>
 <td th:text="${veranstaltung_einheitentyp.bezeichnung}"></td>
+<!-- <td>
+	<form th:action="@{/veranstaltungeinheit/{id}/loeschen(id=${veranstaltung_einheitentyp.id})}" th:object="${veranstaltung_einheitentyp}" methode="post">
+		<button type="Submit" class="buttons">Löschen</button>
+	</form>
+</td> -->
 </tr>
 </table>
 </div>

@@ -26,8 +26,9 @@
 	<title th:text="@{${@environment.getProperty('matilda.lagerstandort')}}" />
 	<body>
 		<head th:replace="/fragment/header :: header"></head>
-		<h2>Einen neuen Lagerstandort hinzuf&uuml;gen</h2>
+		
 <div class="container">
+<h2>Einen neuen Lagerstandort hinzuf&uuml;gen</h2>
     	<form action="#" th:action="@{/lagerstandort}" th:object="${lagerstandort}" method="post">
     
 	    <p class="error-message"

@@ -8,21 +8,21 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
- 	<link rel="stylesheet" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
  	<link rel="import" href="/fragment/topnav.html">
 </head>
 	<title th:text="@{${@environment.getProperty('matilda.events')}}"></title>
 	<body>
 		<head th:replace="/fragment/header :: header"></head>	
-		<div th:replace="/fragment/footer :: footer"></div>
 		<div class="container">
 		    <div class="row">
 		        <div class="col-md-6 col-md-offset-3">
 
 					<form action="#" th:action="@{/mitarbeiterverwaltung}" th:object="${userForm}" method="post">
 					    <fieldset>
-					        <table border="1" align="center">
-					            <thead>
+					        <table border="1" class="mainTable" id="sortTable">
+					            <thead> 
 					                <tr>
 					                	<th th:text = "#{mitarbeiterverwaltung.active}"></th>
 					                	<th>ID</th>
@@ -38,9 +38,9 @@
 													th:value="${user.id}"
 													th:checked="${user.isActive}"
 													th:onclick="${'inputClick('''+ itemStat.index +''')'}" /></td>
-									    <td><input	th:field="*{users[__${itemStat.index}__].id}" 
+									    <td><input type="text" th:field="*{users[__${itemStat.index}__].id}" 
 									    			readonly/></td>
-									    <td><input	th:field="*{users[__${itemStat.index}__].username}" 
+									    <td><input type="text" th:field="*{users[__${itemStat.index}__].username}" 
 									    			readonly/></td>
 									    <td><input	class="anzeigename" 
 									    			type="text" 
@@ -86,9 +86,6 @@
 
 		<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 		<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
-
-
-		
-		<div th:replace="/fragment/footer :: footer"></div>
+		<script type="text/javascript" th:src="@{/js/sortTable.js}"/></script>
 	</body>
 </html>

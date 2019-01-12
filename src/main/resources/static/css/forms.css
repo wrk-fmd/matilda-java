@@ -9,6 +9,7 @@ input[type=text], input[type=date], input[type=number], input[type=url], input[t
 	border-radius: 4px;
 	resize: vertical;
 	font-size: 16px;
+	/*text-align: center;*/
 }
 
 label {
