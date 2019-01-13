@@ -56,7 +56,7 @@ public class PasswordService extends CustomSort{
         isAdmin = authority.contains("ADMIN");
         
         if(isAdmin) {
-            users = userRepo.findAll(sortByIdAsc());
+            users = userRepo.findAllByOrderByIdAsc();
             for (int i = 0; i < users.size(); i++) {
                 user = new User();
                 user.setUsername(users.get(i).getBenutzername());

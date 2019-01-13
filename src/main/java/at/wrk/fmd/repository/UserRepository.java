@@ -1,6 +1,8 @@
 package at.wrk.fmd.repository;
 
 import java.util.List;
+
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +17,8 @@ public interface UserRepository extends JpaRepository<Benutzer, Long> {
     Benutzer findByBenutzername(String benutzername);
 
     List<Benutzer> findAll();
+    
+    List<Benutzer> findAllByOrderByIdAsc();
 
     void deleteById(Long id);
     
@@ -22,4 +26,6 @@ public interface UserRepository extends JpaRepository<Benutzer, Long> {
     @Query(value = "UPDATE benutzer SET active = :active WHERE id = :id", nativeQuery = true)
     @Transactional
     void setUserActive(@Param("active") Boolean active, @Param("id") long id);
+
+    Benutzer findByBenutzername(String username, Sort sortByIdAsc);
 }
