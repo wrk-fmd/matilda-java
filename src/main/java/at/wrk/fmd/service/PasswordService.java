@@ -2,22 +2,22 @@ package at.wrk.fmd.service;
 
 import java.util.Collection;
 import java.util.List;
-
+import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import at.wrk.fmd.dto.UserCreationDto;
 import at.wrk.fmd.model.Benutzer;
+import at.wrk.fmd.pojo.CustomSort;
 import at.wrk.fmd.pojo.User;
 import at.wrk.fmd.repository.UserRepository;
 import at.wrk.fmd.repository.updateOldPasswordRepository;
 
 @Service
-public class PasswordService {
+public class PasswordService extends CustomSort{
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -56,7 +56,7 @@ public class PasswordService {
         isAdmin = authority.contains("ADMIN");
         
         if(isAdmin) {
-            users = userRepo.findAll();
+            users = userRepo.findAll(sortByIdAsc());
             for (int i = 0; i < users.size(); i++) {
                 user = new User();
                 user.setUsername(users.get(i).getBenutzername());
