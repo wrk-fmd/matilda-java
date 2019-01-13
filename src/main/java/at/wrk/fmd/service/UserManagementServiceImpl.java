@@ -23,7 +23,7 @@ public class UserManagementServiceImpl implements UserManagementService {
     
     @Override
     public List<Benutzer> getAllUsers() {
-        return userRepo.findAll() ;
+        return userRepo.findAllByOrderByIdAsc() ;
     }
 
     @Override
