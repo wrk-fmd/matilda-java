@@ -7,22 +7,30 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import at.wrk.fmd.model.Benutzer;
+
 public class DummyUserRepository implements UserRepository {
 
     @Override
-    public List<at.wrk.fmd.model.Benutzer> findAll(Sort sort) {
+    public List<Benutzer> findAll() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<at.wrk.fmd.model.Benutzer> findAllById(Iterable<Long> ids) {
+    public List<Benutzer> findAll(Sort sort) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public <S extends at.wrk.fmd.model.Benutzer> List<S> saveAll(Iterable<S> entities) {
+    public List<Benutzer> findAllById(Iterable<Long> ids) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public <S extends Benutzer> List<S> saveAll(Iterable<S> entities) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -34,13 +42,13 @@ public class DummyUserRepository implements UserRepository {
     }
 
     @Override
-    public <S extends at.wrk.fmd.model.Benutzer> S saveAndFlush(S entity) {
+    public <S extends Benutzer> S saveAndFlush(S entity) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void deleteInBatch(Iterable<at.wrk.fmd.model.Benutzer> entities) {
+    public void deleteInBatch(Iterable<Benutzer> entities) {
         // TODO Auto-generated method stub
         
     }
@@ -52,37 +60,37 @@ public class DummyUserRepository implements UserRepository {
     }
 
     @Override
-    public at.wrk.fmd.model.Benutzer getOne(Long id) {
+    public Benutzer getOne(Long id) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public <S extends at.wrk.fmd.model.Benutzer> List<S> findAll(Example<S> example) {
+    public <S extends Benutzer> List<S> findAll(Example<S> example) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public <S extends at.wrk.fmd.model.Benutzer> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends Benutzer> List<S> findAll(Example<S> example, Sort sort) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Page<at.wrk.fmd.model.Benutzer> findAll(Pageable pageable) {
+    public Page<Benutzer> findAll(Pageable pageable) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public <S extends at.wrk.fmd.model.Benutzer> S save(S entity) {
+    public <S extends Benutzer> S save(S entity) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Optional<at.wrk.fmd.model.Benutzer> findById(Long id) {
+    public Optional<Benutzer> findById(Long id) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -100,13 +108,13 @@ public class DummyUserRepository implements UserRepository {
     }
 
     @Override
-    public void delete(at.wrk.fmd.model.Benutzer entity) {
+    public void delete(Benutzer entity) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void deleteAll(Iterable<? extends at.wrk.fmd.model.Benutzer> entities) {
+    public void deleteAll(Iterable<? extends Benutzer> entities) {
         // TODO Auto-generated method stub
         
     }
@@ -118,37 +126,37 @@ public class DummyUserRepository implements UserRepository {
     }
 
     @Override
-    public <S extends at.wrk.fmd.model.Benutzer> Optional<S> findOne(Example<S> example) {
+    public <S extends Benutzer> Optional<S> findOne(Example<S> example) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public <S extends at.wrk.fmd.model.Benutzer> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends Benutzer> Page<S> findAll(Example<S> example, Pageable pageable) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public <S extends at.wrk.fmd.model.Benutzer> long count(Example<S> example) {
+    public <S extends Benutzer> long count(Example<S> example) {
         // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public <S extends at.wrk.fmd.model.Benutzer> boolean exists(Example<S> example) {
+    public <S extends Benutzer> boolean exists(Example<S> example) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public at.wrk.fmd.model.Benutzer findByBenutzername(String benutzername) {
+    public Benutzer findByBenutzername(String benutzername) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<at.wrk.fmd.model.Benutzer> findAll() {
+    public List<Benutzer> findAllByOrderByIdAsc() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -163,5 +171,11 @@ public class DummyUserRepository implements UserRepository {
     public void setUserActive(Boolean active, long id) {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public Benutzer findByBenutzername(String username, Sort sortByIdAsc) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
