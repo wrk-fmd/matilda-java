@@ -66,11 +66,11 @@
 <td th:text="${veranstaltung_einheitentyp.veranstaltung.name}"></td>
 <td th:text="${veranstaltung_einheitentyp.einheitentyp.name}"></td>
 <td th:text="${veranstaltung_einheitentyp.bezeichnung}"></td>
-<!-- <td>
-	<form th:action="@{/veranstaltungeinheit/{id}/loeschen(id=${veranstaltung_einheitentyp.id})}" th:object="${veranstaltung_einheitentyp}" methode="post">
-		<button type="Submit" class="buttons">Löschen</button>
-	</form>
-</td> -->
+<td>
+	<a href="#" data-th-href="@{/veranstaltungeinheitupdate/{id}(id=${veranstaltung_einheitentyp.id})}">
+	<input type="Button" value="Ändern" class="buttons"/>
+	</a>
+</td>
 </tr>
 </table>
 </div>

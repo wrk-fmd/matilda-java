@@ -1,5 +1,6 @@
 package at.wrk.fmd.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +14,6 @@ public interface VeranstaltungRepository extends JpaRepository<Veranstaltung, Lo
     Veranstaltung findById(long id);
     
     List<Veranstaltung> findAll();
+    
+    List<Veranstaltung> findByEndeGreaterThan(LocalDateTime date);
 }

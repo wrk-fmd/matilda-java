@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.LinkedList;
@@ -58,7 +61,7 @@ public class VeranstaltungController {
 	private ArrayList<VeranstaltungBuchung> veranstaltungBuchungs =  new ArrayList<>();
 	private VeranstaltungBuchungWrapper veranstaltungBuchungWrapper = new VeranstaltungBuchungWrapper();
 	private Long aktVeranstaltungId;
-	private Long neuVeranstaltungId;
+	private List<String> aktWunschMaterialien = new ArrayList<>();
 
     @Autowired
 	public VeranstaltungController(VeranstaltungRepository veranstaltungRepository, VerEinRepository verEinRepository,
@@ -75,12 +78,21 @@ public class VeranstaltungController {
 		this.veranstaltungBuchungRepository = veranstaltungBuchungRepository;
 	}
     
+    // ************************************* Modelattribute ***************************************
+    
 	@ModelAttribute("alleLagerstandorten")
 	public List<Lagerstandort> alleLagerstandorten() 
 	{	
 		return lagerstandortRepository.findAll();
 	}
-
+	
+	@ModelAttribute("wunschMaterialien")
+	public List<String> wunschMaterialien() 
+	{	
+		return aktWunschMaterialien;
+	}
+	
+	
     // ************************************* VeranstaltungList  ************************
 
     @RequestMapping(value = "/veranstaltung", method = RequestMethod.GET)
@@ -89,7 +101,7 @@ public class VeranstaltungController {
         logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());        
         		
         List<Veranstaltung> veranstaltungen = veranstaltungRepository.findAll();
-
+        
         if (veranstaltungen != null) {
             model.addAttribute("veranstaltungen", veranstaltungen);
         }
@@ -102,7 +114,7 @@ public class VeranstaltungController {
 	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String neuVeranstaltung(Model model) {
 		logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName()); 
-		
+				
 		model.addAttribute("veranstaltung", new at.wrk.fmd.pojo.Veranstaltung());				
         return "neuveranstaltung";
     }
@@ -139,10 +151,7 @@ public class VeranstaltungController {
     	
     	veranstaltungRepository.save(neuVeranstaltung);
     	
-    	Veranstaltung v = veranstaltungRepository.findByName(neuVeranstaltung.getName());
-    	neuVeranstaltungId = v.getId();
-    	
-	    return "redirect:/veranstaltungeinheit/"+ neuVeranstaltungId;		
+	    return "redirect:/veranstaltung?success";		
     }
 
     // ************************************* Veranstaltung Ändern ***************************************
@@ -248,7 +257,8 @@ public class VeranstaltungController {
 		    		{	    
 			    		// Buchungsliste (auswahllist) befüllen(Pojosklasse)
 		    			for(Materialtyp_Einheitentyp me : matein)
-		    			{
+		    			{	   
+		    				
 		    				verbuch.add(new VeranstaltungBuchung(me.getMaterialtyp(),me.getEinheitentyp(), me.getManzahl(), existing));
 		    			}	    				    			
 		    			
@@ -262,7 +272,8 @@ public class VeranstaltungController {
 		    					// alle Materialtypen die der Veranstaltung zugewiesen sind
 		    					for (Iterator<Material> iterator = materials.iterator(); iterator.hasNext();) {
 		    					    Material ma = iterator.next();
-		    					    if(ma.getLagerstandort().getId()!=aktVeranstaltung.getLagerstandort().getId()||!ma.isEinsatzbereitschaft()) {
+		    					    if(ma.getLagerstandort().getId()!=aktVeranstaltung.getLagerstandort().getId()||!ma.isEinsatzbereitschaft()
+		    					    		|| ma.getBestand()==0) {
 		    					        iterator.remove();
 		    					    }
 		    					}
@@ -271,11 +282,14 @@ public class VeranstaltungController {
 		    					for(Material ma : materials)
 		    					{
 		    						if(ma.getLagerstandort().getId()!=aktVeranstaltung.getLagerstandort().getId()||!ma.isEinsatzbereitschaft())
+		    						{
 		    							materials.remove(ma);
+		    						}	    					
 		    					}
 			    				if(!materials.isEmpty())
-			    				{
+			    				{			    					
 			    					vb.setMaterialien(materials);
+			    					vb.setWunschMaterial(materials.get(0).getBezeichnung()+" ("+aktBestand(materials.get(0))+")");
 			    				}
 		    				}  
 		    				List<Material> m = vb.getMaterialien();
@@ -292,7 +306,6 @@ public class VeranstaltungController {
 		    			if(!verbuch.isEmpty())
 		    			{	
 		    				veranstaltungBuchungs = verbuch;
-		    				
 		    				veranstaltungBuchungRepository.saveAll(veranstaltungBuchungs);
 		    				veranstaltungBuchungWrapper.setBuchungList(veranstaltungBuchungs);
 		    				
@@ -339,21 +352,27 @@ public class VeranstaltungController {
 		
 		for(VeranstaltungBuchung vb : veranstaltungBuchungs)
 		{
-			if(vb.getWunschMaterial()!=0 & vb.getWunschMenge()!=0)
+			if(vb.getWunschMaterial()!=null & vb.getWunschMenge()!=0)
 			{
-				Material m = vb.getMaterialien().get(vb.getWunschMaterial()-1);
-				
+				Material m = new Material();
+				List<Material> materialien = vb.getMaterialien();
+				for(Material ma : materialien)
+				{
+		    		if(vb.getWunschMaterial().contains(ma.getBezeichnung()))
+		    		{
+		    			m = ma;
+		    		}
+				}		
 				if(m.getBestand()>=vb.getWunschMenge())
 				{
-					m.setBestand(m.getBestand()-vb.getWunschMenge());
-					materialRepository.save(m);
+//					m.setBestand(m.getBestand()-vb.getWunschMenge());
+//					materialRepository.save(m);
 					Buchung buchung = new Buchung(m, vb.getWunschMenge() , "buchen", aktVeranstaltung, "AUTO-BUCHUNG");
 					buchungRepository.save(buchung);
 					gebucht = true;
 				}
 			}
 		}		
-		
 		if(gebucht==true)
 		{
 			aktVeranstaltung.setZustand("Gebucht");
@@ -368,9 +387,7 @@ public class VeranstaltungController {
 			return "redirect:/veranstaltung?nobuchung"; 
 		}
 		
-		List<Veranstaltung> veranstaltungen = veranstaltungRepository.findAll();
-		
-		
+		List<Veranstaltung> veranstaltungen = veranstaltungRepository.findAll();				
         if (veranstaltungen != null) {
             model.addAttribute("veranstaltungen", veranstaltungen);
         }
@@ -387,6 +404,13 @@ public class VeranstaltungController {
 		{
 			return "redirect:/veranstaltungbuchung/"+aktVeranstaltungId+"?nomaterial"; 
 		}
+		aktWunschMaterialien.clear();
+		List<Material> m = veranstaltungBuchung.getMaterialien();
+		for(Material ma: m)
+		{
+			aktWunschMaterialien.add(ma.getBezeichnung()+" ("+aktBestand(ma)+")");
+		}		
+
 		model.addAttribute("veranstaltungBuchung",veranstaltungBuchung);
 		
     	return "veranstaltungbuchungupdate";    
@@ -396,24 +420,28 @@ public class VeranstaltungController {
     public String veranstaltungBuchungAendernSpeichern(@PathVariable("id") int id, @ModelAttribute("veranstaltungBuchung") @Valid VeranstaltungBuchung veranstaltungBuchung,
     		Model model, BindingResult result) {
     	
-    	VeranstaltungBuchung vb =  veranstaltungBuchungRepository.findById(id);
-    	
-    	if(veranstaltungBuchung.getWunschMaterial()==0||veranstaltungBuchung.getWunschMenge()==0)
+    	VeranstaltungBuchung vb =  veranstaltungBuchungRepository.findById(id);    
+    	if(veranstaltungBuchung.getWunschMaterial().isEmpty()||veranstaltungBuchung.getWunschMenge()==0)
     	{
-    		vb.setWunschMaterial(0);
+    		vb.setWunschMaterial(null);
     		vb.setWunschMenge(0);
     		veranstaltungBuchungRepository.save(vb);
     		return "redirect:/veranstaltungbuchung/"+aktVeranstaltungId;   
-    	}
-   	   	
-    	if(vb.getMaterialien().size()< veranstaltungBuchung.getWunschMaterial())
-    	{
-    		result.rejectValue("wunschMaterial", null, "Wunschmaterial ist nicht gültig!");
-    	}
+    	}   	   	
     	if(result.hasErrors()) {
     		return "veranstaltungbuchungupdate";
     	}
-    	if(vb.getMaterialien().get(veranstaltungBuchung.getWunschMaterial()-1).getBestand()< veranstaltungBuchung.getWunschMenge())
+    	List<Material> m = vb.getMaterialien();   			
+    	int aktBestand = 0;
+    	
+    	for(Material ma:m)
+    	{
+    		if(veranstaltungBuchung.getWunschMaterial().contains(ma.getBezeichnung()))
+    		{
+    			aktBestand= aktBestand(ma);
+    		}
+    	}
+    	if(aktBestand < veranstaltungBuchung.getWunschMenge())
     	{
     		result.rejectValue("wunschMenge", null, "Nicht genüg Material im Lager!");
     	}
@@ -431,17 +459,16 @@ public class VeranstaltungController {
 		return "redirect:/veranstaltungbuchung/"+aktVeranstaltungId;   
     }
     
-    // Liste der Materialien, die für die Veranstaltung gebucht sind
-    
+    // Liste der Materialien, die für die Veranstaltung gebucht sind   
     @RequestMapping(value="/veranstaltunggebucht/{id}", method=RequestMethod.GET)
     public String buchungView(Model model, @PathVariable("id") long id)
     {
     	aktVeranstaltung = veranstaltungRepository.findById(id);
     	aktVeranstaltungId = id;
-    	if(aktVeranstaltung.getZustand().equals("In Bearbeitung"))
-    	{
-    		return "redirect:/veranstaltung?nogebucht"; 
-    	}
+//    	if(aktVeranstaltung.getZustand().equals("In Bearbeitung"))
+//    	{
+//    		return "redirect:/veranstaltung?nogebucht"; 
+//    	}
 		List<Buchung> veranstaltunggebucht = buchungRepository.findByVeranstaltung(aktVeranstaltung);
 		
 		if(!veranstaltunggebucht.isEmpty())
@@ -451,43 +478,38 @@ public class VeranstaltungController {
 		
 		return "veranstaltunggebucht";
     }
-    
-    // ****************************** Buchungen Stornieren *****************
-    
-    @RequestMapping(value="/veranstaltungstornieren", method=RequestMethod.POST)
-    public String stornieren(Model model)
-    {
-    	
-    	if(!aktVeranstaltung.getZustand().equals("Gebucht"))
-    	{
-    		return "redirect:/veranstaltunggebucht/"+aktVeranstaltungId+"?nostorno"; 
-    	}
-    	
-    	List<Buchung> buchungs = buchungRepository.findByVeranstaltung(aktVeranstaltung);
-    	
-
-    	for(Buchung b: buchungs)
-    	{
-    		Material m = b.getMaterial();
-    		m.setBestand(m.getBestand()+b.getMenge());
-    		materialRepository.save(m);
-    	}   	
-    	
-    	aktVeranstaltung.setZustand("Storniert");
-    	veranstaltungRepository.save(aktVeranstaltung);
-    	
-		List<Buchung> veranstaltunggebucht = buchungRepository.findByVeranstaltung(aktVeranstaltung);
-		if(!veranstaltunggebucht.isEmpty())
-		{
-			model.addAttribute("veranstaltunggebucht", veranstaltunggebucht);
-		}
-		
-		return "redirect:/veranstaltung?storniert"; 
-    }
-    
+        
     private LocalDateTime convertor(String dateTime)
     {
     	return LocalDateTime.parse(dateTime);
     }
     
+    private int aktBestand(Material m)
+    {
+    	int akt = m.getBestand();
+		List<Veranstaltung> doppelteVer = veranstaltungRepository.findByEndeGreaterThan(aktVeranstaltung.getBeginn());
+
+		if(!doppelteVer.isEmpty())
+		{
+			for(Veranstaltung v : doppelteVer)
+			{
+				if(!v.getBeginn().isAfter(aktVeranstaltung.getEnde())||v.equals(aktVeranstaltung))
+				{
+					List<Buchung> buchungs = buchungRepository.findByVeranstaltung(v);
+					if(!buchungs.isEmpty())
+					{
+						for(Buchung bu : buchungs)
+						{
+							if(bu.getMaterial().equals(m))
+							{
+								akt=akt-bu.getMenge();
+							}
+						}
+					}
+				}
+			}			    			
+		}		
+    	
+		return akt;
+    }
 }

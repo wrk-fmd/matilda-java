@@ -92,4 +92,38 @@ public class VeranstaltungEinheitentypController {
         return "redirect:/veranstaltungeinheit/" + aktVeranstaltungId;
     }
 
+    // ************************************* Ver-Ein Ändern ***************************************
+    
+    @RequestMapping(value = "/veranstaltungeinheitupdate/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
+    public String aendernForm(@PathVariable("id") long id, Model model) {
+    	
+        Veranstaltung_Einheitentyp exicting = verEinRepository.findById(id);
+        model.addAttribute("veranstaltung_einheitentyp", exicting);
+        return "veranstaltungeinheitupdate";
+    }
+    
+    @RequestMapping(value = "/veranstaltungeinheitupdate/{id}", method = RequestMethod.POST)
+    public String aendernSepeichern(@PathVariable("id") long id,
+            @ModelAttribute("veranstaltung_einheitentyp") @Valid Veranstaltung_Einheitentyp veranstaltung_einheitentyp, BindingResult result) {
+
+        Veranstaltung_Einheitentyp exicting = verEinRepository.findById(id);
+        if (result.hasErrors()) {
+            return "veranstaltungeinheitupdate";
+        }
+        exicting.setEinheitentyp(veranstaltung_einheitentyp.getEinheitentyp());
+        verEinRepository.save(exicting);
+        
+        return "redirect:/veranstaltungeinheit/"+aktVeranstaltungId;
+    }
+    
+    // ******************************** Löschen ************************************************************
+    
+	@RequestMapping(value="/veranstaltungeinheitupdate/{id}/loeschen", method = RequestMethod.POST)
+	public String loeschen(@PathVariable("id") long id) 
+	{
+		verEinRepository.deleteById(id);
+		
+		return "redirect:/veranstaltungeinheit/"+aktVeranstaltungId;
+	}
 }

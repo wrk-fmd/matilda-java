@@ -19,11 +19,11 @@
 		<div class="form-group"
         th:classappend="${#fields.hasErrors('wunschMaterial')}? 'has-error':''">
         <label for="wunschMaterial" class="control-label">WunschMaterial</label>
-        <input id="wunschMaterial"
-         type="number"
-         min="0"
-        class="form-control"
-        th:field="*{wunschMaterial}"/>
+				<select th:field="*{wunschMaterial}">
+					<option th:value="null">None</option>
+					<option th:each="wunschMaterial : ${wunschMaterialien}"
+						th:value="${wunschMaterial}" th:text="${wunschMaterial}"></option>
+				</select>
         <p class="error-message"
        	th:each="error: ${#fields.errors('wunschMaterial')}"
         th:text="${error}">Validation error</p>

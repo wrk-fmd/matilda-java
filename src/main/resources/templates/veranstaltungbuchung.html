@@ -20,7 +20,6 @@
 <tr>
 <th>Einheitentyp</th>
 <th>Materialtyp</th>
-<th>Materialien</th>
 <th>Standardmenge</th>
 <th>Wunschmaterial</th>
 <th>Wunschmenge</th>
@@ -30,22 +29,6 @@
 
 <td th:text="${vb.getEinheitentyp().getName()}"></td>	
 <td th:text="${vb.getMaterialtyp().getName()}"></td>
-        <td>
-          <table class="mainTable">
-            <tbody>
-              <tr>
-              <th>ID</th>
-              <th>Bezeichnung</th>
-		      <th>Bestand</th>
-              </tr>
-              <tr th:each="material,rowStat : ${vb.materialien}">   
-                <td th:text="${rowStat.count}"></td>   
-                <td th:text="${material.bezeichnung}"></td>
-                <td th:text="${material.bestand}"></td>
-              </tr>
-            </tbody>
-          </table>
-        </td>
 <td th:text="${vb.getStandardMenge()}"></td>
 <td th:text="${vb.getWunschMaterial()}"></td>
 <td th:text="${vb.getWunschMenge()}"></td>
