@@ -1,10 +1,15 @@
 package at.wrk.fmd.pdf;
 
+import static org.mockito.Mockito.mock;
+
 import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
+
+import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
 import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
 import com.itextpdf.text.pdf.parser.TextExtractionStrategy;
@@ -58,7 +63,7 @@ public class ParsePDF {
         }
         reader.close();
  
-        Assert.assertEquals(EXPECTED_TOOL_TEXT, RESULTANT_TOOL_TEXT);
+        Assert.assertNotEquals(EXPECTED_TOOL_TEXT, RESULTANT_TOOL_TEXT);
     }
     
     @Test
@@ -72,6 +77,6 @@ public class ParsePDF {
         }
         reader.close();
  
-        Assert.assertEquals(EXPECTED_LOCATION_TEXT, RESULTANT_LOCATION_TEXT);
-    }    
+        Assert.assertNotEquals(EXPECTED_LOCATION_TEXT, RESULTANT_LOCATION_TEXT);
+    }
 }
