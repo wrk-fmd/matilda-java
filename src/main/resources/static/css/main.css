@@ -139,7 +139,7 @@ footer p {
 	text-transform: none;
 	border: 2px solid #fff;
 	display: inline-block;
-	background: #b60e0ccc;
+	background: #b60e0cee;
 	margin-top: 20px;
 	box-shadow: #b60e0c 1px 1px 1px 1px;
 	cursor: pointer;
@@ -238,32 +238,3 @@ table.mainTabale input[type=text]{
 	font-size: 16px;
 	text-align: center;
 }
-
-/* ------------------ MINIMALIST ---------------------- 
-table.minimalistBlack {
-  text-align: center;
-  border-collapse: collapse;
-}
-table.minimalistBlack td, table.minimalistBlack th {
-  border: 1px solid #000000;
-  padding: 5px 4px;
-}
-table.minimalistBlack tbody td {
-  font-size: 13px;
-}
-table.minimalistBlack thead {
-  background: #CFCFCF;
-  background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-  background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-  background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-}
-table.minimalistBlack thead th {
-  font-size: 13px;
-  font-weight: bold;
-  color: #B60E0C;
-  text-align: center;
-}
-table.minimalistBlack tfoot td {
-  font-size: 14px;
-}
-*/

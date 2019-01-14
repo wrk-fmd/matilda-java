@@ -39,7 +39,7 @@
 		<div class="row"
         th:classappend="${#fields.hasErrors('menge')}? 'has-error':''">
          <div class="col-50">
-        <label for="menge" >Menge</label>
+        <label for="menge" >Einheit</label>
         <input id="menge" type="text" th:field="*{menge}"/>
          </div>
         <p class="error-message"
@@ -79,7 +79,7 @@
 <thead>
 <tr>
 <th>Name</th>
-<th>Menge</th>
+<th>Einheit</th>
 <th>Beschreibung</th>
 <th>Link</th>
 </tr>

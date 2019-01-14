@@ -89,6 +89,7 @@
 
                 <div class="form-group"
                      th:classappend="${#fields.hasErrors('rollen')}? 'has-error':''">
+                     <div sec:authorize="hasAuthority('ADMIN')">
                     <label for="rollen" class="control-label">Rollen: </label>
                     <input id="rollen"
                     	   type="radio"
@@ -105,6 +106,7 @@
                     	   value="BENUTZER" 
                            class="form-check-input radio-inline"
                            th:field="*{rollen}"/> BENUTZER <br>
+                     </div>
                     <p class="error-message"
                        th:each="error : ${#fields.errors('rollen')}"
                        th:text="${error}">Validation error</p>
@@ -133,7 +135,6 @@
 </script>
 <!-- used for toggling plain password -->
 
-<div th:replace="/fragment/footer :: footer"></div>
 
 </body>
 </html>

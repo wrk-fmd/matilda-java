@@ -9,7 +9,6 @@ input[type=text], input[type=date], input[type=number], input[type=url], input[t
 	border-radius: 4px;
 	resize: vertical;
 	font-size: 16px;
-	/*text-align: center;*/
 }
 
 label {
@@ -31,7 +30,7 @@ input[type=submit] {
 	text-transform: none;
 	border: 2px solid #fff;
 	display: inline-block;
-	background: #b60e0ccc;
+	background: #b60e0cee;
 	margin-top: 20px;
 	box-shadow: #b60e0c 1px 1px 1px 1px;
 	float: right;
