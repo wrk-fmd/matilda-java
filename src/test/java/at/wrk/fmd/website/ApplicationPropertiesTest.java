@@ -143,6 +143,22 @@ public class ApplicationPropertiesTest {
         assertEquals("UTF-8", env.getProperty(charset));
     }
     
+//    #############################################
+//    #           Matilda Settings                #
+//    #############################################
+
+    @Test
+    public void verifyMatildaMainsite() {
+        String charset = "matilda.mainsite";
+        assertEquals("Matilda Hauptseite", env.getProperty(charset));
+    }
+    
+    @Test
+    public void verifyMatildaVeranstaltung() {
+        String charset = "matilda.events";
+        assertEquals("Matilda Veranstaltung", env.getProperty(charset));
+    }
+    
     // General settings
     
     // ----------------------------------------------------------------------- //
