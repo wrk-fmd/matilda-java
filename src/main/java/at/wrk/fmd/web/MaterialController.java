@@ -1,5 +1,6 @@
 package at.wrk.fmd.web;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -209,48 +210,48 @@ public class MaterialController {
         aktMaterial = materialRepository.findById(id);
         aktMaterialId = aktMaterial.getId();
 
-        model.addAttribute("buchung", new Buchung(aktMaterial));
+        model.addAttribute("buchung", new at.wrk.fmd.pojo.Buchung(aktMaterial));
 
         return "buchung";
     }
 
     @RequestMapping(value = "/buchung", method = RequestMethod.POST)
-    public String btransaktionSpeichern(@ModelAttribute("buchung") @Valid Buchung buchung,
+    public String buchungSpeichern(Model model,@ModelAttribute("buchung") @Valid at.wrk.fmd.pojo.Buchung buchung,
             BindingResult result) {
-
+    	
     	buchung.setMaterial(aktMaterial);
-    	
-    	if(result.hasErrors()) {
-    		return "buchung";
-    	}
-		if(buchung.getArt().equals("stornieren"))
-		{
-			int x = aktMaterial.getBestand();
-			x = x + buchung.getMenge();
-			aktMaterial.setBestand(x);
-			materialRepository.save(aktMaterial);
-			      	
-			buchungRepository.save(buchung);
-			
-			return "redirect:/materialverwaltung/"+aktLagerId;
-		}
-    	
+    	   	
 		int x = aktMaterial.getBestand();
 		x = x - buchung.getMenge();
 		if(x<0)
 		{
 			result.rejectValue("menge", null, "Nicht genug Material im Lager!");
 		}	
+    	if(buchung.getVon().compareTo(buchung.getBis())>=0)
+    	{
+    		result.rejectValue("bis", null, "Das Ende der Buchung darf nicht vor dem Anfang sein!");
+    	}
     	if(result.hasErrors()) {
     		return "buchung";
     	}
-    	
-		aktMaterial.setBestand(x);
-		materialRepository.save(aktMaterial);
-		      	
-		
-		buchungRepository.save(buchung);
-		
+    	Buchung b = new Buchung();
+    	b.setMaterial(aktMaterial);
+    	b.setMenge(buchung.getMenge());
+    	b.setBeschreibung(buchung.getBeschreibung());
+    	if(b.getVeranstaltung()==null)
+    	{
+    		b.setVon(convertor(buchung.getVon()));
+    		b.setBis(convertor(buchung.getBis()));    		
+    	}
+    	else
+    	{
+    		b.setVon(buchung.getVeranstaltung().getBeginn());
+    		b.setBis(buchung.getVeranstaltung().getEnde());
+    	}	
+    	if(result.hasErrors()) {
+    		return "buchung";
+    	}
+		buchungRepository.save(b);		
 		return "redirect:/materialverwaltung/"+aktLagerId;
     	
 	} 
@@ -294,7 +295,7 @@ public class MaterialController {
     	return "redirect:/materialverwaltung/"+aktLagerId;
     }
     
-    // ****************************** Buchung Übersicht in letzten 30 Tagen **************
+    // ****************************** Lieferung Übersicht in letzten 30 Tagen **************
     
     @RequestMapping(value="/lieferungview/{id}", method=RequestMethod.GET)
     public String LieferungView(Model model, @PathVariable("id") long id)
@@ -328,7 +329,7 @@ public class MaterialController {
 		return "lieferungview";
     }
     
-    // ****************************** Lieferung Übersicht in letzten 30 Tagen **************
+    // ****************************** Buchung Übersicht in letzten 30 Tagen **************
     
     @RequestMapping(value="/buchungview/{id}", method=RequestMethod.GET)
     public String buchungView(Model model, @PathVariable("id") long id)
@@ -360,5 +361,10 @@ public class MaterialController {
 		}
 		
 		return "buchungview";
+    }
+    
+    private LocalDateTime convertor(String dateTime)
+    {
+    	return LocalDateTime.parse(dateTime);
     }
 }

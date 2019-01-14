@@ -1,40 +1,31 @@
-package at.wrk.fmd.model;
+package at.wrk.fmd.pojo;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
+import at.wrk.fmd.model.Lagerstandort;
+import at.wrk.fmd.model.Material;
+import at.wrk.fmd.model.Veranstaltung;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
-public class Buchung extends Audit
+public class Buchung
 {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
-	
 	@ManyToOne
 	@JoinColumn(name="material")
 	private Material material;
 	
 	private int menge;
-		
-	private LocalDateTime von;
 	
-	private LocalDateTime bis;
+	@NotBlank
+	private String von;
+	
+	@NotBlank
+	private String bis;
 	
 	@ManyToOne
 	@JoinColumn(name="veranstaltung")

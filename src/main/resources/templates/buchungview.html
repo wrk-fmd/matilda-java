@@ -20,20 +20,22 @@
 <tr>
 <th onclick="sortTable(0)">Bezeichnung</th>
 <th onclick="sortTable(1)">Menge</th>
-<th onclick="sortTable(2)">Art</th>
 <th onclick="sortTable(3)">Beschreibung</th>
 <th onclick="sortTable(4)">Erstellt am</th>
 <th onclick="sortTable(5)">Erstellt von</th>
+<th onclick="sortTable(4)">Von</th>
+<th onclick="sortTable(5)">Bis</th>
 </tr>
 </thead>
 <dl th:each="buchung : ${buchungsInLager}">
 <tr>
 <td th:text="${buchung.material.bezeichnung}"></td>
 <td th:text="${buchung.menge}"></td>
-<td th:text="${buchung.art}"></td>
 <td th:text="${buchung.beschreibung}"></td>
 <td th:text="${buchung.createdAt}"></td>
 <td th:text="${buchung.modifiedBy}"></td>
+<td th:text="${buchung.von}"></td>
+<td th:text="${buchung.bis}"></td>
 </tr>
 </table>
 </div>

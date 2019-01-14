@@ -367,7 +367,7 @@ public class VeranstaltungController {
 				{
 //					m.setBestand(m.getBestand()-vb.getWunschMenge());
 //					materialRepository.save(m);
-					Buchung buchung = new Buchung(m, vb.getWunschMenge() , "buchen", aktVeranstaltung, "AUTO-BUCHUNG");
+					Buchung buchung = new Buchung(m, vb.getWunschMenge(), aktVeranstaltung, "AUTO-BUCHUNG");
 					buchungRepository.save(buchung);
 					gebucht = true;
 				}

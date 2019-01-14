@@ -38,22 +38,6 @@
 			<h3>Buchungsschein</h3>
 
 			<div class="row"
-				th:classappend="${#fields.hasErrors('art')}? 'has-error':''">
-				<div class="col-50">
-				<label for="art">Art:</label>
-				<div>
-				 <input id="buchen" type="radio" value="buchen" th:field="*{art}" />
-				 <label for="buchen"><span><span></span></span>Buchen</label>
-				  <input id="stornieren" type="radio" value="stornieren" th:field="*{art}"/>
-				  <label for="stornieren"><span><span></span></span> Stornieren</label>
-				</div>
-				<p class="error-message" th:each="error: ${#fields.errors('art')}"
-					th:text="${error}">Validation error</p>
-				</div>
-			</div>
-
-
-			<div class="row"
 				th:classappend="${#fields.hasErrors('menge')}? 'has-error':''">
 				<div class="col-50">
 				<label for="menge" class="control-label">Menge</label> <input
@@ -90,9 +74,31 @@
 					th:text="${error}">Validation error</p>
 				</div>
 			</div>
+			
+			<div class="row"
+				th:classappend="${#fields.hasErrors('von')}? 'has-error':''">
+				<div class="col-50">
+				<label for="von" class="control-label">Von</label>
+				 <input id="von" type="datetime-local" th:field="*{von}"
+				  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} / [0-9]{2}:[0-9]{2}" placeholder="dd-mm-yyyy / hh:mm" />
+				</div>
+				<p class="error-message"
+					th:each="error: ${#fields.errors('von')}" th:text="${error}">Validation
+					error</p>
+			</div>
 
+			<div class="row"
+				th:classappend="${#fields.hasErrors('bis')}? 'has-error':''">
+				<div class="col-50">
+					<label for="bis" class="control-label">Bis</label> 
+					<input id="bis" type="datetime-local" th:field="*{bis}"
+					pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} / [0-9]{2}:[0-9]{2}" placeholder="dd-mm-yyyy / hh:mm" />
+				</div>
+				<p class="error-message" th:each="error: ${#fields.errors('bis')}"
+					th:text="${error}">Validation error</p>
+			</div>
 			<p>
-				<input type="submit" value="Bestätigen" onclick="goBack()"/>
+				<input type="submit" value="Bestätigen"/>
 			</p>
 			<button onclick="goBack()" class="bigButtons">Abbrechen</button>
 		<script>
