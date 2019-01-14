@@ -21,7 +21,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class VeranstaltungBuchung extends Audit
+public class VeranstaltungBuchung extends Audit implements Comparable<VeranstaltungBuchung>
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -43,7 +43,7 @@ public class VeranstaltungBuchung extends Audit
 	@JoinColumn(name="veranstaltung")
 	private Veranstaltung veranstaltung;
 	
-	private int wunschMaterial;
+	private String wunschMaterial;
 	
 	private int standardMenge;
 	
@@ -57,6 +57,7 @@ public class VeranstaltungBuchung extends Audit
 		this.materialtyp = materialtyp;
 		this.einheitentyp = einheitentyp;
 		this.standardMenge = standardMenge;
+		this.wunschMenge = standardMenge;
 		this.veranstaltung = veranstaltung;
 	}		
 	
@@ -70,4 +71,10 @@ public class VeranstaltungBuchung extends Audit
 		super();
 		this.einheitentyp = einheitentyp;
 	}	
+	
+    @Override
+    public int compareTo(VeranstaltungBuchung andere) {
+        return this.getEinheitentyp().getName().compareTo(andere.getEinheitentyp().getName());
+    }
+	
 }
