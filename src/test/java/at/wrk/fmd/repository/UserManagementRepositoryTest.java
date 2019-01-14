@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Date;
 import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import at.wrk.fmd.model.Benutzer;
 import at.wrk.fmd.model.Buchung;
 import at.wrk.fmd.model.Lagerstandort;
-import at.wrk.fmd.model.Material;
 import at.wrk.fmd.model.Veranstaltung;
 
 @RunWith(SpringRunner.class)

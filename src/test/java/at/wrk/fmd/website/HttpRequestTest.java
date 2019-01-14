@@ -23,7 +23,7 @@ public class HttpRequestTest {
 
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
+        assertThat(this.restTemplate.getForObject("https://localhost:" + port + "/",
                 String.class)).contains("einheitentyp");
     }
 }

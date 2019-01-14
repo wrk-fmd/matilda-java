@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.ui.Model;
 
@@ -18,18 +19,14 @@ import at.wrk.fmd.model.Lagerstandort;
 import at.wrk.fmd.model.Material;
 import at.wrk.fmd.model.Materialtyp;
 import at.wrk.fmd.model.Veranstaltung;
+import at.wrk.fmd.repository.LagerstandortRepository;
 import at.wrk.fmd.repository.MaterialRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MaterialControllerTest {
+public class MaterialControllerTest {	
 	@Autowired
 	private MaterialController materialController;
-	
-	@Autowired
-	private MaterialRepository materialRepository;
-	
-	@Autowired
 	private Lagerstandort lagerstandort;
     
 	//Simple test whether MaterialController isNotNull
@@ -42,8 +39,8 @@ public class MaterialControllerTest {
 	
 	@Before
 	public void setup() {
-//	    lagerstandort = new Lagerstandort();
-//	    lagerstandort.setAdresse("Wien-Kenyongasse");
+	    lagerstandort = new Lagerstandort();
+	    lagerstandort.setAdresse("Wien-Kenyongasse");
 	}
 	
     @Test
@@ -86,12 +83,5 @@ public class MaterialControllerTest {
         Model model = mock(Model.class);
 
         when(dummy.neuMaterial(model)).thenReturn("Test");
-    }
-    
-    @Test
-    public void findByIdMaterial() throws Exception {
-        Material m = materialRepository.findById(1L);
-        long size = m.getId();
-        assertThat(size);
-    }
+    }    
 }
