@@ -29,8 +29,8 @@
 					<div sec:authorize="hasAuthority('ADMIN')">
 						<a href="/mitarbeiterverwaltung">Mitarbeiterverwaltung</a>
 						<a href="/registration" th:text="#{benutzerregistrierung}"></a>
-						<a href="/passwordaenderung" th:text="#{passwort_aendern}"></a>
 					</div>
+						<a href="/passwordaenderung" th:text="#{passwort_aendern}"></a>
 					<div>
 						<a href="javascript: document.logoutForm.submit()" > Sign out </a>
 						<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
