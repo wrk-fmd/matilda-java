@@ -9,14 +9,16 @@
 			</div>
 			
 			<div class="dropdown">
+			<div sec:authorize="hasAuthority('ADMIN')">
 			<button class="dropbtn">Erstellen von:
 					<i class="fa fa-caret-down"></i>
-				 </button>
+			</button>
 				 <div class="dropdown-content">
 					<a href="/einheitentyp">Einheitentyp</a>
 					<a href="/mitarbeitertyp">Mitarbeitertyp</a>
 					<a href="/materialtyp">Materialtyp</a>
 				 </div>
+			 </div>
 			</div>
 			<a href="/lagerstandort" class="active">Lagerstandort</a>
 			<a href="/report" class="active">Report</a>

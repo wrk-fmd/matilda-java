@@ -1,91 +1,95 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head th:fragment="head">
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
- 	<link rel="import" href="/fragment/topnav.html">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
+<link rel="import" href="/fragment/topnav.html">
 </head>
-	<title th:text="@{${@environment.getProperty('matilda.events')}}"></title>
-	<body>
-		<head th:replace="/fragment/header :: header"></head>	
-		<div class="container">
-		    <div class="row">
-		        <div class="col-md-6 col-md-offset-3">
+<title th:text="@{${@environment.getProperty('matilda.events')}}"></title>
+<body>
+<head th:replace="/fragment/header :: header"></head>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
 
-					<form action="#" th:action="@{/mitarbeiterverwaltung}" th:object="${userForm}" method="post">
-					    <fieldset>
-					        <table border="1" class="mainTable" id="sortTable">
-					            <thead> 
-					                <tr>
-					                	<th th:text = "#{mitarbeiterverwaltung.active}"></th>
-					                	<th>ID</th>
-					                	<th th:text="#{benutzername}"></th>
-					                    <th th:text="#{anzeigename}"></th>
-					                    <th th:text="#{dienstnummer}"></th>
-					                </tr>
-					            </thead>
-					            <tbody>
-									<tr th:each="user, itemStat : *{users}">
-										<td><input	type="checkbox"
-													name="searchValues"
-													th:value="${user.id}"
-													th:checked="${user.isActive}"
-													th:onclick="${'inputClick('''+ itemStat.index +''')'}" /></td>
-									    <td><input type="text" th:field="*{users[__${itemStat.index}__].id}" 
-									    			readonly/></td>
-									    <td><input type="text" th:field="*{users[__${itemStat.index}__].username}" 
-									    			readonly/></td>
-									    <td><input	class="anzeigename" 
-									    			type="text" 
-									    			name="anzeigename" 
-									    			th:field="*{users[__${itemStat.index}__].anzeigename}" 
-									    			readonly/></td>
-									    <td><input	class="dienstnummer" 
-									    			type="text" 
-									    			name="dienstnummer" 
-									    			th:field="*{users[__${itemStat.index}__].dienstnummer}" 
-									    			readonly/></td>
-									</tr>
-					            </tbody>
-					        </table>
-					        <br />
-					        <div style="text-align:center;">
-								<input type="submit" id="submitButton" th:value="Speichern" name="submit"/>
-							</div>
-					    </fieldset>
-					</form>
+			<form action="#" th:action="@{/mitarbeiterverwaltung}"
+				th:object="${userForm}" method="post">
+				<fieldset>
+					<table border="1" class="mainTable" id="sortTable">
+						<thead>
+							<tr>
+								<th th:text="#{mitarbeiterverwaltung.active}"></th>
+								<th>ID</th>
+								<th th:text="#{benutzername}"></th>
+								<th th:text="#{anzeigename}"></th>
+								<th th:text="#{dienstnummer}"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="user, itemStat : *{users}">
+								<td><input type="checkbox" name="searchValues"
+									th:value="${user.id}" th:checked="${user.isActive}"
+									th:onclick="${'inputClick('''+ itemStat.index +''')'}" /></td>
+								<td><input type="text"
+									th:field="*{users[__${itemStat.index}__].id}" readonly /></td>
+								<td><input type="text"
+									th:field="*{users[__${itemStat.index}__].username}" readonly /></td>
+								<td><input class="anzeigename" type="text"
+									name="anzeigename"
+									th:field="*{users[__${itemStat.index}__].anzeigename}" readonly /></td>
+								<td><input class="dienstnummer" type="text"
+									name="dienstnummer"
+									th:field="*{users[__${itemStat.index}__].dienstnummer}"
+									readonly /></td>
+							</tr>
+						</tbody>
+					</table>
+					<br />
+					<div style="text-align: center;">
+						<input type="submit" id="submitButton" th:value="Speichern"
+							name="submit" />
 					</div>
+					<div>
+						 <a href="/registration" class="bigButtons" th:text="#{mitarbeiter_erstellen}"> </a> 
+					</div>
+				</fieldset>
+			</form>
+		</div>
 
-		            <div th:if="${param.success}">
-		                <div class="alert alert-info">
-		                    The user status was successfully changed.
-		                </div>
-		            </div>
-		         </div>
-		    </div>
-		
-			<script>	
-			$(function(){
-				$("input[type='checkBox']").change(function(){
-					var len = $("input[type='checkBox']:checked").length;
-				    if(len <= 0)
-						$("input[type='submit']").attr("disabled", true);
-				    else
-				    	$("input[type='submit']").removeAttr("disabled");
-				});
-				$("input[type='checkBox']").trigger('change');
-			});
-		    </script>
+		<div th:if="${param.success}">
+			<div class="alert alert-info">The user status was successfully
+				changed.</div>
+		</div>
+	</div>
+</div>
 
-		<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-		<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
-		<script type="text/javascript" th:src="@{/js/sortTable.js}"/></script>
-	</body>
+<script>
+	$(function() {
+		$("input[type='checkBox']").change(function() {
+			var len = $("input[type='checkBox']:checked").length;
+			if (len <= 0)
+				$("input[type='submit']").attr("disabled", true);
+			else
+				$("input[type='submit']").removeAttr("disabled");
+		});
+		$("input[type='checkBox']").trigger('change');
+	});
+</script>
+
+<script type="text/javascript"
+	th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+<script type="text/javascript"
+	th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/sortTable.js}" /></script>
+</body>
 </html>
