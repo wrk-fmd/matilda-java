@@ -150,7 +150,7 @@ public class MaterialController {
 
     @RequestMapping(value = "/lieferung/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
-    public String addNtransaktionForm(@PathVariable("id") long id, Model model) {
+    public String addLieferung(@PathVariable("id") long id, Model model) {
 
         aktMaterial = materialRepository.findById(id);
         aktMaterialId = aktMaterial.getId();
@@ -161,7 +161,7 @@ public class MaterialController {
     }
 
     @RequestMapping(value = "/lieferung", method = RequestMethod.POST)
-    public String ntransaktionSpeichern(
+    public String lieferungSpeichern(
             @ModelAttribute("lieferung") @Valid Lieferung lieferung, BindingResult result) {
 
     	lieferung.setMaterial(aktMaterial);
@@ -205,7 +205,7 @@ public class MaterialController {
     // ************************************* Buchungsschein - Buchung/Stornieren ************************************
 
     @RequestMapping(value = "/buchung/{id}", method = RequestMethod.GET)
-    public String addBuchungForm(@PathVariable("id") long id, Model model) {
+    public String addBuchung(@PathVariable("id") long id, Model model) {
 
         aktMaterial = materialRepository.findById(id);
         aktMaterialId = aktMaterial.getId();
