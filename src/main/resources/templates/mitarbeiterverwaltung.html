@@ -67,8 +67,7 @@
 		</div>
 
 		<div th:if="${param.success}">
-			<div class="alert alert-info">The user status was successfully
-				changed.</div>
+			<div class="alert alert-info" th:text="#{mitarbeiterverwaltung.status}"></div>
 		</div>
 	</div>
 </div>
