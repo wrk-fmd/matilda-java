@@ -17,9 +17,9 @@
 		<script th:inline="javascript">
 		
 		// currently, buttons have been deleted
-		/*<![CDATA[*/var list_day = [[#{calendar.list_day}]];/*]]>*/
-		/*<![CDATA[*/var list_week = [[#{calendar.list_week}]];/*]]>*/
-		/*<![CDATA[*/var list_month = [[#{calendar.list_month}]];/*]]>*/
+		var list_day = [[#{calendar.list_day}]];
+		var list_week = [[#{calendar.list_week}]];
+		var list_month = [[#{calendar.list_month}]];
 		
 		// reads language from browser, works for IE/SAFARI/CHROME/FF
 		var language = window.navigator.userLanguage || window.navigator.language;
@@ -32,7 +32,7 @@
 				header: {
 			    	left: 'prev',
 					center: 'title',
-					right: 'next'
+			        right: 'month,agendaWeek,agendaDay,listWeek'
 				},
 				// customize the button names,
 				// otherwise they'd all just say "list"
