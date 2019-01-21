@@ -67,6 +67,9 @@
 			</script>
 		</p>
     </form>
+    <form th:action="@{/materialeinheitupdate/{id}/loeschen(id=${materialtyp_einheitentyp.id})}" th:object="${materialtyp_einheitentyp}" method="post" >
+		<button type="submit" class="bigButtons">L&ouml;schen</button>
+	</form>
 </div>
 	
 </body>

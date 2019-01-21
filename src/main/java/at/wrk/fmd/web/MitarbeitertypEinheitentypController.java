@@ -116,4 +116,12 @@ public class MitarbeitertypEinheitentypController {
         mitEinRepository.save(existing);
         return "redirect:/mitarbeitereinheit/" + aktEinheitentypId;
     }
+    
+	@RequestMapping(value="/mitarbeitereinheitupdate/{id}/loeschen", method = RequestMethod.POST)
+	public String loeschen(@PathVariable("id") long id) 
+	{
+		mitEinRepository.deleteById(id);
+		
+		return "redirect:/mitarbeitereinheit/"+aktEinheitentypId;
+	}
 }

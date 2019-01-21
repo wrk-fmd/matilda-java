@@ -141,5 +141,13 @@ public class MaterialtypEinheitentypController {
 	    	    
     	matEinRepository.save(existing);       	
     	return "redirect:/materialeinheit/"+aktEinheitentypId;
-	}   
+	} 
+    
+	@RequestMapping(value="/materialeinheitupdate/{id}/loeschen", method = RequestMethod.POST)
+	public String loeschen(@PathVariable("id") long id) 
+	{
+		matEinRepository.deleteById(id);
+		
+		return "redirect:/materialeinheit/"+aktEinheitentypId;
+	}
 }
