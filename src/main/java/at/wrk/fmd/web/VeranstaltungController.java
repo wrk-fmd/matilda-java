@@ -486,30 +486,31 @@ public class VeranstaltungController {
     
     private int aktBestand(Material m)
     {
-    	int akt = m.getBestand();
-		List<Veranstaltung> doppelteVer = veranstaltungRepository.findByEndeGreaterThan(aktVeranstaltung.getBeginn());
-
-		if(!doppelteVer.isEmpty())
+    	int akt = m.getBestand();    	
+    		 
+		List<Buchung> buchungs = buchungRepository.findByMaterial(m);
+		
+		if(!buchungs.isEmpty())
 		{
-			for(Veranstaltung v : doppelteVer)
+			for(Buchung b : buchungs)
 			{
-				if(!v.getBeginn().isAfter(aktVeranstaltung.getEnde())||v.equals(aktVeranstaltung))
+				if(b.getVeranstaltung()!=null)
 				{
-					List<Buchung> buchungs = buchungRepository.findByVeranstaltung(v);
-					if(!buchungs.isEmpty())
+					if(b.getVeranstaltung().getEnde().isAfter(aktVeranstaltung.getBeginn()))
 					{
-						for(Buchung bu : buchungs)
-						{
-							if(bu.getMaterial().equals(m))
-							{
-								akt=akt-bu.getMenge();
-							}
-						}
+						akt = akt - b.getMenge();
 					}
 				}
-			}			    			
-		}		
-    	
+				else
+				{
+					if(b.getBis().isAfter(aktVeranstaltung.getBeginn()))
+					{
+						akt = akt - b.getMenge();
+					}
+				}
+			}
+		}
+		
 		return akt;
     }
 }

@@ -150,7 +150,7 @@ public class MaterialController {
 
     @RequestMapping(value = "/lieferung/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
-    public String addLieferung(@PathVariable("id") long id, Model model) {
+    public String addNtransaktionForm(@PathVariable("id") long id, Model model) {
 
         aktMaterial = materialRepository.findById(id);
         aktMaterialId = aktMaterial.getId();
@@ -161,7 +161,7 @@ public class MaterialController {
     }
 
     @RequestMapping(value = "/lieferung", method = RequestMethod.POST)
-    public String lieferungSpeichern(
+    public String ntransaktionSpeichern(
             @ModelAttribute("lieferung") @Valid Lieferung lieferung, BindingResult result) {
 
     	lieferung.setMaterial(aktMaterial);
@@ -205,7 +205,7 @@ public class MaterialController {
     // ************************************* Buchungsschein - Buchung/Stornieren ************************************
 
     @RequestMapping(value = "/buchung/{id}", method = RequestMethod.GET)
-    public String addBuchung(@PathVariable("id") long id, Model model) {
+    public String addBuchungForm(@PathVariable("id") long id, Model model) {
 
         aktMaterial = materialRepository.findById(id);
         aktMaterialId = aktMaterial.getId();
@@ -227,10 +227,10 @@ public class MaterialController {
 		{
 			result.rejectValue("menge", null, "Nicht genug Material im Lager!");
 		}	
-    	if(buchung.getVon().compareTo(buchung.getBis())>=0)
+    	if(buchung.getVon().compareTo(buchung.getBis())>=0 && buchung.getVeranstaltung()==null)
     	{
     		result.rejectValue("bis", null, "Das Ende der Buchung darf nicht vor dem Anfang sein!");
-    	}
+    	}   	
     	if(result.hasErrors()) {
     		return "buchung";
     	}
@@ -238,7 +238,7 @@ public class MaterialController {
     	b.setMaterial(aktMaterial);
     	b.setMenge(buchung.getMenge());
     	b.setBeschreibung(buchung.getBeschreibung());
-    	if(b.getVeranstaltung()==null)
+    	if(buchung.getVeranstaltung()==null)
     	{
     		b.setVon(convertor(buchung.getVon()));
     		b.setBis(convertor(buchung.getBis()));    		
@@ -247,6 +247,7 @@ public class MaterialController {
     	{
     		b.setVon(buchung.getVeranstaltung().getBeginn());
     		b.setBis(buchung.getVeranstaltung().getEnde());
+    		b.setVeranstaltung(buchung.getVeranstaltung());
     	}	
     	if(result.hasErrors()) {
     		return "buchung";

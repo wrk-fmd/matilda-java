@@ -21,10 +21,8 @@ public class Buchung
 	
 	private int menge;
 	
-	@NotBlank
 	private String von;
 	
-	@NotBlank
 	private String bis;
 	
 	@ManyToOne
