@@ -1,77 +1,99 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<style>
-			form
-			{
-  				text-align: center;
-			}
-		</style>
-		<title>Report</title>
-	</head>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<title>Report</title>
+</head>
 <body>
+<head th:replace="/fragment/header :: header"></head>
 
-	<h1 align="center">Report f&uuml;r informative Ansichten</h1>
+<h3>Report f&uuml;r informative Ansichten</h3>
 
-	<form name="datePickerForm" action="#" th:action="@{/pdf}" method="post" onsubmit="event.preventDefault(); validateForm();"> 
-    	<div>
-    		<p>Beginn:	<input name="datePickerBeginn" id="datePickerBeginn" type="date" min="1900-01-01" required></p>
-    	</div>
-		<div>
-    		<p>Ende: 	<input name="datePickerEnde" id="datePickerEnde" type="date" min="1900-01-01" required></p>
-    	</div>
-		<div>
-    		<p>Page format: </p>
-    		<select name="pageFormat">
-				<option value="A3">A3</option>
-  				<option value="A4">A4</option>
-			</select>
-    	</div>
-		<div>
-    		<p>PDF?: </p>
-    		<select name="whichReportToPrint">
-				<option value="ProStandort">Pro Standort</option>
-  				<option value="ProVeranstaltungAusgabeschein">Pro Veranstaltung Ausgabeschein</option>
-  				<option value="ProVeranstaltungPackliste">Pro Veranstaltung Packliste</option>
-			</select>
-    	</div>
-    	<span class="validity"></span>
-    	<br />
-    	<input type="submit" value="PDF Ausgabe erzeugen"/>
-	</form>
+<div class="container">
+	<form name="datePickerForm" action="#" th:action="@{/pdf}" th:target="_blank" method="post" onsubmit="event.preventDefault(); validateForm();">
+	<div class="row">
+		<div class="col-50">
+			<p>
+				Beginn: 
+				 			<input name="datePickerBeginn" id="datePickerBeginn"
+					type="date" min="1900-01-01" required>
+						</p>
+		</div>
+	</div>
+	<div class="row">
+		 <div class="col-50">
+			<p>
+				Ende: <input name="datePickerEnde" id="datePickerEnde" type="date"
+					min="1900-01-01" required>
+			</p>
+		</div>
+	</div>
+	<div class="row">
+	 <div class="col-50">
+		<p>Page format:</p>
+		<select name="pageFormat">
+			<option value="A3">A3</option>
+			<option value="A4">A4</option>
+		</select>
+	</div>
+	</div>
+	<div class="row">
+	 <div class="col-50">
+		<p>PDF?:</p>
+		<select name="whichReportToPrint">
+			<option value="ProStandort">Pro Standort</option>
+			<option value="ProVeranstaltungAusgabeschein">Pro
+				Veranstaltung Ausgabeschein</option>
+			<option value="ProVeranstaltungPackliste">Pro Veranstaltung
+				Packliste</option>
+		</select>
+	</div>
+	</div>
+	<div class="row">
+	<span class="validity"></span> <br /> 
+	<input type="submit"	value="PDF Ausgabe erzeugen" />
+	</div>
+</form>
+</div>
 
-	<script>
-		//Declare variables
-		var today = new Date();
-		
-		// Set values
-		$("#datePickerBeginn").val(getFormattedDate(today));
-		$("#datePickerEnde").val(getFormattedDate(today));
-		
-		// Get date formatted as YYYY-MM-DD
-		function getFormattedDate (date) {
-		    return date.getFullYear()
-		        + "-"
-		        + ("0" + (date.getMonth() + 1)).slice(-2)
-		        + "-"
-		        + ("0" + date.getDate()).slice(-2);
+
+
+<script>
+	//Declare variables
+	var today = new Date();
+
+	// Set values
+	$("#datePickerBeginn").val(getFormattedDate(today));
+	$("#datePickerEnde").val(getFormattedDate(today));
+
+	// Get date formatted as YYYY-MM-DD
+	function getFormattedDate(date) {
+		return date.getFullYear() + "-"
+				+ ("0" + (date.getMonth() + 1)).slice(-2) + "-"
+				+ ("0" + date.getDate()).slice(-2);
+	}
+
+	function validateForm() {
+		var dateBeginn = new Date($('input[name="datePickerBeginn"]').val());
+		var dateEnde = new Date($('input[name="datePickerEnde"]').val());
+
+		if (dateBeginn.getTime() > dateEnde.getTime()) {
+			alert('Ende Datum muss gr&ouml;sser oder gleich Beginn Datum sein!');
+			returnToPreviousPage();
+		} else {
+			document.forms['datePickerForm'].submit();
 		}
-		
-		function validateForm() {
-			var dateBeginn = new Date($('input[name="datePickerBeginn"]').val());
-			var dateEnde = new Date($('input[name="datePickerEnde"]').val());
-			
-			if (dateBeginn.getTime() > dateEnde.getTime()) 
-			{
-				alert('Ende Datum muss gr&ouml;sser oder gleich Beginn Datum sein!');
-		        returnToPreviousPage();
-		    }
-			else
-			{
-				document.forms['datePickerForm'].submit();
-			}
-		 }
-	</script>
-	</body>
+	}
+</script>
+</body>
 </html>
