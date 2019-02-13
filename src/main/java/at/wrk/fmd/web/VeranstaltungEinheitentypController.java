@@ -112,6 +112,7 @@ public class VeranstaltungEinheitentypController {
             return "veranstaltungeinheitupdate";
         }
         exicting.setEinheitentyp(veranstaltung_einheitentyp.getEinheitentyp());
+        exicting.setBezeichnung(veranstaltung_einheitentyp.getBezeichnung());
         verEinRepository.save(exicting);
         
         return "redirect:/veranstaltungeinheit/"+aktVeranstaltungId;
