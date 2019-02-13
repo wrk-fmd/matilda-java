@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import at.wrk.fmd.model.Buchung;
+import at.wrk.fmd.model.Material;
 import at.wrk.fmd.model.Veranstaltung;
 
 
@@ -15,5 +16,7 @@ public interface BuchungRepository extends JpaRepository<Buchung, Long>{
 	List<Buchung> findByCreatedAtGreaterThan(Date createdAt);
 	
 	List<Buchung> findByVeranstaltung(Veranstaltung veranstaltung);
+	
+	List<Buchung> findByMaterial(Material material);
 }
 
