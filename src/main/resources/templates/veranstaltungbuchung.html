@@ -42,6 +42,9 @@
 <form action="#" th:action="@{/veranstaltungbuchung}" th:object="${veranstaltungBuchung}" method="post">
 <p><input type="submit" value="Buchen" class="bigButtons" /> </p>
 </form>
+<form th:action="@{/reset}" th:object="${veranstaltung}" method="post" >
+	<button type="submit" onclick="return Confirm('sicher?')" class="bigButtons">Reset</button>
+</form>
 <div class="container">
 			<div th:if="${param.nomaterial}">
 				<div class="alert alert-info">Kein Material vorhanden</div>

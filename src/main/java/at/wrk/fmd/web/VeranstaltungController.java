@@ -394,6 +394,127 @@ public class VeranstaltungController {
 		return "veranstaltung";
 	}
 	
+    @RequestMapping(value="/reset", method=RequestMethod.POST)
+    public String reset(Model model)
+    {
+    	
+    	List<VeranstaltungBuchung> verb = veranstaltungBuchungRepository.findByVeranstaltung(aktVeranstaltung);
+    	veranstaltungBuchungRepository.deleteAll(verb);
+    	
+    	Veranstaltung existing = aktVeranstaltung;
+		if(existing.getZustand().equals("In Bearbeitung"))
+		{
+			List<VeranstaltungBuchung> ver = veranstaltungBuchungRepository.findByVeranstaltung(existing);
+			//wenn noch kein Pojosklasse erstellt ist
+			if(ver.isEmpty())
+			{
+				List<Veranstaltung_Einheitentyp> verein = verEinRepository.findByVeranstaltung(existing);
+				
+		    	if(!verein.isEmpty())
+		    	{	    
+		    		List<Einheitentyp> einheitentyps = new ArrayList<>();
+		    		
+		    		// alle Einheitentypen die der Veranstaltung zugewiesen sind
+		    		for(Veranstaltung_Einheitentyp ve : verein)
+		    		{
+		    			einheitentyps.add(ve.getEinheitentyp());
+		    		}
+		    		
+		    		List<Materialtyp_Einheitentyp> matein = new ArrayList<>();
+		    		
+		    		for(Einheitentyp e : einheitentyps)
+		    		{
+		    			matein.addAll(matEinRepository.findByEinheitentyp(e));
+		    		}	
+		    		
+		    		ArrayList<VeranstaltungBuchung> verbuch = new ArrayList<>();
+		    		
+		    		if(!matein.isEmpty())
+		    		{	    
+			    		// Buchungsliste (auswahllist) befüllen(Pojosklasse)
+		    			for(Materialtyp_Einheitentyp me : matein)
+		    			{	   
+		    				
+		    				verbuch.add(new VeranstaltungBuchung(me.getMaterialtyp(),me.getEinheitentyp(), me.getManzahl(), existing));
+		    			}	    				    			
+		    			
+		    			for(VeranstaltungBuchung vb : verbuch)
+		    			{	 
+		    				
+		    				List<Material> materials = materialRepository.findByMaterialtyp(vb.getMaterialtyp());
+		    					    				
+		    				if(!materials.isEmpty())
+		    				{
+		    					// alle Materialtypen die der Veranstaltung zugewiesen sind
+		    					for (Iterator<Material> iterator = materials.iterator(); iterator.hasNext();) {
+		    					    Material ma = iterator.next();
+		    					    if(ma.getLagerstandort().getId()!=aktVeranstaltung.getLagerstandort().getId()||!ma.isEinsatzbereitschaft()
+		    					    		|| ma.getBestand()==0) {
+		    					        iterator.remove();
+		    					    }
+		    					}
+		    					
+		    					// alle Materialien die der Veranstaltung zugewiesen sind und Einsatzbereit und im Standardlager sind
+		    					for(Material ma : materials)
+		    					{
+		    						if(ma.getLagerstandort().getId()!=aktVeranstaltung.getLagerstandort().getId()||!ma.isEinsatzbereitschaft())
+		    						{
+		    							materials.remove(ma);
+		    						}	    					
+		    					}
+			    				if(!materials.isEmpty())
+			    				{			    					
+			    					vb.setMaterialien(materials);
+			    					vb.setWunschMaterial(materials.get(0).getBezeichnung()+" ("+aktBestand(materials.get(0))+")");
+			    				}
+		    				}  
+		    				List<Material> m = vb.getMaterialien();
+		    				if(m == null)
+		    				{
+		    					vb.setStatus("Nicht vorhanden im Lager");
+		    				}
+		    				else
+		    				{
+		    					vb.setStatus("vorhanden im Lager");
+		    				}
+		    			}	  	    				    	
+		    			//wenn noch eine Pojosklasse (veranstaltungbuchung) erstellt ist		    			
+		    			if(!verbuch.isEmpty())
+		    			{	
+		    				veranstaltungBuchungs = verbuch;
+		    				veranstaltungBuchungRepository.saveAll(veranstaltungBuchungs);
+		    				veranstaltungBuchungWrapper.setBuchungList(veranstaltungBuchungs);
+		    				
+		    				
+		    				model.addAttribute("veranstaltungBuchungWrapper",veranstaltungBuchungWrapper);
+		    				
+		    				return "veranstaltungbuchung"; 	    				
+		    			}	    				    			
+		    			else
+		    			{
+		    				return "redirect:/veranstaltung?lager";
+		    			}
+		    		}
+		    		else
+		    		{
+		    			return "redirect:/veranstaltung?material";
+		    		}
+		    		
+		    	}
+		    	else
+		    	{
+		    		return "redirect:/veranstaltung?einheit"; 
+		    	}
+			}
+		}
+		else
+		{
+	    	return "redirect:/veranstaltung?gebucht"; 
+		}
+		
+		return "redirect:/veranstaltung"; 
+    }
+	
 	// Wunschmenge ändern (Standardvalue ändern)
 	
     @RequestMapping(value = "/veranstaltungbuchungupdate/{id}", method = RequestMethod.GET)
@@ -477,7 +598,7 @@ public class VeranstaltungController {
 		}
 		
 		return "veranstaltunggebucht";
-    }
+    }  
         
     private LocalDateTime convertor(String dateTime)
     {
