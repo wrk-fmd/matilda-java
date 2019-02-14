@@ -14,6 +14,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -87,7 +90,6 @@ public class LoginWebsiteTest {
     @Test
     public void commitButton() {
         driver.get("https://localhost:" + port + "/login");
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         
         driver.findElement(By.id("username")).sendKeys("ADMIN");
         driver.findElement(By.id("password")).sendKeys("#WRK#");
@@ -95,6 +97,79 @@ public class LoginWebsiteTest {
 
         String title = driver.getTitle();
         assertTrue(title.contains("Matilda Hauptseite"));
+    }
+    
+    @Test
+    public void isLagerstandortLinkAvailable() {
+        driver.get("https://localhost:" + port + "/login");
+        
+        driver.findElement(By.id("username")).sendKeys("ADMIN");
+        driver.findElement(By.id("password")).sendKeys("#WRK#");
+        driver.findElement(By.id("login-submit")).click();
+
+        String standort = driver.findElement(By.linkText("Lagerstandort")).getText();
+
+        assertTrue(standort.contains("Lagerstandort"));
+    }
+    
+    @Test
+    public void isReportLinkAvailable() {
+        driver.get("https://localhost:" + port + "/login");
+        
+        driver.findElement(By.id("username")).sendKeys("ADMIN");
+        driver.findElement(By.id("password")).sendKeys("#WRK#");
+        driver.findElement(By.id("login-submit")).click();
+
+        String report = driver.findElement(By.linkText("Report")).getText();
+
+        assertTrue(report.contains("Report"));
+    }
+    
+    @Test
+    public void isEinheitentypLinkAvailable() {
+        driver.get("https://localhost:" + port + "/login");
+        
+        driver.findElement(By.id("username")).sendKeys("ADMIN");
+        driver.findElement(By.id("password")).sendKeys("#WRK#");
+        driver.findElement(By.id("login-submit")).click();
+
+//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//        
+//        Actions act = new Actions(driver);
+//        WebDriverWait wait = new WebDriverWait(driver, 3);
+//        WebElement electronics = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("dropdown-content")));
+//        act.moveToElement(electronics).perform();
+//        WebElement camera_n_photo = driver.findElement(By.xpath("//li/a[@href='/einheitentyp']//following::ul/li/a"));
+//        camera_n_photo.click();
+//        System.out.println("Camera & photo Clicked.");
+    }
+    
+    @Test
+    public void isReportWebsiteAvailableAndClickable() {
+        driver.get("https://localhost:" + port + "/login");
+        
+        driver.findElement(By.id("username")).sendKeys("ADMIN");
+        driver.findElement(By.id("password")).sendKeys("#WRK#");
+        driver.findElement(By.id("login-submit")).click();
+
+        driver.findElement(By.xpath("//a[@href='/report']")).click();
+        
+        String title = driver.getTitle();
+        assertTrue(title.contains("Report"));
+    }
+    
+    @Test
+    public void isLagerstandortWebsiteAvailableAndClickable() {
+        driver.get("https://localhost:" + port + "/login");
+        
+        driver.findElement(By.id("username")).sendKeys("ADMIN");
+        driver.findElement(By.id("password")).sendKeys("#WRK#");
+        driver.findElement(By.id("login-submit")).click();
+
+        driver.findElement(By.xpath("//a[@href='/lagerstandort']")).click();
+        
+        String title = driver.getTitle();
+        assertTrue(title.contains("Lagerstandort"));
     }
     
     @AfterClass
