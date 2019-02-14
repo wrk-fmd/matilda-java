@@ -3,45 +3,58 @@
 <head>
     <title>Einheitentyp Aktualisieren</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+	<head th:replace="/fragment/header :: header"></head>
 </head>
 <body>
-	<h1>Einheitentyp</h1>
+	<h2>Einheitentyp verändern</h2>
+<div class="container">
     <form action="#" th:action="@{/veranstaltungeinheitupdate/{id}(id=${veranstaltung_einheitentyp.id})}" th:object="${veranstaltung_einheitentyp}" method="post">
-    
-	    <p class="error-message"
+      <p class="error-message"
 	    th:if="${#fields.hasGlobalErrors()}"
 	    th:each="error : ${#fields.errors('global')}"
  		th:text="${error}">Validation error</p>
                    
-		<div class="form-group"
+		<div class="row"
         th:classappend="${#fields.hasErrors('einheitentyp')}? 'has-error':''">
-        <label for="einheitentyp" class="control-label">Einheitentyp</label>
-        <select th:field="*{einheitentyp}">
-  			<option th:each="einheitentyp : ${alleEinheitentypen}" 
-         	 th:value="${einheitentyp.id}" 
-       	     th:text="${einheitentyp.name}"></option>
-		</select></p>
-		<p class="error-message"
-       	th:each="error: ${#fields.errors('einheitentyp')}"
-        th:text="${error}">Validation error</p>
+	        <div class="col-50">
+	        <label for="einheitentyp" class="control-label">Einheitentyp</label>
+	        <select th:field="*{einheitentyp}">
+	  			<option th:each="einheitentyp : ${alleEinheitentypen}" 
+	         	 th:value="${einheitentyp.id}" 
+	       	     th:text="${einheitentyp.name}"></option>
+			</select></p>
+			</div>
+			<p class="error-message"
+	       	th:each="error: ${#fields.errors('einheitentyp')}"
+	        th:text="${error}">Validation error</p>
        	</div>
        	
-       	<div class="form-group"
+       	<div class="row"
         th:classappend="${#fields.hasErrors('bezeichnung')}? 'has-error':''">
-        <label for="bezeichnung" class="control-label">Bezeichnung</label>
-    	<input type="text" th:field="*{bezeichnung}" /></p>
+	        <div class="col-50">
+	        <label for="bezeichnung" class="control-label">Bezeichnung</label>
+	    	<input type="text" th:field="*{bezeichnung}" /></p>
+	    	</div>
    		<p class="error-message"
        	th:each="error: ${#fields.errors('bezeichnung')}"
         th:text="${error}">Validation error</p>
        	</div>
        	
-        <p><input type="submit" value="Submit" /> </p>
+        <p><input type="submit" value="Ändern" /> </p>
         <td>
     </form>
     <form th:action="@{/veranstaltungeinheitupdate/{id}/loeschen(id=${veranstaltung_einheitentyp.id})}" th:object="${veranstaltung_einheitentyp}" method="post" >
-		<button type="submit" onclick="return Confirm('sicher?')">L&ouml;schen</button>
+		<button class="bigButtons" type="submit" onclick="return Confirm('sicher?')">L&ouml;schen</button>
 	</form>
-	<button onclick="goBack()">Abbrechen</button>
+	</div>
+	<hr/>
+	<button class="bigButtons" onclick="goBack()">Abbrechen</button>
 	<script>
 	function goBack() {
 	    window.history.back();

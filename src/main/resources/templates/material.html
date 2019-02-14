@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/> 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
  	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
- 	<link rel="import" href="/fragment/topnav.html">
 </head>
 <body class="genBackground">
 		<head th:replace="/fragment/header :: header"></head>	
@@ -19,28 +19,37 @@
 <table class="mainTable">
 <thead>
 <tr>
-<th>Name</th>
-<th>Adresse</th>
+	<th>Name</th>
+	<th>Adresse</th>
+	<th class="CellWithComment"><i class="far fa-question-circle"></i>
+		<span class="CellComment" >Bearbeiten des Materials</span>
+	</th>
+	<th class="CellWithComment">!
+		<span class="CellComment" >Übersicht über die Lieferungen der letzten 30 Tage/Lager</span>
+	</th>
+	<th class="CellWithComment">!
+		<span class="CellComment" >Übersicht über die Buchungen der letzten 30 Tage/Lager</span>
+	</th>
 </tr>
 </thead>
 <dl th:each="lagerstandort : ${lagerstandorten}">
 <tr>
-<td th:text="${lagerstandort.name}"></td>
-<td th:text="${lagerstandort.adresse}"></td>
-<td>
-	<a href="#" data-th-href="@{/materialverwaltung/{id}(id=${lagerstandort.id})}">
-	<input type="Button" value="Material" class="buttons"/>
-	</a>
-</td>
-<td>
-	<a href="#" data-th-href="@{/lieferungview/{id}(id=${lagerstandort.id})}">
-	<input type="Button" value="Lieferungen" class="buttons"/>
-	</a>
-</td>
-<td>
-	<a href="#" data-th-href="@{/buchungview/{id}(id=${lagerstandort.id})}">
-	<input type="Button" value="Buchungen" class="buttons"/>
-	</a>
+	<td th:text="${lagerstandort.name}"></td>
+	<td th:text="${lagerstandort.adresse}"></td>
+	<td>
+		<a href="#" data-th-href="@{/materialverwaltung/{id}(id=${lagerstandort.id})}">
+		<input type="Button" value="Material" class="buttons"/>
+		</a>
+	</td>
+	<td>
+		<a href="#" data-th-href="@{/lieferungview/{id}(id=${lagerstandort.id})}">
+		<input type="Button" value="Lieferungen" class="buttons"/>
+		</a>
+	</td>
+	<td>
+		<a href="#" data-th-href="@{/buchungview/{id}(id=${lagerstandort.id})}">
+		<input type="Button" value="Buchungen" class="buttons"/>
+		</a>
 </td>
 </tr>
 </table>

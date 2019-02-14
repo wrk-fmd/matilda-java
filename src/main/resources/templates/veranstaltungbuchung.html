@@ -10,39 +10,46 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
  	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
  	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
- 	<link rel="import" href="/fragment/topnav.html">
  	<head th:replace="/fragment/header :: header"></head>
 </head>
 	<body>
 <h2>Buchung für Veranstaltung</h2>
-
-<table class="mainTable">
-<tr>
-<th>Einheitentyp</th>
-<th>Materialtyp</th>
-<th>Standardmenge</th>
-<th>Wunschmaterial</th>
-<th>Wunschmenge</th>
-</tr>
-
-<tr  th:each="vb : ${veranstaltungBuchungWrapper.buchungList}">
-
-<td th:text="${vb.getEinheitentyp().getName()}"></td>	
-<td th:text="${vb.getMaterialtyp().getName()}"></td>
-<td th:text="${vb.getStandardMenge()}"></td>
-<td th:text="${vb.getWunschMaterial()}"></td>
-<td th:text="${vb.getWunschMenge()}"></td>
-<td>
-<a href="#" data-th-href="@{/veranstaltungbuchungupdate/{id}(id=${vb.id})}">
-<input type="button" value="Bearbeiten" class="buttons"/>
-</a>
-</td>		
-</tr>
-</table>
-<form action="#" th:action="@{/veranstaltungbuchung}" th:object="${veranstaltungBuchung}" method="post">
-<p><input type="submit" value="Buchen" class="bigButtons" /> </p>
-</form>
 <div class="container">
+<table class="mainTable">
+	<tr>
+		<th>Einheitentyp</th>
+		<th>Materialtyp</th>
+		<th>Standardmenge</th>
+		<th>Wunschmaterial</th>
+		<th>Wunschmenge</th>
+	</tr>
+	<tr  th:each="vb : ${veranstaltungBuchungWrapper.buchungList}">
+		<td th:text="${vb.getEinheitentyp().getName()}"></td>	
+		<td th:text="${vb.getMaterialtyp().getName()}"></td>
+		<td th:text="${vb.getStandardMenge()}"></td>
+		<td th:text="${vb.getWunschMaterial()}"></td>
+		<td th:text="${vb.getWunschMenge()}"></td>
+		<td>
+			<a href="#" data-th-href="@{/veranstaltungbuchungupdate/{id}(id=${vb.id})}">
+			<input type="button" value="Bearbeiten" class="buttons"/>
+			</a>
+		</td>		
+	</tr>
+</table>
+	<form action="#" th:action="@{/veranstaltungbuchung}" th:object="${veranstaltungBuchung}" method="post">
+		<p><input type="submit" value="Buchen" class="bigButtons" /> </p>
+	</form>
+<input type="button" value="Zurück" onClick="gotoVeranstaltung()" class="bigButtons"/>
+			<script>
+				function gotoVeranstaltung()
+				{
+					window.location.href="../veranstaltung";
+				}
+			</script>
+<form th:action="@{/reset}" th:object="${veranstaltung}" method="post" >
+	<button type="submit" onclick="return Confirm('sicher?')" class="bigButtons">Reset</button>
+</form>
+	
 			<div th:if="${param.nomaterial}">
 				<div class="alert alert-info">Kein Material vorhanden</div>
 			</div>

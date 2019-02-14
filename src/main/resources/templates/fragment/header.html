@@ -3,10 +3,9 @@
 		<div class="topnav" id="myTopnav" th:fragment="header">
 		<!--	<img class="logo" src="./Pictures/WRK_Logo.jpg" alt="Logo"> -->
 			<a href="/" class="active">MATILDA</a>
-			<div class="dropdown">
+			
 				<a href="/material" class="active">Material</a>
 				<a href="/veranstaltung" class="active">Veranstaltung</a>
-			</div>
 			
 			<div class="dropdown">
 			<div sec:authorize="hasAuthority('ADMIN')">
@@ -20,9 +19,11 @@
 				 </div>
 			 </div>
 			</div>
-			<a href="/lagerstandort" class="active">Lagerstandort</a>
+			<div sec:authorize="hasAuthority('ADMIN')">
+				<a href="/lagerstandort" class="active">Lagerstandort</a>
+			</div>
 			<a href="/report" class="active">Report</a>
-
+			
 			<div class="dropdownAdmin">
 				<button class="dropbtnAdmin" th:text="#{konto}">
 					<i class="fa fa-caret-down"></i>

@@ -1,18 +1,17 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>  -->
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head >
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
+<head th:replace="/fragment/header :: header"></head>
 <title>Verantaltung hinzufügen</title>
 </head>
-<body>
 	<h3>Eine neue Veranstaltung erstellen</h3>
 <body>
 	<div class="container">
@@ -80,14 +79,11 @@
 					}
 				</script>
 			</p>
-			<!-- Buttons zu Einheitentyp, Buchen einfügen, dann erst Submit
-			(nicht möglich weil dann neue Veranstaltung nicht submitted wird?) -->
-        	
-        	
 		</form>
 	</div>
+</body>
 	<script type="text/javascript"
 		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 	<script type="text/javascript"
 		th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
-</body>
+</html>

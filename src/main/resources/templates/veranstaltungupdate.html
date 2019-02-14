@@ -9,11 +9,11 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
-	
+	<head th:replace="/fragment/header :: header"></head>
     <title>Materialtyp Aktualisieren</title>
 </head>
 <body>
-	<h1>Veranstaltung</h1>
+	<h2>Veranstaltung ändern</h2>
 <div class="container">
     <form action="#" th:action="@{/veranstaltungupdate/{id}(id=${veranstaltung.id})}" th:object="${veranstaltung}" method="post">
     	

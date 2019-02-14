@@ -1,32 +1,45 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head th:fragment="head">
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
- 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
- 	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
- 	<link rel="import" href="/fragment/topnav.html">
-</head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/modal.css}" />
+<head th:replace="/fragment/header :: header"></head>
 <body class="genBackground">
-		<head th:replace="/fragment/header :: header"></head>	
 		
-		<title th:text="@{${@environment.getProperty('matilda.events')}}"></title>
 <h2>Übersicht Veranstaltungen</h2>
 <div th:unless="${#lists.isEmpty(veranstaltungen)}">
 <table class="mainTable" id="sortTable">
 <thead>
-<tr>
-<th edite="false">Name</th>
-<th>Lagerstandort</th>
-<th>Beginn</th>
-<th>Ende</th>
-<th>Zustand</th>
-<th>Ersteller</th>
-</tr>
+	<tr>
+		<th th:edit="false">Name</th>
+		<th>Lagerstandort</th>
+		<th>Beginn</th>
+		<th>Ende</th>
+		<th>Zustand</th>
+		<th>Ersteller</th>
+		<th class="CellWithComment">!
+			<span class="CellComment" >Ändern der Veranstaltung</span>
+		</th>
+		<th class="CellWithComment">!
+			<span class="CellComment" >Der Veranstaltung Einheitentypen zuweisen</span>
+		</th>
+		<th class="CellWithComment">!
+			<span class="CellComment" >Buchungen zu der Veranstaltung</span>
+		</th>
+		<th class="CellWithComment">!
+			<span class="CellComment" >Liste des gebuchten Materials</span>
+		</th>
+	</tr>
 </thead>
 <dl th:each="veranstaltung : ${veranstaltungen}">
 <tr>
@@ -37,35 +50,55 @@
 <td th:text="${veranstaltung.zustand}"></td>
 <td th:text="${veranstaltung.modifiedBy}"></td>
 <td>
-	<a href="#" data-th-href="@{/veranstaltungupdate/{id}(id=${veranstaltung.id})}">
-	<input type="Button" value="Ändern" class="buttons"/>
+	 <a href="#" data-th-href="@{/veranstaltungupdate/{id}(id=${veranstaltung.id})}">
+	<input type="Button" value="Ändern" class="buttons" />
 	</a>
 </td>
 <td>
 	<a href="#" data-th-href="@{/veranstaltungeinheit/{id}(id=${veranstaltung.id})}">
-	<input type="Button" value="Einheitentyp" class="buttons"/>
+	<input type="Button" value="Einheitentyp" class="buttons" />
 	</a>
 </td>
 <td>
 	<a href="#" data-th-href="@{/veranstaltungbuchung/{id}(id=${veranstaltung.id})}">
-	<input type="Button" value="Buchen" class="buttons"/>
+		<input type="Button" value="Buchen" class="buttons" />
 	</a>
 </td>
 <td>
 	<a href="#" data-th-href="@{/veranstaltunggebucht/{id}(id=${veranstaltung.id})}">
-	<input type="Button" value="gebuchtes Material" class="buttons"/>
+		<input type="Button" value="gebuchtes Material" class="buttons" />
 	</a>
 </td>
 </tr>
-</table>
+
+		</table>
 </div>
 <div th:if="${#lists.isEmpty(veranstaltungen)}">
 <p>Es gibt keine Veranstaltung</p>
 </div>
 	<a href="#" data-th-href="@{/neuveranstaltung}">
-	<input type="Button" value="neue Veranstaltung erstellen" class="bigButtons"/>
+		<input type="Button" value="neue Veranstaltung erstellen" class="bigButtons" />
 	</a>
-<hr/>
+<hr>
+
+<!-- ######## W3SCHOOL MODAL ANFANG ######## -->
+   <!-- Trigger/Open The Modal -->
+<button id="myBtn" class="buttons">Ignore this button</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    
+  <head th:replace="/fragment/header :: header"></head>
+     <!-- div th:insert="/fragment/NeuVeran :: NeuVeranModal"></div>  -->
+  </div>
+</div> 
+<!-- ######## W3SCHOOL MODAL ENDE ######## -->
+
+<hr />
             <div th:if="${param.success}">
                 <div class="alert alert-info">
                     Die neue Veranstaltung wurde erfolgreich eingetragen!
@@ -78,17 +111,17 @@
             </div>           
             <div th:if="${param.gebucht}">
                 <div class="alert alert-info">
-                    Die Veralstaltung wurde schon gebucht!
+                    Die Veranstaltung wurde schon gebucht!
                 </div>
             </div>    
             <div th:if="${param.einheit}">
                 <div class="alert alert-info">
-                    Für diese Veralstaltung wurde noch keinen Einheitentyp zugewiesen!
+                    Für diese Veranstaltung wurde noch keine Einheitentyp zugewiesen!
                 </div>
             </div>
             <div th:if="${param.material}">
                 <div class="alert alert-info">
-                    Es gibt kein Eintrag in der Tabelle: Materialtyp-Einheitentyp!
+                    Es gibt keinen Eintrag in der Tabelle: Materialtyp-Einheitentyp!
                 </div>
             </div>
             <div th:if="${param.lager}">
@@ -116,6 +149,10 @@
                    	Gebuchte Materialien wurde storniert.
                 </div>
             </div>
-<script type="text/javascript" th:src="@{/js/sortTable.js}"/></script>
+<script type="text/javascript" th:src="@{/js/sortTable.js}" /></script>
+<script type="text/javascript" th:src="@{/js/modal.js}" /></script>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+<script  type="text/javasript" src="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>
 </html>

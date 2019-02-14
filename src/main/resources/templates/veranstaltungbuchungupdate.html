@@ -2,50 +2,59 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head th:fragment="head">
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<title th:text="@{${@environment.getProperty('matilda.events')}}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
- 	<link rel="stylesheet" th:href="@{/css/index.css}"/>
- 	<link rel="import" href="/fragment/topnav.html">
+     <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+	<head th:replace="/fragment/header :: header"></head>
 </head>
 	<body>
 <h2>Buchung für Veranstaltung</h2>
-
+<div class="container">
 <form action="#" th:action="@{/veranstaltungbuchungupdate/{id}(id=${veranstaltungBuchung.id})}" th:object="${veranstaltungBuchung}" method="post">
 		
-		<div class="form-group"
+		<div class="row"
         th:classappend="${#fields.hasErrors('wunschMaterial')}? 'has-error':''">
+        <div class="col-50">
         <label for="wunschMaterial" class="control-label">WunschMaterial</label>
 				<select th:field="*{wunschMaterial}">
 					<option th:value="null">None</option>
 					<option th:each="wunschMaterial : ${wunschMaterialien}"
 						th:value="${wunschMaterial}" th:text="${wunschMaterial}"></option>
 				</select>
+		</div>
         <p class="error-message"
        	th:each="error: ${#fields.errors('wunschMaterial')}"
         th:text="${error}">Validation error</p>
        	</div>
 		
-		<div class="form-group"
+		<div class="row"
         th:classappend="${#fields.hasErrors('wunschMenge')}? 'has-error':''">
-        <label for="wunschMenge" class="control-label">Wunschmenge</label>
-        <input id="wunschMenge"
-         type="number"
-         min="0"
-        class="form-control"
-        th:field="*{wunschMenge}"/>
+        <div class="col-50">
+	        <label for="wunschMenge" class="control-label">Wunschmenge</label>
+	        <input id="wunschMenge"
+	         type="number"
+	         min="0"
+	        class="form-control"
+	        th:field="*{wunschMenge}"/>
+        </div>
         <p class="error-message"
        	th:each="error: ${#fields.errors('wunschMenge')}"
         th:text="${error}">Validation error</p>
        	</div>
        	
-<p><input type="submit" value="Submit" /> </p>
+<p><input type="submit" value="Bestätigen" /> </p>
+<input type="button" value="Zurück" onClick="gotoVeranstaltung()" class="bigButtons"/>
+				<script>
+					function gotoVeranstaltung()
+					{
+						window.location.href="../veranstaltung";
+					}
+				</script>
 </form>
-<div class="container">
-
 </div>
 </body>
 </html>
