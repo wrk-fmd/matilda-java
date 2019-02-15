@@ -130,7 +130,7 @@ public class LoginWebsiteTest {
         WebElement dropdown = driver.findElement(By.className("dropdown-content"));
         List<WebElement> items = dropdown.findElements(By.xpath("//a"));
 
-        List<String> listOfAnchors = new ArrayList();
+        List<String> listOfAnchors = new ArrayList<String>();
         boolean isFound = false;
         for(WebElement ele : items) {
             listOfAnchors.add(ele.getAttribute("href"));
