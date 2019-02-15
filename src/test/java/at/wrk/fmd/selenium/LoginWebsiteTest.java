@@ -3,6 +3,7 @@ package at.wrk.fmd.selenium;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -133,15 +134,19 @@ public class LoginWebsiteTest {
         driver.findElement(By.id("password")).sendKeys("#WRK#");
         driver.findElement(By.id("login-submit")).click();
 
-//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//        
-//        Actions act = new Actions(driver);
-//        WebDriverWait wait = new WebDriverWait(driver, 3);
-//        WebElement electronics = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("dropdown-content")));
-//        act.moveToElement(electronics).perform();
-//        WebElement camera_n_photo = driver.findElement(By.xpath("//li/a[@href='/einheitentyp']//following::ul/li/a"));
-//        camera_n_photo.click();
-//        System.out.println("Camera & photo Clicked.");
+        WebElement dropdown = driver.findElement(By.className("dropdown-content"));
+        List<WebElement> items = dropdown.findElements(By.xpath("//a"));
+
+        List<String> listOfAnchors = new ArrayList();
+        boolean isFound = false;
+        for(WebElement ele : items) {
+            listOfAnchors.add(ele.getAttribute("href"));
+        }
+        for(String str: listOfAnchors) {
+            if(str.trim().contains("einheitentyp"))
+                isFound = true;
+        }
+        assertTrue(isFound);
     }
     
     @Test
