@@ -33,7 +33,7 @@ public class BenutzerregistrierungTest {
     }
 
     @Test
-    public void isCaptionMitarbeiterverwaltungAvailable() {
+    public void isCaptionBenutzerregistrierungAvailable() {
         driver.get("https://localhost:" + port + "/login");
         driver.findElement(By.id("username")).sendKeys("ADMIN");
         driver.findElement(By.id("password")).sendKeys("#WRK#");
