@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -154,6 +155,26 @@ public class LoginWebsiteTest {
         
         String title = driver.getTitle();
         assertTrue(title.contains("Report"));
+    }
+    
+    @Test
+    public void isLogOutPossible() {
+        driver.get("https://localhost:" + port + "/login");
+        
+        driver.findElement(By.id("username")).sendKeys("ADMIN");
+        driver.findElement(By.id("password")).sendKeys("#WRK#");
+        driver.findElement(By.id("login-submit")).click();
+
+        Actions builder = new Actions(driver);
+        
+        WebElement element=driver.findElement(By.xpath("//div[@class='dropdownAdmin']"));
+        builder.moveToElement(element).build().perform();
+        driver.findElement(By.xpath("//div[@class='dropdown-content-admin']"));
+        driver.findElement(By.xpath("//a[contains(text(), 'Sign out')]")).click();
+
+        WebElement el = driver.findElement(By.xpath("//div[@class='alert alert-info']"));
+        
+        assertTrue(el.getText().equals("Sie wurden abgemeldet."));        
     }
     
     @AfterClass
