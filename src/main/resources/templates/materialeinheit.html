@@ -4,20 +4,18 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
-<title>Materialtyp-Einheitentyp</title>
-</head>
-
-<body>
 	<head th:replace="/fragment/header :: header"></head>
-	
-	<h3>Der Einheit Materialtypen zuweisen</h3>
+	<title>Materialtyp-Einheitentyp</title>
+</head>
+<body class="genBackground">
 <div class="container">
-    <form action="#" th:action="@{/materialeinheit}" th:object="${materialtyp_einheitentyp}" method="post">
+	<h2>Materialtypen einer Einheit zuweisen</h2>
+  	  <form action="#" th:action="@{/materialeinheit}" th:object="${materialtyp_einheitentyp}" method="post">
     
 		<p class="error-message"
 	    th:if="${#fields.hasGlobalErrors()}"
@@ -60,58 +58,61 @@
        	th:each="error: ${#fields.errors('manzahl')}"
         th:text="${error}">Validation error</p>
        	</div>
-     		
         <p><input type="submit" value="Bestätigen" /> </p>
     </form>
-</div>
-<h2>Übersicht zugewiesener Materialtypen</h2>
-<div th:unless="${#lists.isEmpty(materialeinheiten)}">
-<table id="sortTable" class="mainTable">
-<thead>
-<tr>
-<th>Einheitentyp</th>
-<th>Anzahl</th>
-<th>Materialtyp</th>
-</tr>
-</thead>
-<dl th:each="materialtyp_einheitentyp : ${materialeinheiten}">
-<tr>
-<td th:text="${materialtyp_einheitentyp.einheitentyp.name}"></td>
-<td th:text="${materialtyp_einheitentyp.manzahl}"></td>
-<td th:text="${materialtyp_einheitentyp.materialtyp.name}"></td>
-<td>
-	<a href="#" data-th-href="@{/mateinupdate/{id}(id=${materialtyp_einheitentyp.id})}">
-	<input type="button" value="Ändern" class="buttons">
-	</a>
-</td>
-</tr>
-</table>
-</div>
-<div th:if="${#lists.isEmpty(materialeinheiten)}">
-<p>Es gibt kein Materialtyp-Einheitentyp</p>
-</div>
-<hr/>
-<div class="container">
-<input type="button" value="Zurück" class="bigButtons" onClick="gotoEinheitentyp()"/>
-        	<script>
-        	function gotoEinheitentyp() {
-			    window.location.href="../einheitentyp";
-		     }
-        	</script>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-
-            <div th:if="${param.success}">
-                <div class="alert alert-info">
-                    Der neue Materialtyp-Einheitentyp wurde erfolgreich eingetragen!
-                </div>
-            </div>
-            <div th:if="${param.loeschen}">
-                <div class="alert alert-info">
-                    Die Materialtyp-Einheitentyp wurde erfolgreich gelöscht!
-                </div>
-            </div>
-        </div>
+<br>
+	<h3>Übersicht zugewiesener Materialtypen:</h3>
+	<div th:unless="${#lists.isEmpty(materialeinheiten)}">
+	<table id="sortTable" class="mainTable">
+		<thead>
+			<tr>
+				<th>Einheitentyp</th>
+				<th>Anzahl</th>
+				<th>Materialtyp</th>
+				<th class="CellWithComment"><i class="far fa-question-circle"></i>
+					<span class="CellComment" >Zugewiesene Materialtypen bearbeiten</span>
+				</th>
+			</tr>
+		</thead>
+		<dl th:each="materialtyp_einheitentyp : ${materialeinheiten}">
+		<tr>
+			<td th:text="${materialtyp_einheitentyp.einheitentyp.name}"></td>
+			<td th:text="${materialtyp_einheitentyp.manzahl}"></td>
+			<td th:text="${materialtyp_einheitentyp.materialtyp.name}"></td>
+			<td>
+				<a href="#" data-th-href="@{/mateinupdate/{id}(id=${materialtyp_einheitentyp.id})}">
+				<input type="button" value="Ändern" class="buttons">
+				</a>
+			</td>
+		</tr>
+	</table>
+	</div>
+	<div th:if="${#lists.isEmpty(materialeinheiten)}">
+	<p>Es gibt kein Materialtyp-Einheitentyp</p>
+	</div>
+	<hr/>
+	<div class="container">
+	<input type="button" value="Zurück" class="bigButtons" onClick="gotoEinheitentyp()"/>
+	        	<script>
+	        	function gotoEinheitentyp() {
+				    window.location.href="../einheitentyp";
+			     }
+	        	</script>
+	    <div class="row">
+	        <div class="col-md-6 col-md-offset-3">
+	
+	            <div th:if="${param.success}">
+	                <div class="alert alert-info">
+	                    Der neue Materialtyp-Einheitentyp wurde erfolgreich eingetragen!
+	                </div>
+	            </div>
+	            <div th:if="${param.loeschen}">
+	                <div class="alert alert-info">
+	                    Die Materialtyp-Einheitentyp wurde erfolgreich gelöscht!
+	                </div>
+	            </div>
+	        </div>
+		</div>
 	</div>
 </div>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>

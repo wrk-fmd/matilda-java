@@ -12,11 +12,11 @@
 	<head th:replace="/fragment/header :: header"></head>
     <title>Materialtyp Aktualisieren</title>
 </head>
-<body>
-	<h2>Veranstaltung ändern</h2>
+<body class="genBackground">
 <div class="container">
-    <form action="#" th:action="@{/veranstaltungupdate/{id}(id=${veranstaltung.id})}" th:object="${veranstaltung}" method="post">
-    	
+<h2>Veranstaltung ändern</h2>
+<form action="#" th:action="@{/veranstaltungupdate/{id}(id=${veranstaltung.id})}" th:object="${veranstaltung}" method="post">
+
     	<p class="error-message"
 	    th:if="${#fields.hasGlobalErrors()}"
 	    th:each="error : ${#fields.errors('global')}"

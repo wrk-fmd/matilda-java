@@ -1,20 +1,25 @@
 <!doctype html>
 	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-		<head th:fragment="head">
+<head th:fragment="head">
 		<title th:text="@{${@environment.getProperty('matilda.mainsite')}}"></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<!-- <head th:replace="/fragment/footer :: footer"></head>  -->
 	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
 	    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
 	 	<link rel="stylesheet" th:href="@{/css/index.css}"/>
 	 	<link rel="import" href="/fragment/topnav.html">
 		<link rel='stylesheet' href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
-		<script src="webjars/jquery/2.0.3/jquery.min.js"></script>
-		<script src='webjars/moment/2.19.1/min/moment.min.js'></script>
-		<script src='webjars/fullcalendar/3.5.1/dist/fullcalendar.js'></script>
-		<script src='webjars/fullcalendar/3.5.1/dist/locale-all.js'></script>
-		<script th:inline="javascript">
+		<head th:replace="/fragment/header :: header"></head>
+</head>
+<body class="genBackground">
+	<div id='calendar'></div>
+</body>
+	
+<script src="webjars/jquery/2.0.3/jquery.min.js"></script>
+<script src='webjars/moment/2.19.1/min/moment.min.js'></script>
+<script src='webjars/fullcalendar/3.5.1/dist/fullcalendar.js'></script>
+<script src='webjars/fullcalendar/3.5.1/dist/locale-all.js'></script>
+<script th:inline="javascript">
 		
 		// currently, buttons have been deleted
 		var list_day = [[#{calendar.list_day}]];
@@ -51,9 +56,4 @@
 			});
 		});
 		</script>
-	</head>
-	<body>
-		<head th:replace="/fragment/header :: header"></head>
-		<div id='calendar'></div>
-	</body>
 </html>

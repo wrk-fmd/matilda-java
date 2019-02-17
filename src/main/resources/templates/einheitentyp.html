@@ -5,96 +5,102 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
  	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
  	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
- 	<link rel="import" href="/fragment/topnav.html">
+ 	<head th:replace="/fragment/header :: header"></head>	
  	<title>Einheitentyp</title>
 </head>
-<body>
-		<head th:replace="/fragment/header :: header"></head>	
-
+<body class="genBackground">
+<div class="container">
 	<h2>Einen neuen Einheitentyp hinzuf&uuml;gen</h2>
-<div class="container">
-    <form action="#" th:action="@{/einheitentyp}" th:object="${einheitentyp}" method="post">
-    
-	    <p class="error-message"
-	    th:if="${#fields.hasGlobalErrors()}"
-	    th:each="error : ${#fields.errors('global')}"
- 		th:text="${error}">Validation error</p>
-                   
-		<div class="row"
-        th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
-        <div class="col-50">
-        <label for="name" class="control-label">Name</label>
-        <input type="text" id="name" th:field="*{name}"/>
-        </div>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('name')}"
-        th:text="${error}">Validation error</p>
-       	</div>
-		
-        <p><input type="submit" value="Bestätigen" /> </p>
-    </form>
-</div>
-<h3>Übersicht Einheitentypen</h3>
-
-<div th:unless="${#lists.isEmpty(einheitentypen)}">
-<table class="mainTable" id="sortTable">
-<thead>
-<tr>
-<th>Name</th>
-</tr>
-</thead>
-<dl th:each="einheitentyp : ${einheitentypen}">
-<tr>
-<td th:text="${einheitentyp.name}"></td>
-<td>
-	<a href="#" data-th-href="@{/einheitentypupdate/{id}(id=${einheitentyp.id})}">
-	<input type="button" value="Ändern" class="buttons"/>
-	</a>
-</td>
-<td>
-	<a href="#" data-th-href="@{/mitarbeitereinheit/{id}(id=${einheitentyp.id})}">
-	<input type="button" value="Mitarbeitertyp" class="buttons"/>
-	</a>
-</td>
-<td>
-	<a href="#" data-th-href="@{/materialeinheit/{id}(id=${einheitentyp.id})}">
-	<input type="button" value="Materialtyp" class="buttons"/>
-	</a>
-</td>
-</tr>
-</table>
-</div>
-<div th:if="${#lists.isEmpty(einheitentypen)}">
-<p>Es gibt kein Einheitentyp</p>
-</div>
-<hr/>
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-
-            <div th:if="${param.success}">
-                <div class="alert alert-info">
-                    Der neue Einheitentyp wurde erfolgreich eingetragen!
-                </div>
-            </div>
-			<div th:if="${param.loeschen}">
-                <div class="alert alert-info">
-                    Der Einheitentyp wurde erfolgreich gelöscht!
-                </div>
-            </div>
-            
-            <div th:if="${param.nochange}">
-                <div class="alert alert-info">
-                    Der Einheitentyp wurde nicht geändert!
-                </div>
-            </div>
-        </div>
-     </div>
+	<form action="#" th:action="@{/einheitentyp}" th:object="${einheitentyp}" method="post">
+	    
+		    <p class="error-message"
+		    th:if="${#fields.hasGlobalErrors()}"
+		    th:each="error : ${#fields.errors('global')}"
+	 		th:text="${error}">Validation error</p>
+	                   
+			<div class="row"
+	        th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
+	        <div class="col-50">
+	        <label for="name" class="control-label">Name</label>
+	        <input type="text" id="name" th:field="*{name}"/>
+	        </div>
+	        <p class="error-message"
+	       	th:each="error: ${#fields.errors('name')}"
+	        th:text="${error}">Validation error</p>
+	       	</div>
+	        <p><input type="submit" value="Bestätigen" /> </p>
+	        <br>
+	</form>
+	<h3>Übersicht Einheitentypen:</h3>
+	<div th:unless="${#lists.isEmpty(einheitentypen)}">
+	<table class="mainTable" id="sortTable">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th class="CellWithComment"><i class="far fa-question-circle"></i>
+					<span class="CellComment" >Name des Einheitentyps ändern</span>
+				</th>
+				<th class="CellWithComment"><i class="far fa-question-circle"></i>
+					<span class="CellComment">Mitarbeitertypen zu dem Einheitentyp zuweisen</span>
+				</th>
+				<th class="CellWithComment"><i class="far fa-question-circle"></i>
+					<span class="CellComment" >Materialtypen zu dem Einheitentyp zuweisen</span>
+				</th>				
+			</tr>
+		</thead>
+		<dl th:each="einheitentyp : ${einheitentypen}">
+		<tr>
+			<td th:text="${einheitentyp.name}"></td>
+			<td>
+				<a href="#" data-th-href="@{/einheitentypupdate/{id}(id=${einheitentyp.id})}">
+				<input type="button" value="Ändern" class="buttons"/>
+				</a>
+			</td>
+			<td>
+				<a href="#" data-th-href="@{/mitarbeitereinheit/{id}(id=${einheitentyp.id})}">
+				<input type="button" value="Mitarbeitertyp" class="buttons"/>
+				</a>
+			</td>
+			<td>
+				<a href="#" data-th-href="@{/materialeinheit/{id}(id=${einheitentyp.id})}">
+				<input type="button" value="Materialtyp" class="buttons"/>
+				</a>
+			</td>
+		</tr>
+	</table>
+	</div>
+	<div th:if="${#lists.isEmpty(einheitentypen)}">
+	<p>Es gibt kein Einheitentyp</p>
+	</div>
+	<hr/>
+	<div class="container">
+	    <div class="row">
+	        <div class="col-md-6 col-md-offset-3">
+	
+	            <div th:if="${param.success}">
+	                <div class="alert alert-info">
+	                    Der neue Einheitentyp wurde erfolgreich eingetragen!
+	                </div>
+	            </div>
+				<div th:if="${param.loeschen}">
+	                <div class="alert alert-info">
+	                    Der Einheitentyp wurde erfolgreich gelöscht!
+	                </div>
+	            </div>
+	            
+	            <div th:if="${param.nochange}">
+	                <div class="alert alert-info">
+	                    Der Einheitentyp wurde nicht geändert!
+	                </div>
+	            </div>
+	        </div>
+	     </div>
+	</div>
 </div>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>

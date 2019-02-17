@@ -4,15 +4,14 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
-    
+    <head th:replace="/fragment/header :: header"></head>
     <title>Einheitentyp-Mitarbeitertyp Aktualisieren</title>
 </head>
 <body>
-	<h1>Mitarbeitertypen ändern</h1>
+	<h2>Mitarbeitertypen ändern</h2>
 <div class="container">
     <form action="#" th:action="@{/miteinupdate/{id}(id=${mitarbeitertyp_einheitentyp.id})}" th:object="${mitarbeitertyp_einheitentyp}" method="post">
     	
@@ -59,18 +58,18 @@
        	</div>
        	
         <p><input type="submit" value="Bestätigen" />
-        <button onclick="goBack()" class="bigButtons">Abbrechen</button>
+        	 	<form th:action="@{/mitarbeitereinheitupdate/{id}/loeschen(id=${mitarbeitertyp_einheitentyp.id})}" th:object="${mitarbeitertyp_einheitentyp}" method="post" >
+					<button type="submit" class="bigButtons">L&ouml;schen</button>
+				</form>
+		</p>
+    </form>
+    <hr>
+	<button onclick="goBack()" class="bigButtons">Abbrechen</button>
 			<script>
 			function goBack() {
 			    window.history.back();
 			}
 			</script> 
-		</p>
-    </form>
-    <form th:action="@{/mitarbeitereinheitupdate/{id}/loeschen(id=${mitarbeitertyp_einheitentyp.id})}" th:object="${mitarbeitertyp_einheitentyp}" method="post" >
-		<button type="submit" class="bigButtons">L&ouml;schen</button>
-	</form>
 </div>
-	
 </body>
 </html>

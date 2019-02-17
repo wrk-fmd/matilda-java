@@ -4,73 +4,73 @@
 	<meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
-    
+	<head th:replace="/fragment/header :: header"></head>
     <title>Material-Einheitentyp Aktualisieren</title>
 </head>
-<body>
-	<h1>Materialtypen ändern</h1>
+<body class="genBackground">
 <div class="container">
-    <form action="#" th:action="@{/mateinupdate/{id}(id=${materialtyp_einheitentyp.id})}" th:object="${materialtyp_einheitentyp}" method="post">
-    	
-		<p class="error-message"
-	    th:if="${#fields.hasGlobalErrors()}"
-	    th:each="error : ${#fields.errors('global')}"
- 		th:text="${error}">Validation error</p>
-       	
-       	<div class="row"
-        th:classappend="${#fields.hasErrors('einheitentyp')}? 'has-error':''">
-        <div class="col-50">
-        <label for="einheitentyp" class="control-label">Einheitentyp</label>
-        <p th:text="${materialtyp_einheitentyp.einheitentyp.name}" style="font-size: 22px; color:darkred; text-decoration: underline;" >
-        </div>
-		<p class="error-message"
-       	th:each="error: ${#fields.errors('einheitentyp')}"
-        th:text="${error}">Validation error</p>
-       	</div>     		  	
-    	
-    	<div class="row"
-        th:classappend="${#fields.hasErrors('materialtyp')}? 'has-error':''">
-        <div class="col-50">
-        <label for="materialtyp" class="control-label">Materialtyp</label>
-        <select th:field="*{materialtyp}">
-  			<option th:each="materialtyp : ${alleMaterialtypen}" 
-         	 th:value="${materialtyp.id}" 
-       	     th:text="${materialtyp.name}"></option>
-		</select>
-		</div>
-		<p class="error-message"
-       	th:each="error: ${#fields.errors('materialtyp')}"
-        th:text="${error}">Validation error</p>
-       	</div> 
-    	
-    	<div class="row"
-        th:classappend="${#fields.hasErrors('manzahl')}? 'has-error':''">
-       	<div class="col-50">
-        	<label for="manzahl" class="control-label">Anzahl des Materialtyps</label>
-        	<input id="manzahl" type="number" min="1" th:field="*{manzahl}"/>
-        </div>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('manzahl')}"
-        th:text="${error}">Validation error</p>
-       	</div>                 	
-		
-        <p><input type="submit" value="Bestätigen" />
-        <button onclick="goBack()" class="bigButtons">Abbrechen</button>
-			<script>
-			function goBack() {
-			    window.history.back();
-			}
-			</script>
-		</p>
-    </form>
-    <form th:action="@{/materialeinheitupdate/{id}/loeschen(id=${materialtyp_einheitentyp.id})}" th:object="${materialtyp_einheitentyp}" method="post" >
-		<button type="submit" class="bigButtons">L&ouml;schen</button>
+	<h2>Materialtypen ändern</h2>
+	<form action="#" th:action="@{/mateinupdate/{id}(id=${materialtyp_einheitentyp.id})}" th:object="${materialtyp_einheitentyp}" method="post">
+	    	
+			<p class="error-message"
+		    th:if="${#fields.hasGlobalErrors()}"
+		    th:each="error : ${#fields.errors('global')}"
+	 		th:text="${error}">Validation error</p>
+	       	
+	       	<div class="row"
+	        th:classappend="${#fields.hasErrors('einheitentyp')}? 'has-error':''">
+	        <div class="col-50">
+	        <label for="einheitentyp" class="control-label">Einheitentyp</label>
+	        <p th:text="${materialtyp_einheitentyp.einheitentyp.name}" style="font-size: 22px; color:darkred; text-decoration: underline;" >
+	        </div>
+			<p class="error-message"
+	       	th:each="error: ${#fields.errors('einheitentyp')}"
+	        th:text="${error}">Validation error</p>
+	       	</div>     		  	
+	    	
+	    	<div class="row"
+	        th:classappend="${#fields.hasErrors('materialtyp')}? 'has-error':''">
+	        <div class="col-50">
+	        <label for="materialtyp" class="control-label">Materialtyp</label>
+	        <select th:field="*{materialtyp}">
+	  			<option th:each="materialtyp : ${alleMaterialtypen}" 
+	         	 th:value="${materialtyp.id}" 
+	       	     th:text="${materialtyp.name}"></option>
+			</select>
+			</div>
+			<p class="error-message"
+	       	th:each="error: ${#fields.errors('materialtyp')}"
+	        th:text="${error}">Validation error</p>
+	       	</div> 
+	    	
+	    	<div class="row"
+	        th:classappend="${#fields.hasErrors('manzahl')}? 'has-error':''">
+	       	<div class="col-50">
+	        	<label for="manzahl" class="control-label">Anzahl des Materialtyps</label>
+	        	<input id="manzahl" type="number" min="1" th:field="*{manzahl}"/>
+	        </div>
+	        <p class="error-message"
+	       	th:each="error: ${#fields.errors('manzahl')}"
+	        th:text="${error}">Validation error</p>
+	       	</div>                 	
+			
+			<p><input type="submit" value="Bestätigen" />
+			<form th:action="@{/materialeinheitupdate/{id}/loeschen(id=${materialtyp_einheitentyp.id})}" th:object="${materialtyp_einheitentyp}" method="post" >
+				<button type="submit" class="bigButtons">L&ouml;schen</button>
+			</form>
+			</p>
 	</form>
+	<hr>
+	        <button onclick="goBack()" class="bigButtons">Abbrechen</button>
+				<script>
+				function goBack() {
+				    window.history.back();
+				}
+				</script>
 </div>
-	
 </body>
 </html>

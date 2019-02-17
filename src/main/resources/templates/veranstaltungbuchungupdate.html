@@ -11,9 +11,9 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
 	<head th:replace="/fragment/header :: header"></head>
 </head>
-	<body>
-<h2>Buchung für Veranstaltung</h2>
+<body class="genBackground">
 <div class="container">
+<h2>Buchung für Veranstaltung</h2>
 <form action="#" th:action="@{/veranstaltungbuchungupdate/{id}(id=${veranstaltungBuchung.id})}" th:object="${veranstaltungBuchung}" method="post">
 		
 		<div class="row"
@@ -46,12 +46,12 @@
         th:text="${error}">Validation error</p>
        	</div>
        	
-<p><input type="submit" value="Bestätigen" /> </p>
-<input type="button" value="Zurück" onClick="gotoVeranstaltung()" class="bigButtons"/>
+		<p><input type="submit" value="Bestätigen" /> </p>
+		<input type="button" value="Zurück" onClick="goBack()" class="bigButtons"/>
 				<script>
-					function gotoVeranstaltung()
+					function goBack()
 					{
-						window.location.href="../veranstaltung";
+						window.history.back();
 					}
 				</script>
 </form>

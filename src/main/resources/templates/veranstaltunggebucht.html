@@ -5,43 +5,44 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<title th:text="@{${@environment.getProperty('matilda.events')}}" />
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
  	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
- 	<link rel="import" href="/fragment/topnav.html">
+ 	<head th:replace="/fragment/header :: header"></head>	
+ 	<title th:text="@{${@environment.getProperty('matilda.events')}}"></title>
 </head>
-	<body>
-		<head th:replace="/fragment/header :: header"></head>	
-<h1>Buchung Übersicht</h1>
-<div th:unless="${#lists.isEmpty(veranstaltunggebucht)}">
-<table class="table table-striped">
-<thead>
-<tr>
-<th>Bezeichnung</th>
-<th>Menge</th>
-<th>Veranstaltung</th>
-<th>Beschreibung</th>
-<th>Erstellt am</th>
-<th>Erstellt von</th>
-</tr>
-</thead>
-<dl th:each="buchung : ${veranstaltunggebucht}">
-<tr>
-<td th:text="${buchung.material.bezeichnung}"></td>
-<td th:text="${buchung.menge}"></td>
-<td th:text="${buchung.veranstaltung.name}"></td>
-<td th:text="${buchung.beschreibung}"></td>
-<td th:text="${buchung.createdAt}"></td>
-<td th:text="${buchung.modifiedBy}"></td>
-</tr>
-</table>
-</div>
-<hr/>
+<body>
 <div class="container">
-	<div th:if="${param.nostorno}">
-		<div class="alert alert-info">
-			Stornieren einer Veranstaltung ist nur im Gebuchtzustand möglich!
+	<h2>Buchung Übersicht</h2>
+	<div th:unless="${#lists.isEmpty(veranstaltunggebucht)}">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Bezeichnung</th>
+					<th>Menge</th>
+					<th>Veranstaltung</th>
+					<th>Beschreibung</th>
+					<th>Erstellt am</th>
+					<th>Erstellt von</th>
+				</tr>
+			</thead>
+		<dl th:each="buchung : ${veranstaltunggebucht}">
+		<tr>
+			<td th:text="${buchung.material.bezeichnung}"></td>
+			<td th:text="${buchung.menge}"></td>
+			<td th:text="${buchung.veranstaltung.name}"></td>
+			<td th:text="${buchung.beschreibung}"></td>
+			<td th:text="${buchung.createdAt}"></td>
+			<td th:text="${buchung.modifiedBy}"></td>
+		</tr>
+		</table>
+	</div>
+	<hr/>
+	<div class="container">
+		<div th:if="${param.nostorno}">
+			<div class="alert alert-info">
+				Stornieren einer Veranstaltung ist nur im Gebuchtzustand möglich!
+			</div>
 		</div>
 	</div>
 </div>
