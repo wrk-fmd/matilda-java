@@ -5,43 +5,19 @@ import static org.junit.Assert.assertFalse;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.context.junit4.SpringRunner;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import at.wrk.fmd.environment.Environment;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MitarbeiterverwaltungWebsiteTest {
-    
-    @LocalServerPort
-    private int port;
-    private static WebDriver driver;
+public class MitarbeiterverwaltungWebsiteTest extends Environment {
     
     // Handles more or less all elements on Mitarbeiterverwaltung website
 
-    @BeforeClass
-    public static void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-    }
-
     @Test
     public void isMitarbeiterverwaltungLinkAvailable() {
-        driver.get("https://localhost:" + port + "/login");
-        
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
-
+        login();
         WebElement dropdown = driver.findElement(By.className("dropdown-content"));
         List<WebElement> items = dropdown.findElements(By.xpath("//a"));
 
@@ -61,10 +37,7 @@ public class MitarbeiterverwaltungWebsiteTest {
     // where a mouse click will be performed
     @Test
     public void isCaptionMitarbeiterverwaltungAvailable() {
-        driver.get("https://localhost:" + port + "/login");
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
+        login();
 
         Actions builder = new Actions(driver);
         
@@ -78,11 +51,8 @@ public class MitarbeiterverwaltungWebsiteTest {
     
     @Test
     public void isCheckboxTickedInMitarbeiterverwaltung() {
-        driver.get("https://localhost:" + port + "/login");
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
-
+        login();
+        
         Actions builder = new Actions(driver);
         
         WebElement element=driver.findElement(By.xpath("//div[@class='dropdownAdmin']"));
@@ -97,11 +67,8 @@ public class MitarbeiterverwaltungWebsiteTest {
 
     @Test
     public void checkUncheckTickInMitarbeiterverwaltungAndSave() {
-        driver.get("https://localhost:" + port + "/login");
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
-
+        login();
+        
         Actions builder = new Actions(driver);
         
         WebElement element = driver.findElement(By.xpath("//div[@class='dropdownAdmin']"));

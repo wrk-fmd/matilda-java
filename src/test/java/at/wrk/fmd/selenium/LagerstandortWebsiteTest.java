@@ -16,31 +16,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import at.wrk.fmd.environment.Environment;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class LagerstandortWebsiteTest {
-    
-    @LocalServerPort
-    private int port;
-    private static WebDriver driver;
+public class LagerstandortWebsiteTest extends Environment {
     
     // Handles more or less all elements on lagerstandort website
-
-    @BeforeClass
-    public static void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-    }
     
     @Test
     public void isLagerstandortWebsiteAvailableAndClickable() {
-        driver.get("https://localhost:" + port + "/login");
-        
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
+        login();
 
         driver.findElement(By.xpath("//a[@href='/lagerstandort']")).click();
         
@@ -50,12 +35,8 @@ public class LagerstandortWebsiteTest {
     
     @Test
     public void isUsernameOnWebsiteLagerstandortAvailable() {
-        driver.get("https://localhost:" + port + "/login");
+        login();
         
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
-
         driver.findElement(By.xpath("//a[@href='/lagerstandort']")).click();
         
         boolean isUsernameAvailable = false;
@@ -72,11 +53,7 @@ public class LagerstandortWebsiteTest {
     
     @Test
     public void isAdresseOnWebsiteLagerstandortAvailable() {
-        driver.get("https://localhost:" + port + "/login");
-        
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
+        login();
 
         driver.findElement(By.xpath("//a[@href='/lagerstandort']")).click();
         
@@ -99,11 +76,7 @@ public class LagerstandortWebsiteTest {
     
     @Test
     public void isBeschreibungOnWebsiteLagerstandortAvailable() {
-        driver.get("https://localhost:" + port + "/login");
-        
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
+        login();
 
         driver.findElement(By.xpath("//a[@href='/lagerstandort']")).click();
         
@@ -126,11 +99,7 @@ public class LagerstandortWebsiteTest {
     
     @Test
     public void isVerantwortlicherAdminOnWebsiteLagerstandortAvailable() {
-        driver.get("https://localhost:" + port + "/login");
-        
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
+        login();
 
         driver.findElement(By.xpath("//a[@href='/lagerstandort']")).click();
         

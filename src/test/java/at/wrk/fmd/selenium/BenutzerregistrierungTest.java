@@ -14,31 +14,18 @@ import org.openqa.selenium.interactions.Actions;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import at.wrk.fmd.environment.Environment;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BenutzerregistrierungTest {
-    
-    @LocalServerPort
-    private int port;
-    private static WebDriver driver;
+public class BenutzerregistrierungTest extends Environment {
     
     // Handles more or less all elements on Registration website
 
-    @BeforeClass
-    public static void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-    }
-
     @Test
     public void isCaptionBenutzerregistrierungAvailable() {
-        driver.get("https://localhost:" + port + "/login");
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
-
+        login();
+        
         Actions builder = new Actions(driver);
         
         WebElement element=driver.findElement(By.xpath("//div[@class='dropdownAdmin']"));
@@ -51,10 +38,7 @@ public class BenutzerregistrierungTest {
     
     @Test
     public void isAnzeigenameAvailable() {
-        driver.get("https://localhost:" + port + "/login");
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
+        login();
         
         Actions builder = new Actions(driver);
         
@@ -68,10 +52,7 @@ public class BenutzerregistrierungTest {
 
     @Test
     public void isDienstnummerAvailable() {
-        driver.get("https://localhost:" + port + "/login");
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
+        login();
         
         Actions builder = new Actions(driver);
         
@@ -85,10 +66,7 @@ public class BenutzerregistrierungTest {
     
     @Test
     public void isBenutzernameAvailable() {
-        driver.get("https://localhost:" + port + "/login");
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
+        login();
         
         Actions builder = new Actions(driver);
         
@@ -102,10 +80,7 @@ public class BenutzerregistrierungTest {
     
     @Test
     public void isKonfirmationnameAvailable() {
-        driver.get("https://localhost:" + port + "/login");
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
+        login();
         
         Actions builder = new Actions(driver);
         
@@ -119,10 +94,7 @@ public class BenutzerregistrierungTest {
 
     @Test
     public void isPasswordAvailable() {
-        driver.get("https://localhost:" + port + "/login");
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
+        login();
         
         Actions builder = new Actions(driver);
         
@@ -138,10 +110,7 @@ public class BenutzerregistrierungTest {
     
     @Test
     public void isRolleAdminAvailable() {
-        driver.get("https://localhost:" + port + "/login");
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
+        login();
         
         Actions builder = new Actions(driver);
         
@@ -163,10 +132,7 @@ public class BenutzerregistrierungTest {
 
     @Test
     public void isRolleSupervisorAvailable() {
-        driver.get("https://localhost:" + port + "/login");
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
+        login();
         
         Actions builder = new Actions(driver);
         
@@ -188,10 +154,7 @@ public class BenutzerregistrierungTest {
 
     @Test
     public void isRolleBenutzerAvailable() {
-        driver.get("https://localhost:" + port + "/login");
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
+        login();
         
         Actions builder = new Actions(driver);
         
@@ -213,10 +176,7 @@ public class BenutzerregistrierungTest {
 
     @Test
     public void createNewUser() {
-        driver.get("https://localhost:" + port + "/login");
-        driver.findElement(By.id("username")).sendKeys("ADMIN");
-        driver.findElement(By.id("password")).sendKeys("#WRK#");
-        driver.findElement(By.id("login-submit")).click();
+        login();
         
         Actions builder = new Actions(driver);
         
