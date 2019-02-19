@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.AfterClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -131,5 +133,11 @@ public class LoginWebsiteTest extends Environment{
         WebElement el = driver.findElement(By.xpath("//div[@class='alert alert-info']"));
         
         assertTrue(el.getText().equals("Sie wurden abgemeldet."));        
+    }
+    
+    @AfterClass
+    public static void tearDown() {
+        if(driver!=null)
+            driver.quit();
     }
 }
