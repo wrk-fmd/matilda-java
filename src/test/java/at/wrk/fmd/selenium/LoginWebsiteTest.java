@@ -73,6 +73,15 @@ public class LoginWebsiteTest extends Environment{
     }
     
     @Test
+    public void isWrongLoginLeadingToErrorMessage() {
+        wrongLogin();
+        
+        String source = driver.getPageSource();
+
+        assertTrue(source.contains("Ungültiger Benutzername oder Passwort."));
+    }    
+    
+    @Test
     public void isLagerstandortLinkAvailable() {
         login();
 

@@ -38,4 +38,13 @@ public abstract class Environment {
         driver.findElement(By.id("login-submit")).click();
         return driver;
     }
+    
+    public WebDriver wrongLogin() {
+        driver.get("https://localhost:" + port + "/login");
+        
+        driver.findElement(By.id("username")).sendKeys("123");
+        driver.findElement(By.id("password")).sendKeys("#123#");
+        driver.findElement(By.id("login-submit")).click();
+        return driver;
+    }
 }
