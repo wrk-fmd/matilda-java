@@ -8,16 +8,18 @@
 				<a href="/veranstaltung" class="active">Veranstaltung</a>
 			
 			<div class="dropdown">
-			<div sec:authorize="hasAuthority('ADMIN')">
 			<button class="dropbtn">Erstellen von:
 					<i class="fa fa-caret-down"></i>
 			</button>
 				 <div class="dropdown-content">
-					<a href="/einheitentyp">Einheitentyp</a>
-					<a href="/mitarbeitertyp">Mitarbeitertyp</a>
-					<a href="/materialtyp">Materialtyp</a>
+					<div sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERVISOR') or hasAuthority('BENUTZER')">
+						<a href="/materialtyp">Materialtyp</a>
+					</div>
+				 	<div sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')">
+						<a href="/einheitentyp">Einheitentyp</a>
+						<a href="/mitarbeitertyp">Mitarbeitertyp</a>
+					</div>
 				 </div>
-			 </div>
 			</div>
 			<div sec:authorize="hasAuthority('ADMIN')">
 				<a href="/lagerstandort" class="active">Lagerstandort</a>
