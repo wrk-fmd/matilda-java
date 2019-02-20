@@ -51,7 +51,6 @@ public class VeranstaltungEinheitentypController {
     // ************************************* Ver-Ein List ***************************************
 
     @RequestMapping(value = "/veranstaltungeinheit/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String addNtransaktionForm(@PathVariable("id") long id, Model model) {
     	
         model.addAttribute("veranstaltung_einheitentyp", new Veranstaltung_Einheitentyp());
@@ -95,7 +94,6 @@ public class VeranstaltungEinheitentypController {
     // ************************************* Ver-Ein Ändern ***************************************
     
     @RequestMapping(value = "/veranstaltungeinheitupdate/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String aendernForm(@PathVariable("id") long id, Model model) {
     	
         Veranstaltung_Einheitentyp exicting = verEinRepository.findById(id);
@@ -121,6 +119,7 @@ public class VeranstaltungEinheitentypController {
     // ******************************** Löschen ************************************************************
     
 	@RequestMapping(value="/veranstaltungeinheitupdate/{id}/loeschen", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
 	public String loeschen(@PathVariable("id") long id) 
 	{
 		verEinRepository.deleteById(id);
