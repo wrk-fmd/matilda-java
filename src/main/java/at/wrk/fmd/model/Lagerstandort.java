@@ -26,7 +26,7 @@ public class Lagerstandort extends Audit {
     private long id;
 
     @NotBlank
-    @Size(min = 2, max = 20)
+    @Size(min = 2, max = 99)
     private String name;
 
     @NotBlank
