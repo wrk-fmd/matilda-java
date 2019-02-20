@@ -43,6 +43,7 @@ public class LagerstandortController {
 //  ****************************************   Lagerstandorten List +  Hinzufügen *****************************************
 
     @RequestMapping(value = "/lagerstandort", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String list(Model model) {
         model.addAttribute("lagerstandort", new Lagerstandort());
 
@@ -54,6 +55,7 @@ public class LagerstandortController {
     }
 
     @RequestMapping(value = "/lagerstandort", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String addSpeichern(Model model, @ModelAttribute("lagerstandort") @Valid Lagerstandort lagerstandort,
             BindingResult result) {
 
@@ -85,6 +87,7 @@ public class LagerstandortController {
     }
 
     @RequestMapping(value = "/lagerstandortupdate/{id}", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String aendernSpeichern(@PathVariable("id") long id,
             @ModelAttribute("lagerstandort") @Valid Lagerstandort lagerstandort, BindingResult result) {
 
