@@ -1,42 +1,44 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-<link rel="stylesheet" type="text/css"
-	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
-
-<title>Buchung</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+	<head th:replace="/fragment/header :: header"></head>
+	<title>Buchung</title>
 </head>
-<body>
+<body class="genBackground">
 	<div class="container">
 		<form action="#" th:action="@{/buchung}" th:object="${buchung}"
 			method="post">
 
 			<h2>Augewähltes Material buchen</h2>
 			<table class="mainTable">
-				<tr>
-					<th>Materialtyp</th>
-					<th>Bezeichnung</th>
-					<th>Akt.Bestand</th>
-					<th>Seriennummer</th>
-					<th>Lager</th>
-				</tr>
-				<tr>
-					<td th:text="${buchung.material.materialtyp.name}"></td>
-					<td th:text="${buchung.material.bezeichnung}"></td>
-					<td th:text="${buchung.material.bestand}"></td>
-					<td th:text="${buchung.material.seriennummer}"></td>
-					<td th:text="${buchung.material.lagerstandort.name}"></td>
-				</tr>
+				<thead>
+					<tr>
+						<th>Materialtyp</th>
+						<th>Bezeichnung</th>
+						<th>Akt.Bestand</th>
+						<th>Seriennummer</th>
+						<th>Lager</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td th:text="${buchung.material.materialtyp.name}"></td>
+						<td th:text="${buchung.material.bezeichnung}"></td>
+						<td th:text="${buchung.material.bestand}"></td>
+						<td th:text="${buchung.material.seriennummer}"></td>
+						<td th:text="${buchung.material.lagerstandort.name}"></td>
+					</tr>
+				</tbody>
 			</table>
-
-			<h3>Buchungsschein</h3>
-
+<hr>
+			<h3>Buchungsschein:</h3>
 			<div class="row"
 				th:classappend="${#fields.hasErrors('menge')}? 'has-error':''">
 				<div class="col-50">
@@ -75,6 +77,7 @@
 				</div>
 			</div>
 			
+<!-- wenn eine Veranstaltung ausgewählt wurde, müssen 'von' und 'bis' locked sein!!  -->
 			<div class="row"
 				th:classappend="${#fields.hasErrors('von')}? 'has-error':''">
 				<div class="col-50">
@@ -107,9 +110,6 @@
 			}
 		</script>
 		</form>
-
-		</br>
-		
 	</div>
 </body>
 </html>

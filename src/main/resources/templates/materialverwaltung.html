@@ -4,30 +4,40 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+	    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 	    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
 	 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
-	 	<link rel="import" href="/fragment/topnav.html">
 		<script src="webjars/jquery/2.0.3/jquery.min.js"></script>
 		<script src='webjars/moment/2.19.1/min/moment.min.js'></script>
-		
 		<title th:text="@{${@environment.getProperty('matilda.mainsite')}}"></title>
-		
+		<head th:replace="/fragment/header :: header"></head>
 </head>
 <body>
-		<head th:replace="/fragment/header :: header"></head>
 <h2>Aktuelles Material im Lager</h2>
 <div th:unless="${#lists.isEmpty(materialien)}">
 <table class="mainTable">
 <thead>
 <tr>
-<th>Materialtyp</th>
-<th>Bezeichnung</th>
-<th>Seriennummer</th>
-<th>Bestand</th>
-<th>Einkaufs- datum</th>
-<th>Letztes Überprüfungs- datum</th>
-<th>Nächstes Überprüfungs- datum</th>
-<th>Einsatz- bereitschaft</th>
+	<th>Materialtyp</th>
+	<th>Bezeichnung</th>
+	<th>Seriennummer</th>
+	<th>Bestand</th>
+	<th>Einkaufs- datum</th>
+	<th>Letztes Überprüfungs- datum</th>
+	<th>Nächstes Überprüfungs- datum</th>
+	<th>Einsatz- bereitschaft</th>
+	<th class="CellWithComment"><i class="far fa-question-circle"></i>
+		<span class="CellComment" >Das ausgewählte Material 'buchen'. 
+															 Das Material kann auch gleich zu einer bestehenden Veranstaltung hinzufügen werden. </span>
+	</th>
+	<th class="CellWithComment"><i class="far fa-question-circle"></i>
+		<span class="CellComment" >Das ausgewählte Material 'buchen'. 
+															 Das Material kann auch gleich zu einer bestehenden Veranstaltung hinzufügen werden. </span>
+	</th>
+	<th class="CellWithComment"><i class="far fa-question-circle"></i>
+		<span class="CellComment" >Das ausgewählte Material 'buchen'. 
+															 Das Material kann auch gleich zu einer bestehenden Veranstaltung hinzufügen werden. </span>
+	</th>
 </tr>
 </thead>
 <dl th:each="material : ${materialien}">
@@ -42,7 +52,7 @@
 <td th:text="${material.einsatzbereitschaft}"></td>
 <td>
 	<a href="#" data-th-href="@{/buchung/{id}(id=${material.id})}">
-	<input type="Button" value="Buchen/Stornieren" class="buttons"/>
+	<input type="Button" value="Buchen" class="buttons"/>
 	</a>
 </td>
 <td>

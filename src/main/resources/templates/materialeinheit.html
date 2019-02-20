@@ -66,9 +66,8 @@
 	<table id="sortTable" class="mainTable">
 		<thead>
 			<tr>
-				<th>Einheitentyp</th>
-				<th>Anzahl</th>
 				<th>Materialtyp</th>
+				<th>Anzahl</th>
 				<th class="CellWithComment"><i class="far fa-question-circle"></i>
 					<span class="CellComment" >Zugewiesene Materialtypen bearbeiten</span>
 				</th>
@@ -76,9 +75,8 @@
 		</thead>
 		<dl th:each="materialtyp_einheitentyp : ${materialeinheiten}">
 		<tr>
-			<td th:text="${materialtyp_einheitentyp.einheitentyp.name}"></td>
-			<td th:text="${materialtyp_einheitentyp.manzahl}"></td>
 			<td th:text="${materialtyp_einheitentyp.materialtyp.name}"></td>
+			<td th:text="${materialtyp_einheitentyp.manzahl}"></td>
 			<td>
 				<a href="#" data-th-href="@{/mateinupdate/{id}(id=${materialtyp_einheitentyp.id})}">
 				<input type="button" value="Ändern" class="buttons">

@@ -4,32 +4,18 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+	    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 	    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
 	 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
 	 	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
-	 	<link rel="import" href="/fragment/topnav.html">
 		<link rel='stylesheet' href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
-		<script src="webjars/jquery/2.0.3/jquery.min.js"></script>
-		<script src='webjars/moment/2.19.1/min/moment.min.js'></script>
-		<script src='webjars/fullcalendar/3.5.1/dist/fullcalendar.js'></script>
-		<script type="text/javascript">
-		$(document).ready(function() {
-			$('#calendar').fullCalendar({
-				height: 655,
-				events: {
-					url : '/api/event/all'
-				}
-			});
-		});
-		</script>
-	</head>
-	<title th:text="@{${@environment.getProperty('matilda.lagerstandort')}}" />
-	<body>
 		<head th:replace="/fragment/header :: header"></head>
-		
+		<title th:text="@{${@environment.getProperty('matilda.lagerstandort')}}" />
+</head>
+<body class="genBackground">
 <div class="container">
 <h2>Einen neuen Lagerstandort hinzuf&uuml;gen</h2>
-    	<form action="#" th:action="@{/lagerstandort}" th:object="${lagerstandort}" method="post">
+    <form action="#" th:action="@{/lagerstandort}" th:object="${lagerstandort}" method="post">
     
 	    <p class="error-message"
 	    	th:if="${#fields.hasGlobalErrors()}"
@@ -86,16 +72,19 @@
 		
         <p><input type="submit" value="Bestätigen" /></p>
     	</form>
-  </div>
+    <br>
 		<h3>Übersicht Lagerstandorte</h3>
 		<div th:unless="${#lists.isEmpty(lagerstandorten)}">
-<table class="mainTable" id="sortTable">
+		<table class="mainTable" id="sortTable">
 			<thead>
 				<tr>
 					<th>Name</th>
 					<th>Adresse</th>
 					<th>Beschreibung</th>
 					<th>Verantwortlicher</th>
+					<th class="CellWithComment"><i class="far fa-question-circle"></i>
+							<span class="CellComment" >Lagerstandort bearbeiten</span>
+					</th>
 				</tr>
 			</thead>
 			<dl th:each="lagerstandort : ${lagerstandorten}">
@@ -116,7 +105,6 @@
 			<p>Es gibt kein Lagerstandort</p>
 		</div>
 		<hr/>
-		<div class="container">
     	<div class="row">
         <div class="col-md-6 col-md-offset-3">
 			<div th:if="${param.success}">
@@ -126,7 +114,22 @@
 				<div class="alert alert-info">Der  Lagerstandort wurde erfolgreich gelöscht!</div>
 			</div>
 		</div>
+	</div>
+</div>
 		<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 		<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
-	</body>
+		<script src="webjars/jquery/2.0.3/jquery.min.js"></script>
+		<script src='webjars/moment/2.19.1/min/moment.min.js'></script>
+		<script src='webjars/fullcalendar/3.5.1/dist/fullcalendar.js'></script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$('#calendar').fullCalendar({
+				height: 655,
+				events: {
+					url : '/api/event/all'
+				}
+			});
+		});
+		</script>
+</body>
 </html>

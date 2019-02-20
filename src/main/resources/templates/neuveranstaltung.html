@@ -1,19 +1,20 @@
 <!-- <!DOCTYPE html>  -->
 <html xmlns:th="http://www.thymeleaf.org">
 <head >
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" type="text/css"
-	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
-<head th:replace="/fragment/header :: header"></head>
-<title>Verantaltung hinzufügen</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" type="text/css"	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/modal.css}" />
+	<head th:replace="/fragment/header :: header"></head>
+	<title>Verantaltung hinzufügen</title>
 </head>
-	<h3>Eine neue Veranstaltung erstellen</h3>
-<body>
+<body class="genBackground">
+<div class="modal" id="myNeuVeran" th:fragment="NeuVeran">
+<h2>Eine neue Veranstaltung erstellen</h2>
 	<div class="container">
 		<form action="#" th:action="@{/neuveranstaltung}"
 			th:object="${veranstaltung}" method="post">
@@ -81,6 +82,17 @@
 			</p>
 		</form>
 	</div>
+</div>
+	<script>
+			function myFunction() {
+				var x = document.getElementById("myNeuVeran");
+				if (x.className === "modal") {
+					x.className += " responsive";
+				} else {
+					x.className = "modal";
+				}
+			}
+		</script>
 </body>
 	<script type="text/javascript"
 		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>

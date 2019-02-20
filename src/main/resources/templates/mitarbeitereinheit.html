@@ -27,8 +27,8 @@
         <label for="einheitentyp">Einheitentyp:</label>
         <p th:text="${mitarbeitertyp_einheitentyp.einheitentyp.name}" style="font-size: 22px; color:darkred; text-decoration: underline;"></p>
 		<p class="error-message"
-       	th:each="error: ${#fields.errors('einheitentyp')}"
-        th:text="${error}">Validation error</p>
+	       	th:each="error: ${#fields.errors('einheitentyp')}"
+	        th:text="${error}">Validation error</p>
        	</div>     		
     	
     	<div class="row"

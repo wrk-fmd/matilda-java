@@ -6,70 +6,68 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/> 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
  	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
- 	<title>Material</title>
+ 	<head th:replace="/fragment/header :: header"></head>	
+	<title>Material</title>
 </head>
 <body class="genBackground">
-		<head th:replace="/fragment/header :: header"></head>	
-	     
-<h1>Aktuelle Lager</h1>
+<div class="container">		
+<h2>Aktuelle Lager</h2>
 <h3>Wählen Sie ein Lager aus, um das Material zu verwalten!</h3>
 <div th:unless="${#lists.isEmpty(lagerstandorten)}">
 <table class="mainTable">
-<thead>
-<tr>
-	<th>Name</th>
-	<th>Adresse</th>
-	<th class="CellWithComment"><i class="far fa-question-circle"></i>
-		<span class="CellComment" >Bearbeiten des Materials</span>
-	</th>
-	<th class="CellWithComment">!
-		<span class="CellComment" >Übersicht über die Lieferungen der letzten 30 Tage/Lager</span>
-	</th>
-	<th class="CellWithComment">!
-		<span class="CellComment" >Übersicht über die Buchungen der letzten 30 Tage/Lager</span>
-	</th>
-</tr>
+	<thead>
+	<tr>
+		<th>Name</th>
+		<th>Adresse</th>
+		<th class="CellWithComment"><i class="far fa-question-circle"></i>
+			<span class="CellComment" >Bearbeiten des Materials</span>
+		</th>
+		<th class="CellWithComment"><i class="far fa-question-circle"></i>
+			<span class="CellComment" >Übersicht über die Lieferungen der letzten 30 Tage/Lager</span>
+		</th>
+		<th class="CellWithComment"><i class="far fa-question-circle"></i>
+			<span class="CellComment" >Übersicht über die Buchungen der letzten 30 Tage/Lager</span>
+		</th>
+	</tr>
 </thead>
 <dl th:each="lagerstandort : ${lagerstandorten}">
-<tr>
-	<td th:text="${lagerstandort.name}"></td>
-	<td th:text="${lagerstandort.adresse}"></td>
-	<td>
-		<a href="#" data-th-href="@{/materialverwaltung/{id}(id=${lagerstandort.id})}">
-		<input type="Button" value="Material" class="buttons"/>
-		</a>
+	<tr>
+		<td th:text="${lagerstandort.name}"></td>
+		<td th:text="${lagerstandort.adresse}"></td>
+		<td>
+			<a href="#" data-th-href="@{/materialverwaltung/{id}(id=${lagerstandort.id})}">
+			<input type="Button" value="Material" class="buttons"/>
+			</a>
+		</td>
+		<td>
+			<a href="#" data-th-href="@{/lieferungview/{id}(id=${lagerstandort.id})}">
+			<input type="Button" value="Lieferungen" class="buttons"/>
+			</a>
+		</td>
+		<td>
+			<a href="#" data-th-href="@{/buchungview/{id}(id=${lagerstandort.id})}">
+			<input type="Button" value="Buchungen" class="buttons"/>
+			</a>
 	</td>
-	<td>
-		<a href="#" data-th-href="@{/lieferungview/{id}(id=${lagerstandort.id})}">
-		<input type="Button" value="Lieferungen" class="buttons"/>
-		</a>
-	</td>
-	<td>
-		<a href="#" data-th-href="@{/buchungview/{id}(id=${lagerstandort.id})}">
-		<input type="Button" value="Buchungen" class="buttons"/>
-		</a>
-</td>
-</tr>
+	</tr>
 </table>
 </div>
 <div th:if="${#lists.isEmpty(lagerstandorten)}">
 <p>Es gibt keinen Lagerstandort</p>
 </div>
 <hr/>
-
-<div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-
             <div th:if="${param.success}">
                 <div class="alert alert-info">
                     Der neue Lagerstandort wurde erfolgreich eingetragen!
                 </div>
             </div>
-
+		</div>
+	</div>
 </div>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>

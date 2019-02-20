@@ -52,14 +52,13 @@
 			<button type="submit" onclick="return Confirm('sicher?')" class="bigButtons">Reset</button>
 		</form>
 	</p>
-<br>
 <hr>
 			<input type="button" value="Zurück" onClick="gotoVeranstaltung()" class="bigButtons"/>
 						<script>
 							function gotoVeranstaltung()
 							{	window.location.href="../veranstaltung";		}
 						</script>
-<br/>
+<br>
 			<div th:if="${param.nomaterial}">
 				<div class="alert alert-info">Kein Material vorhanden</div>
 			</div>

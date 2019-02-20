@@ -3,7 +3,6 @@
 <head>
    <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
 	<link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
@@ -23,10 +22,21 @@
 	    th:each="error : ${#fields.errors('global')}"
  		th:text="${error}">Validation error</p>
  		
+ 		<!-- <div class="row"
+       		 th:classappend="${#fields.hasErrors('veranstaltung')}? 'has-error':''">
+        <div class="col-50">
+	        <label for="veranstaltung">Veranstaltung</label>
+	        <p th:text="${veranstaltung_einheitentyp.veranstaltung.name}" style="font-size: 22px; color:darkred; text-decoration: underline;"></p>
+        </div>
+        <p class="error-message"
+       		th:each="error: ${#fields.errors('veranstaltung')}"
+      		th:text="${error}">Validation error</p>
+        </div>  -->
+ 		
 	    <div class="row"
         th:classappend="${#fields.hasErrors('einheitentyp')}? 'has-error':''">
         <div class="col-50">
-        <label for="einheitentyp" class="control-label">Einheitentyp</label>
+        <label for="einheitentyp" class="control-label">Einheitentyp:</label>
         <select th:field="*{einheitentyp}">
   			<option th:each="einheitentyp : ${alleEinheitentypen}" 
          	 th:value="${einheitentyp.id}" 
@@ -51,7 +61,7 @@
         <p><input type="submit" value="Bestätigen" /> </p>
 </form>
 <br>
-<h2>bereits zugewiesene Einheiten:</h2>
+<h3>bereits zugewiesene Einheiten:</h3>
 <div th:unless="${#lists.isEmpty(verein)}">
 <table class="mainTable">
 <thead>

@@ -7,15 +7,12 @@
 	    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
 	 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
 	 	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
-	 	<link rel="import" href="/fragment/topnav.html">
-		
 		<title>Lagerstandortaktualisierung</title>
-		
-	</head>
-<body>
-<head th:replace="/fragment/header :: header"></head>
-	<h2>Lagerstandort</h2>
+		<head th:replace="/fragment/header :: header"></head>
+</head>
+<body class="genBackground">
 <div class="container">
+	<h2>Lagerstandort</h2>
     <form action="#" th:action="@{/lagerstandortupdate/{id}(id=${lagerstandort.id})}" th:object="${lagerstandort}" method="post">
     
 		<p class="error-message"
@@ -78,9 +75,6 @@
 			} 
 			</script></p>
     </form>
-    <form th:action="@{/lagerstandortupdate/{id}/loeschen(id=${lagerstandort.id})}" th:object="${lagerstandort}" method="post" >
-		<button type="submit" onclick="return Confirm('sicher?')" class="bigButtons">L&ouml;schen</button>
-	</form>
 </div>
 	</br>
 </body>

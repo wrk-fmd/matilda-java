@@ -5,17 +5,15 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
  	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
  	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
- 	<link rel="import" href="/fragment/topnav.html">
+ 	<head th:replace="/fragment/header :: header"></head>	
  	<title>Materialtyp</title>
 </head>
-	<body>
-		<head th:replace="/fragment/header :: header"></head>	
-
+<body class="genBackground">
 <div class="container">
 <h2>Einen neuen Materialtyp hinzuf&uuml;gen</h2>
     <form action="#" th:action="@{/materialtyp}" th:object="${materialtyp}" method="post">
@@ -71,38 +69,40 @@
        	
         <p><input type="submit" value="Bestätigen"/></p>
   </form>
- </div>  
-   
-<h3>Übersicht Materialtyp</h3>
-<div th:unless="${#lists.isEmpty(materialtypen)}">
-<table class="mainTable" id="sortTable">
-<thead>
-<tr>
-<th>Name</th>
-<th>Einheit</th>
-<th>Beschreibung</th>
-<th>Link</th>
-</tr>
-</thead>
-<dl th:each="materialtyp : ${materialtypen}">
-<tr>
-<td th:text="${materialtyp.name}"></td>
-<td th:text="${materialtyp.menge}"></td>
-<td th:text="${materialtyp.beschreibung}"></td>
-<td th:text="${materialtyp.link}"></td>
-<td>
-	<a href="#" data-th-href="@{/materialtypupdate/{id}(id=${materialtyp.id})}">
-	<input type="button" value="Ändern" class="buttons"/>
-	</a>
-</td>
-</tr>
-</table>
+<br>
+<br>
+<h3>Übersicht Materialtyp:</h3>
+	<div th:unless="${#lists.isEmpty(materialtypen)}">
+	<table class="mainTable" id="sortTable">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Einheit</th>
+				<th>Beschreibung</th>
+				<th>Link</th>
+				<th class="CellWithComment"><i class="far fa-question-circle"></i>
+						<span class="CellComment" >Bearbeiten des Materialtyps</span>
+				</th>
+			</tr>
+		</thead>
+	<dl th:each="materialtyp : ${materialtypen}">
+		<tr>
+			<td th:text="${materialtyp.name}"></td>
+			<td th:text="${materialtyp.menge}"></td>
+			<td th:text="${materialtyp.beschreibung}"></td>
+			<td th:text="${materialtyp.link}"></td>
+			<td>
+				<a href="#" data-th-href="@{/materialtypupdate/{id}(id=${materialtyp.id})}">
+				<input type="button" value="Ändern" class="buttons"/>
+				</a>
+			</td>
+		</tr>
+	</table>
 </div>
 <div th:if="${#lists.isEmpty(materialtypen)}">
 <p>Es gibt kein Materialtyp</p>
 </div>
 <hr/>
-<div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
@@ -116,6 +116,8 @@
                     Der  Materialtyp wurde erfolgreich gelöscht!
                 </div>
             </div>       
+          </div>
+	</div>
 </div>
 
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>

@@ -2,29 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-
 <head th:fragment="head">
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-<link rel="stylesheet" type="text/css"
-	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
-<link rel="import" href="/fragment/topnav.html">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
+	<title>Mitarbeiterverwaltung</title>
+	<head th:replace="/fragment/header :: header"></head>
 </head>
-<title>Mitarbeiterverwaltung</title>
-<body>
-<head th:replace="/fragment/header :: header"></head>
+<body class="genBackground">
 <div class="container">
+	<h2>Mitarbeiterverwaltung</h2>
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
 
 			<form action="#" th:action="@{/mitarbeiterverwaltung}"
 				th:object="${userForm}" method="post">
-				<fieldset>
 					<table border="1" class="mainTable" id="sortTable">
 						<thead>
 							<tr>
@@ -62,7 +58,6 @@
 					<div>
 						 <a href="/registration" class="bigButtons" th:text="#{mitarbeiter_erstellen}"> </a> 
 					</div>
-				</fieldset>
 			</form>
 		</div>
 

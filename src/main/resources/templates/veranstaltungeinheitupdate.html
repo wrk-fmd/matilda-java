@@ -11,9 +11,10 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
 	<head th:replace="/fragment/header :: header"></head>
 </head>
-<body>
-	<h2>Einheitentyp verändern</h2>
+<body class="genBackground">
 <div class="container">
+	<h2>Einheitentyp verändern</h2>
+
     <form action="#" th:action="@{/veranstaltungeinheitupdate/{id}(id=${veranstaltung_einheitentyp.id})}" th:object="${veranstaltung_einheitentyp}" method="post">
       <p class="error-message"
 	    th:if="${#fields.hasGlobalErrors()}"
@@ -45,20 +46,20 @@
        	th:each="error: ${#fields.errors('bezeichnung')}"
         th:text="${error}">Validation error</p>
        	</div>
-       	
         <p><input type="submit" value="Ändern" /> </p>
         <td>
     </form>
     <form th:action="@{/veranstaltungeinheitupdate/{id}/loeschen(id=${veranstaltung_einheitentyp.id})}" th:object="${veranstaltung_einheitentyp}" method="post" >
 		<button class="bigButtons" type="submit" onclick="return Confirm('sicher?')">L&ouml;schen</button>
 	</form>
-	</div>
-	<hr/>
+ <br>
+<hr/>
 	<button class="bigButtons" onclick="goBack()">Abbrechen</button>
 	<script>
 	function goBack() {
 	    window.history.back();
      }
 	</script>
+</div>
 </body>
 </html>

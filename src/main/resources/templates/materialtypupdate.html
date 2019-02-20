@@ -4,16 +4,15 @@
 	 <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
  	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
  	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
- 	<link rel="import" href="/fragment/topnav.html">
+ 	<head th:replace="/fragment/header :: header"></head>	
     <title>Materialtyp Aktualisieren</title>
 </head>
-<body>
-	<head th:replace="/fragment/header :: header"></head>	
+<body class="genBackground">
 	<h2>Materialtyp</h2>
 <div class="container">
     <form action="#" th:action="@{/materialtypupdate/{id}(id=${materialtyp.id})}" th:object="${materialtyp}" method="post">
