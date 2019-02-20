@@ -1,22 +1,16 @@
 package at.wrk.fmd.selenium;
 
 import static org.junit.Assert.assertTrue;
+
 import java.util.List;
+
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import at.wrk.fmd.environment.Environment;
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BenutzerregistrierungTest extends Environment {
     

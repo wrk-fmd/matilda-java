@@ -3,6 +3,7 @@ package at.wrk.fmd.web;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,16 +12,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.ui.Model;
 
 import at.wrk.fmd.model.Lagerstandort;
-import at.wrk.fmd.model.Material;
 import at.wrk.fmd.model.Materialtyp;
 import at.wrk.fmd.model.Veranstaltung;
-import at.wrk.fmd.repository.LagerstandortRepository;
-import at.wrk.fmd.repository.MaterialRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
