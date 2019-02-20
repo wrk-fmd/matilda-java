@@ -21,6 +21,7 @@
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
+  font-weight: lighter;
 }
 
 /* die MenuItems beim Mouseover - Event */
@@ -34,6 +35,7 @@
 .active {
   background-color: #b60e0c;
   color: white;
+  font-weight: bold;
 }
 
 .topnav .icon {
@@ -74,18 +76,21 @@
   color: white;
   padding: 14px 90px;
   background-color: #b60e0c;
+  font-weight: bold;
   font-family: inherit; /* Important for vertical align on mobile phones */
   margin: 0; /* Important for vertical align on mobile phones */
  }
 
 /* Add a red background color to navbar links on hover */
 .navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: red;
+  background-color: #ffff80;
+  color: black;
 }
 
 /* Add a red background color to navbar links on hover */
 .navbar a:hover, .dropdownAdmin:hover .dropbtnAdmin {
-  background-color: red;
+  background-color: #ffff80;
+  color: black;
 }
 
 /* Dropdown content (hidden by default) */

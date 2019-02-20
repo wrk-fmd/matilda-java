@@ -2,7 +2,7 @@
 	box-sizing: border-box;
 }
 
-input[type=text], input[type=date], input[type=number], input[type=url], input[type=datetime-local], select, textarea {
+input[type=text], input[type=date], input[type=number], input[type=url], input[type=datetime-local], input[type=password], select, textarea {
 	width: 100%;
 	padding: 12px;
 	border: 1px solid #ccc;
@@ -84,23 +84,13 @@ two columns stack on top of each other instead of next to each other */
 	}
 }
 
-input[type=radio   ]:not(old){
-  width     : 2em;
-  margin    : 0;
-  padding   : 0;
-  font-size : 1em;
-  opacity   : 0;
-}
-
-input[type=checkbox]:not(old) + label,
-input[type=radio   ]:not(old) + label{
+input[type=checkbox]:not(old) + label{
   display      : inline-block;
   margin-left  : -2em;
   line-height  : 1.5em;
 }
 
-input[type=checkbox]:not(old) + label > span,
-input[type=radio   ]:not(old) + label > span{
+input[type=checkbox]:not(old) + label > span{
   display          : inline-block;
   width            : 0.875em;
   height           : 0.875em;
@@ -116,8 +106,7 @@ input[type=radio   ]:not(old) + label > span{
   vertical-align   : bottom;
 }
 
-input[type=checkbox]:not(old):checked + label > span,
-input[type=radio   ]:not(old):checked + label > span{
+input[type=checkbox]:not(old):checked + label > span{
   background-image :    -moz-linear-gradient(rgb(224,224,224),rgb(240,240,240));
   background-image :     -ms-linear-gradient(rgb(224,224,224),rgb(240,240,240));
   background-image :      -o-linear-gradient(rgb(224,224,224),rgb(240,240,240));
