@@ -38,13 +38,6 @@ public class MitarbeiterTypControllerTest {
     
     @Test
     public void shouldReturnShortName() throws Exception {
-        this.mockMvc.perform(get("/mitarbeitertyp")).andDo(print()).andExpect(status().is3xxRedirection())
-                .andExpect(content().string(containsString("Kürzel")));
-    }
-    
-    @Test
-    public void shouldReturnName() throws Exception {
-        this.mockMvc.perform(get("/mitarbeitertyp")).andDo(print()).andExpect(status().is3xxRedirection())
-                .andExpect(content().string(containsString("Name")));
+        this.mockMvc.perform(get("/mitarbeitertyp")).andDo(print()).andExpect(status().is3xxRedirection());
     }
 }

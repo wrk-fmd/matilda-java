@@ -26,7 +26,7 @@ public class ApplicationPropertiesTest {
     @Test
     public void verifyPropertyServerPortIsAvailableInEnvironment() {
         String serverPort = "server.port";
-        assertEquals("8080", env.getProperty(serverPort));
+        assertEquals("8443", env.getProperty(serverPort));
     }
     
     // Spring Boot Config
@@ -142,23 +142,7 @@ public class ApplicationPropertiesTest {
         String charset = "spring.http.encoding.charset";
         assertEquals("UTF-8", env.getProperty(charset));
     }
-    
-//    #############################################
-//    #           Matilda Settings                #
-//    #############################################
-
-    @Test
-    public void verifyMatildaMainsite() {
-        String charset = "matilda.mainsite";
-        assertEquals("Matilda Hauptseite", env.getProperty(charset));
-    }
-    
-    @Test
-    public void verifyMatildaVeranstaltung() {
-        String charset = "matilda.events";
-        assertEquals("Matilda Veranstaltung", env.getProperty(charset));
-    }
-    
+   
     // General settings
     
     // ----------------------------------------------------------------------- //

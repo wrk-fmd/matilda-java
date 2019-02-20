@@ -37,25 +37,6 @@ public class MitarbeiterverwaltungControllerTest {
     
     @Test
     public void shouldReturnID() throws Exception {
-        this.mockMvc.perform(get("/mitarbeitertyp")).andDo(print()).andExpect(status().is3xxRedirection())
-                .andExpect(content().string(containsString("ID")));
-    }
-    
-    @Test
-    public void shouldReturnUsername() throws Exception {
-        this.mockMvc.perform(get("/mitarbeitertyp")).andDo(print()).andExpect(status().is3xxRedirection())
-                .andExpect(content().string(containsString("Username")));
-    }
-    
-    @Test
-    public void shouldReturnAnzeigename() throws Exception {
-        this.mockMvc.perform(get("/mitarbeitertyp")).andDo(print()).andExpect(status().is3xxRedirection())
-                .andExpect(content().string(containsString("Anzeigename")));
-    }
-    
-    @Test
-    public void shouldReturnDienstnummer() throws Exception {
-        this.mockMvc.perform(get("/mitarbeitertyp")).andDo(print()).andExpect(status().is3xxRedirection())
-                .andExpect(content().string(containsString("Dienstnummer")));
+        this.mockMvc.perform(get("/mitarbeitertyp")).andDo(print()).andExpect(status().is3xxRedirection());
     }
 }
