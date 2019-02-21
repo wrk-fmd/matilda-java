@@ -4,51 +4,52 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
-<title>Buchungen</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
+    <head th:replace="/fragment/header :: header"></head>
+	<title>Buchungen</title>
 </head>
-<body>
-<head th:replace="/fragment/header :: header"></head>
-<h1>Buchungen</h1>
-<h3>Übersicht der Buchungen der letzten 29 Tagen</h3>
-<div th:unless="${#lists.isEmpty(buchungsInLager)}">
-<table class="mainTable" id="sortTable">
-<thead>
-<tr>
-<th onclick="sortTable(0)">Bezeichnung</th>
-<th onclick="sortTable(1)">Menge</th>
-<th onclick="sortTable(3)">Beschreibung</th>
-<th onclick="sortTable(4)">Erstellt am</th>
-<th onclick="sortTable(5)">Erstellt von</th>
-<th onclick="sortTable(4)">Von</th>
-<th onclick="sortTable(5)">Bis</th>
-</tr>
-</thead>
-<dl th:each="buchung : ${buchungsInLager}">
-<tr>
-<td th:text="${buchung.material.bezeichnung}"></td>
-<td th:text="${buchung.menge}"></td>
-<td th:text="${buchung.beschreibung}"></td>
-<td th:text="${buchung.createdAt}"></td>
-<td th:text="${buchung.modifiedBy}"></td>
-<td th:text="${buchung.von}"></td>
-<td th:text="${buchung.bis}"></td>
-</tr>
-</table>
-</div>
-<div th:if="${#lists.isEmpty(buchungsInLager)}">
-<p>Es gibt keine Buchungen</p>
-</div>
-<hr/>
-<button onclick="goBack()" class="bigButtons">Zurück</button>
-		<script>
-			function goBack() {
-				window.history.back();
-			}
-		</script>
+<body class="genBackground">
+<div class="container">
+	<h2>Buchungen</h2>
+	<h3>Übersicht über die Buchungen der letzten 29 Tage:</h3>
+	<div th:unless="${#lists.isEmpty(buchungsInLager)}">
+	<table class="mainTable" id="sortTable">
+		<thead>
+			<tr>
+				<th onclick="sortTable(0)">Bezeichnung</th>
+				<th onclick="sortTable(1)">Menge</th>
+				<th onclick="sortTable(3)">Beschreibung</th>
+				<th onclick="sortTable(4)">Erstellt am</th>
+				<th onclick="sortTable(5)">Erstellt von</th>
+				<th onclick="sortTable(4)">Von</th>
+				<th onclick="sortTable(5)">Bis</th>
+			</tr>
+		</thead>
+	<dl th:each="buchung : ${buchungsInLager}">
+		<tr>
+			<td th:text="${buchung.material.bezeichnung}"></td>
+			<td th:text="${buchung.menge}"></td>
+			<td th:text="${buchung.beschreibung}"></td>
+			<td th:text="${buchung.createdAt}"></td>
+			<td th:text="${buchung.modifiedBy}"></td>
+			<td th:text="${buchung.von}"></td>
+			<td th:text="${buchung.bis}"></td>
+		</tr>
+	</table>
+	</div>
+	<div th:if="${#lists.isEmpty(buchungsInLager)}">
+	<p>Es gibt keine Buchungen</p>
+	</div>
+	<hr/>
+	<button onclick="goBack()" class="bigButtons">Zurück</button>
+			<script>
+				function goBack() {
+					window.history.back();
+				}
+			</script>
 
 </div>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>

@@ -4,53 +4,52 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
-<title>Lieferungen</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
+    <head th:replace="/fragment/header :: header"></head>
+	<title>Lieferungen</title>
 </head>
-<body>
-<head th:replace="/fragment/header :: header"></head>
-<h1>Lieferungen</h1>
-<h3>Übersicht der Lieferungen der letzten 29 Tage</h3>
-<div th:unless="${#lists.isEmpty(lieferungsInLager)}">
-<table class="mainTable" id="sortTable">
-<thead>
-<tr>
-<th onclick="sortTable(0)">Bezeichnung</th>
-<th onclick="sortTable(1)">Menge</th>
-<th onclick="sortTable(2)">Art</th>
-<th onclick="sortTable(3)">Lieferungsdatum</th>
-<th onclick="sortTable(4)">Beschreibung</th>
-<th onclick="sortTable(5)">Erstellt am</th>
-<th onclick="sortTable(6)">Erstellt von</th>
-</tr>
-</thead>
-<dl th:each="lieferung : ${lieferungsInLager}">
-<tr>
-<td th:text="${lieferung.material.bezeichnung}"></td>
-<td th:text="${lieferung.menge}"></td>
-<td th:text="${lieferung.art}"></td>
-<td th:text="${lieferung.lieferungsDatum}"></td>
-<td th:text="${lieferung.beschreibung}"></td>
-<td th:text="${lieferung.createdAt}"></td>
-<td th:text="${lieferung.modifiedBy}"></td>
-</tr>
-</table>
-</div>
-<div th:if="${#lists.isEmpty(lieferungsInLager)}">
-<p>Es gibt keine Lieferungen</p>
-</div>
-<hr/>
-<button onclick="goBack()" class="bigButtons">Zurück</button>
-		<script>
-			function goBack() {
-				window.history.back();
-			}
-		</script>
-
-
+<body class="genBackground">
+<div class="container">
+	<h2>Lieferungen</h2>
+	<h3>Übersicht über die Lieferungen der letzten 29 Tage:</h3>
+	<div th:unless="${#lists.isEmpty(lieferungsInLager)}">
+	<table class="mainTable" id="sortTable">
+		<thead>
+			<tr>
+				<th onclick="sortTable(0)">Bezeichnung</th>
+				<th onclick="sortTable(1)">Menge</th>
+				<th onclick="sortTable(2)">Art</th>
+				<th onclick="sortTable(3)">Lieferungsdatum</th>
+				<th onclick="sortTable(4)">Beschreibung</th>
+				<th onclick="sortTable(5)">Erstellt am</th>
+				<th onclick="sortTable(6)">Erstellt von</th>
+			</tr>
+		</thead>
+	<dl th:each="lieferung : ${lieferungsInLager}">
+		<tr>
+			<td th:text="${lieferung.material.bezeichnung}"></td>
+			<td th:text="${lieferung.menge}"></td>
+			<td th:text="${lieferung.art}"></td>
+			<td th:text="${lieferung.lieferungsDatum}"></td>
+			<td th:text="${lieferung.beschreibung}"></td>
+			<td th:text="${lieferung.createdAt}"></td>
+			<td th:text="${lieferung.modifiedBy}"></td>
+		</tr>
+	</table>
+	</div>
+	<div th:if="${#lists.isEmpty(lieferungsInLager)}">
+	<p>Es gibt keine Lieferungen</p>
+	</div>
+	<hr/>
+	<button onclick="goBack()" class="bigButtons">Zurück</button>
+			<script>
+				function goBack() {
+					window.history.back();
+				}
+			</script>
 </div>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
