@@ -40,7 +40,13 @@
 			</tbody>
 		</table>
 	</div>
-	<hr/>
+<hr>
+	<button onclick="goBack()" class="bigButtons">Zurück</button>
+			<script>
+				function goBack() {
+					window.history.back();
+				}
+			</script>
 		<div th:if="${param.nostorno}">
 			<div class="alert alert-info">
 				Stornieren einer Veranstaltung ist nur im Gebuchtzustand möglich!
