@@ -2,7 +2,8 @@ package at.wrk.fmd.environment;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
+import at.wrk.fmd.repository.BuchungRepositoryTest;
+import at.wrk.fmd.repository.MaterialRepositoryTest;
 import at.wrk.fmd.web.EinheitentypControllerTest;
 import at.wrk.fmd.web.LagerstandortControllerTest;
 import at.wrk.fmd.web.MainControllerTest;
@@ -23,6 +24,8 @@ import at.wrk.fmd.website.LoginWebsiteTest;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     ApplicationPropertiesTest.class,
+    BuchungRepositoryTest.class,
+    MaterialRepositoryTest.class,
     LoginWebsiteTest.class,
     EinheitentypControllerTest.class,
     LagerstandortControllerTest.class,
