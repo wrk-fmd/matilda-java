@@ -12,7 +12,7 @@ h1 {
 
 h2, h3 {
 	color: #222;
-	/* margin-left: 25px; */
+	margin-left: 5px;
 	font-family: Arial;
 }
 
@@ -230,7 +230,7 @@ table.mainTable input[type=text] {
 	padding: 3px;
 	color: black;
 	bottom: 27px;
-	left: -1px;
+	left: -2px;
 	font-weight: normal;
 	min-width: 10rem;
 }
