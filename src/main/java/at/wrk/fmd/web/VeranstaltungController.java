@@ -157,7 +157,6 @@ public class VeranstaltungController {
 
 
     @RequestMapping(value = "/veranstaltungupdate/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String aendernForm(@PathVariable("id") long id, Model model) {
         logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         
