@@ -3,25 +3,22 @@
 		<div class="topnav" id="myTopnav" th:fragment="header">
 		<!--	<img class="logo" src="./Pictures/WRK_Logo.jpg" alt="Logo"> -->
 			<a href="/" class="active">MATILDA</a>
-			
-				<a href="/material" class="active">Material</a>
-				<a href="/veranstaltung" class="active">Veranstaltung</a>
+			<a href="/material" class="active">Material</a>
+			<a href="/veranstaltung" class="active">Veranstaltung</a>
 			
 			<div class="dropdown">
-			<button class="dropbtn">Erstellen von:
-					<i class="fa fa-caret-down"></i>
-			</button>
+				<div sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')">
+				<button class="dropbtn">Erstellen von:
+						<i class="fa fa-caret-down"></i>
+				</button>
 				 <div class="dropdown-content">
-					<div sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERVISOR') or hasAuthority('BENUTZER')">
-						<a href="/materialtyp">Materialtyp</a>
-					</div>
-				 	<div sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')">
-						<a href="/einheitentyp">Einheitentyp</a>
-						<a href="/mitarbeitertyp">Mitarbeitertyp</a>
-					</div>
-				 </div>
-			</div>
-			<div sec:authorize="hasAuthority('ADMIN')">
+					<a href="/materialtyp">Materialtyp</a>
+					<a href="/einheitentyp">Einheitentyp</a>
+					<a href="/mitarbeitertyp">Mitarbeitertyp</a>
+				</div>
+			 </div>
+		</div>
+			<div sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')">
 				<a href="/lagerstandort" class="active">Lagerstandort</a>
 			</div>
 			<a href="/report" class="active">Report</a>
