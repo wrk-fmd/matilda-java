@@ -19,25 +19,21 @@
 	<form name="datePickerForm" action="#" th:action="@{/pdf}" th:target="_blank" method="post" onsubmit="event.preventDefault(); validateForm();">
 	<div class="row">
 		<div class="col-50">
-			<p>
-				Beginn: 
-				 			<input name="datePickerBeginn" id="datePickerBeginn"
-					type="date" min="1900-01-01" required>
-						</p>
+				<label for="datePickerBeginn" class="control-label">Beginn:</label>
+				 <input name="datePickerBeginn" id="datePickerBeginn"	type="date" min="1900-01-01" required>
 		</div>
 	</div>
 	<div class="row">
 		 <div class="col-50">
-			<p>
-				Ende: <input name="datePickerEnde" id="datePickerEnde" type="date"
+			<label for="datePickerEnde" class="control-label">Ende:</label>
+			 <input name="datePickerEnde" id="datePickerEnde" type="date"
 					min="1900-01-01" required>
-			</p>
 		</div>
 	</div>
 	<div class="row">
 	 <div class="col-50">
-		<p>Page format:</p>
-		<select name="pageFormat">
+		<label for="page-format" class="control-label">Seitenformat:</label>
+		<select name="pageFormat" id="page-format">
 			<option value="A3">A3</option>
 			<option value="A4">A4</option>
 		</select>
@@ -45,8 +41,8 @@
 	</div>
 	<div class="row">
 	 <div class="col-50">
-		<p>PDF?:</p>
-		<select name="whichReportToPrint">
+		<label for="Choose" class="control-label">Auswahl:</label>
+		<select name="whichReportToPrint" id="Choose">
 			<option value="ProStandort">Pro Standort</option>
 			<option value="ProVeranstaltungAusgabeschein">Pro
 				Veranstaltung Ausgabeschein</option>

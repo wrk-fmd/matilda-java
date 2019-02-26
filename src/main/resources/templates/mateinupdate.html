@@ -58,12 +58,11 @@
 	        th:text="${error}">Validation error</p>
 	       	</div>                 	
 			
-			<p><input type="submit" value="Bestätigen" />
+			<p><input type="submit" value="Bestätigen" /></p>
+	</form>
 			<form th:action="@{/materialeinheitupdate/{id}/loeschen(id=${materialtyp_einheitentyp.id})}" th:object="${materialtyp_einheitentyp}" method="post" >
 				<button type="submit" class="bigButtons">L&ouml;schen</button>
 			</form>
-			</p>
-	</form>
 	<hr>
 	        <button onclick="goBack()" class="bigButtons">Abbrechen</button>
 				<script>

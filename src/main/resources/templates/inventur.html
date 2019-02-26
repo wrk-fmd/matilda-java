@@ -13,9 +13,9 @@
     <title>Inventur</title>
 </head>
 <body>
-	
-	<h2>Inventur</h2>
 <div class="container">
+	<h2>Inventur</h2>
+
     <form action="#" th:action="@{/inventur/{id}(id=${material.id})}" th:object="${material}" method="post">
     
     	<p class="error-message"

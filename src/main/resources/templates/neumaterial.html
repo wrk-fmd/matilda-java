@@ -3,20 +3,17 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-<link rel="stylesheet" type="text/css"
-	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
 <link rel="stylesheet" th:href="@{/css/index.css}" />
+<link rel="stylesheet" th:href="@{/css/forms.css}" />
+<head th:replace="/fragment/header :: header"></head>
 <title>Material hinzufügen</title>
 </head>
 <body>
-<head th:replace="/fragment/header :: header"></head>
-
-
-<h3>Material hinzufügen</h3>
 <div class="container">
+<h2>Material hinzufügen</h2>
+
 	<form action="#" th:action="@{/neumaterial}" th:object="${material}"
 		method="post">
 		
@@ -27,7 +24,7 @@
 		<div class="row"
 			th:classappend="${#fields.hasErrors('materialtyp')}? 'has-error':''">
 			<div class="col-50">
-				<label for="materialtyp">Materialtyp</label>
+				<label for="materialtyp">Materialtyp:</label>
 				<select th:field="*{materialtyp}">
 					<option th:each="materialtyp : ${alleMaterialtypen}"
 						th:value="${materialtyp.id}" th:text="${materialtyp.name}">
@@ -42,7 +39,7 @@
 		<div class="row"
 			th:classappend="${#fields.hasErrors('bezeichnung')}? 'has-error':''">
 			<div class="col-50">
-				<label for="bezeichnung">Bezeichnung</label> 
+				<label for="bezeichnung">Bezeichnung:</label> 
 				<input type="text" th:field="*{bezeichnung}" placeholder="Bezeichung.."/>
 				<p class="error-message"
 					th:each="error: ${#fields.errors('bezeichnung')}"
@@ -53,7 +50,7 @@
 		<div class="row"
 			th:classappend="${#fields.hasErrors('seriennummer')}? 'has-error':''">
 			<div class="col-50">
-				<label for="seriennummer">Seriennummer</label>
+				<label for="seriennummer">Seriennummer:</label>
 				<input type="text" th:field="*{seriennummer}" placeholder="Seriennummer.." />
 				<p class="error-message"
 					th:each="error: ${#fields.errors('seriennummer')}"
@@ -64,7 +61,7 @@
 		<div class="row"
 			th:classappend="${#fields.hasErrors('bestand')}? 'has-error':''">
 			<div class="col-50">
-			<label for="bestand">Bestand</label> <input
+			<label for="bestand" class="control-label">Bestand:</label> <input
 				type="number" th:field="*{bestand}" min="1" placeholder="Bestand"/>
 			<p class="error-message"
 				th:each="error: ${#fields.errors('bestand')}" th:text="${error}">Validation
@@ -75,7 +72,7 @@
 		<div class="row"
 			th:classappend="${#fields.hasErrors('einkaufsdatum')}? 'has-error':''">
 			<div class="col-50">
-			<label for="einkaufsdatum">Einkaufsdatum</label>
+			<label for="einkaufsdatum">Einkaufsdatum:</label>
 			<input type="date" th:field="*{einkaufsdatum}" />
 			<p class="error-message"
 				th:each="error: ${#fields.errors('einkaufsdatum')}"
@@ -86,8 +83,8 @@
 		<div class="row"
 			th:classappend="${#fields.hasErrors('letztesudatum')}? 'has-error':''">
 			<div class="col-50">
-			<label for="letztesudatum">Letztes
-				Überprüfungsdatum</label> <input type="date" th:field="*{letztesudatum}" />
+			<label for="letztesudatum">Letztes Überprüfungsdatum:</label> 
+			<input type="date" th:field="*{letztesudatum}" />
 			<p class="error-message"
 				th:each="error: ${#fields.errors('letztesudatum')}"
 				th:text="${error}">Validation error</p>
@@ -97,9 +94,8 @@
 		<div class="row"
 			th:classappend="${#fields.hasErrors('naechstesudatum')}? 'has-error':''">
 			<div class="col-50">
-			<label for="naechstesudatum">Nächstes Überprüfungsdatum</label>
+			<label for="naechstesudatum">Nächstes Überprüfungsdatum:</label>
 			 <input type="date" th:field="*{naechstesudatum}" />
-			</p>
 			<p class="error-message"
 				th:each="error: ${#fields.errors('naechstesudatum')}"
 				th:text="${error}">Validation error</p>
@@ -108,11 +104,11 @@
 
 		<div class="row"
 			th:classappend="${#fields.hasErrors('einsatzbereitschaft')}? 'has-error':''">
-			<div class="col-25">
-			<label for="einsatzbereitschaft">Einsatzbereitschaft</label>
+			<div class="col-50">
+			<label for="einsatzbereitschaft" class="control-label">Einsatzbereitschaft:</label>
 				<div>
 				<input id="bereit" type="checkbox" value="bereit" th:field="*{einsatzbereitschaft}" />
-				<label for="bereit"><span><span></span></span>Das Material ist bereit zur Entnahme</label>
+				<label for="bereit" style="text-decoration:none; font-size: 16px; font-weight: normal ">Das Material ist bereit zur Entnahme</label>
 				</div> 
 			<p class="error-message"
 				th:each="error: ${#fields.errors('einsatzbereitschaft')}"

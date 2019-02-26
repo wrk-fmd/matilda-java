@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{fragments/layout}">
-<head>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{fragments/layout}">
+ <head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+ 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+ 	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
+ 	<head th:replace="/fragment/header :: header"></head>	
     <title>Page not found</title>
 </head>
-<body>
-<div layout:fragment="content" th:remove="tag">
-    <h1>404</h1>
-    <h2>the page was not found</h2>
-    <p><a href="/" th:href="@{/}">Back to home page</a></p>
-</div>
-</body>
+	<body class="genBackground">
+	<div class="container">
+		<div layout:fragment="content" th:remove="tag">
+		    <h1>404</h1>
+		    <h2>the page was not found</h2>
+		    <p><a href="/" th:href="@{/}">Back to home page</a></p>
+		</div>
+	</div>
+	</body>
 </html>

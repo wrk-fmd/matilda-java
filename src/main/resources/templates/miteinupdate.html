@@ -11,8 +11,8 @@
     <title>Einheitentyp-Mitarbeitertyp Aktualisieren</title>
 </head>
 <body>
-	<h2>Mitarbeitertypen ändern</h2>
 <div class="container">
+	<h2>Mitarbeitertypen ändern</h2>
     <form action="#" th:action="@{/miteinupdate/{id}(id=${mitarbeitertyp_einheitentyp.id})}" th:object="${mitarbeitertyp_einheitentyp}" method="post">
     	
     	<p class="error-message"
@@ -57,12 +57,11 @@
         th:text="${error}">Validation error</p>
        	</div>
        	
-        <p><input type="submit" value="Bestätigen" />
-        	 	<form th:action="@{/mitarbeitereinheitupdate/{id}/loeschen(id=${mitarbeitertyp_einheitentyp.id})}" th:object="${mitarbeitertyp_einheitentyp}" method="post" >
-					<button type="submit" class="bigButtons">L&ouml;schen</button>
-				</form>
-		</p>
+        <p><input type="submit" value="Bestätigen" />	</p>
     </form>
+    <form th:action="@{/mitarbeitereinheitupdate/{id}/loeschen(id=${mitarbeitertyp_einheitentyp.id})}" th:object="${mitarbeitertyp_einheitentyp}" method="post" >
+		<button type="submit" class="bigButtons">L&ouml;schen</button>
+	</form>
     <hr>
 	<button onclick="goBack()" class="bigButtons">Abbrechen</button>
 			<script>

@@ -4,16 +4,21 @@
 
 input[type=text], input[type=date], input[type=number], input[type=url], input[type=datetime-local], input[type=password], select, textarea {
 	width: 100%;
-	padding: 12px;
+	padding: 5px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	resize: vertical;
 	font-size: 16px;
+	margin-left: 2rem;
 }
 
 label {
-	padding: 12px 12px 12px 0;
+	font-size: 18px;
+	text-decoration: underline;
+	font-weight: bold;
+	padding: 12px 12px 2px 0;
 	display: inline-block;
+	margin-left: 2rem;
 }
 
 input[type=submit] {
@@ -56,7 +61,7 @@ input[type=submit]:active {
 
 .col-50 {
 	float: left;
-	width: 50%;
+	width: 40%;
 	margin-top: 6px;
 	font-size: 16px;
 }
@@ -88,13 +93,18 @@ input[type=checkbox]:not(old) + label{
   display      : inline-block;
   margin-left  : -2em;
   line-height  : 1.5em;
+  margin-left: 2rem;
 }
+
+ input[type="checkbox"]{
+	margin-left: 2rem;
+} 
 
 input[type=checkbox]:not(old) + label > span{
   display          : inline-block;
   width            : 0.875em;
   height           : 0.875em;
-  margin           : 0.25em 0.5em 0.25em 0.25em;
+  margin           : 0.25em 0.5em 0.25em 2rem;
   border           : 0.0625em solid rgb(192,192,192);
   border-radius    : 0.25em;
   background       : rgb(224,224,224);
@@ -126,7 +136,9 @@ input[type=checkbox]:not(old):checked + label > span:before{
   font-weight : bold;
 }
 
-input[type=radio]:not(old):checked +  label > span > span{
+
+/* neue Form der Radiobuttons nicht mehr benötigt */
+/* input[type=radio]:not(old):checked +  label > span > span{
   display          : block;
   width            : 0.5em;
   height           : 0.5em;
@@ -139,6 +151,6 @@ input[type=radio]:not(old):checked +  label > span > span{
   background-image :      -o-linear-gradient(rgb(179,217,140),rgb(153,204,102));
   background-image : -webkit-linear-gradient(rgb(179,217,140),rgb(153,204,102));
   background-image :         linear-gradient(rgb(179,217,140),rgb(153,204,102));
-}
+} */
 
 

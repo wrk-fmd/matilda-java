@@ -3,22 +3,20 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-	<link rel="stylesheet" type="text/css"
-	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.74534/css/bootstrap.min.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
-	
+	<head th:replace="/fragment/header :: header"></head>
 	<title>Lieferung</title>
 </head>
 <body>
 <div class="container">
+<h2>Aktuelle Lieferungen</h2>
   <form action="#" th:action="@{/lieferung}" th:object="${lieferung}"
 		method="post">
-
-		<h3>Aktuell</h3>
 		<table class="mainTable">
+		<thead>
 			<tr>
 				<th>Materialtyp</th>
 				<th>Bezeichnung</th>
@@ -26,6 +24,7 @@
 				<th>Seriennummer</th>
 				<th>Lager</th>
 			</tr>
+		</thead>
 			<tr>
 				<td th:text="${lieferung.material.materialtyp.name}"></td>
 				<td th:text="${lieferung.material.bezeichnung}"></td>
@@ -34,9 +33,8 @@
 				<td th:text="${lieferung.material.lagerstandort.name}"></td>
 			</tr>
 		</table>
-
-		<h2>Lieferschein</h2>
-
+<hr>
+		<h3>neue Lieferung erstellen:</h3>
 		<div class="row"
 			th:classappend="${#fields.hasErrors('art')}? 'has-error':''">
 			<div class="col-25">
