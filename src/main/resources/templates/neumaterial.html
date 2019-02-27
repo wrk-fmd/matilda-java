@@ -108,7 +108,7 @@
 			<label for="einsatzbereitschaft" class="control-label">Einsatzbereitschaft:</label>
 				<div>
 				<input id="bereit" type="checkbox" value="bereit" th:field="*{einsatzbereitschaft}" />
-				<label for="bereit" style="text-decoration:none; font-size: 16px; font-weight: normal ">Das Material ist bereit zur Entnahme</label>
+				<label for="bereit" style="text-decoration:underline; font-size: 18px; font-weight: 400 ">Das Material ist bereit zur Entnahme</label>
 				</div> 
 			<p class="error-message"
 				th:each="error: ${#fields.errors('einsatzbereitschaft')}"

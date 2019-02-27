@@ -14,8 +14,8 @@ input[type=text], input[type=date], input[type=number], input[type=url], input[t
 
 label {
 	font-size: 18px;
-	text-decoration: underline;
-	font-weight: bold;
+	/* text-decoration: underline; */
+	font-weight: 400;
 	padding: 12px 12px 2px 0;
 	display: inline-block;
 	margin-left: 2rem;
@@ -96,7 +96,7 @@ input[type=checkbox]:not(old) + label{
   margin-left: 2rem;
 }
 
- input[type="checkbox"]{
+ input[type="checkbox"], input[type="radio"]{
 	margin-left: 2rem;
 } 
 

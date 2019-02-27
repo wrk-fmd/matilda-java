@@ -10,7 +10,7 @@
 	<head th:replace="/fragment/header :: header"></head>
 	<title>Lieferung</title>
 </head>
-<body>
+<body class="genBackground">
 <div class="container">
 <h2>Aktuelle Lieferungen</h2>
   <form action="#" th:action="@{/lieferung}" th:object="${lieferung}"
@@ -37,12 +37,12 @@
 		<h3>neue Lieferung erstellen:</h3>
 		<div class="row"
 			th:classappend="${#fields.hasErrors('art')}? 'has-error':''">
-			<div class="col-25">
+			<div class="col-50">
 			<label for="art">Art:</label> 
 			<div>
-			<input id="eingabe" type="radio" value="eingabe" th:field="*{art}"/> 
+			<input id="eingabe" type="radio" class="radio" value="eingabe" th:field="*{art}"/> 
 			<label for="eingabe"><span><span></span></span>Eingabe</label> 
-			<input id="ausgabe" type="radio" value="ausgabe" th:field="*{art}"/>
+			<input id="ausgabe" type="radio" class="radio" value="ausgabe" th:field="*{art}"/>
 			<label for="ausgabe"><span><span></span></span>Ausgabe</label> 
 			</div>
 			<p class="error-message" th:each="error: ${#fields.errors('art')}"
