@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.jasypt.contrib.org.apache.commons.codec_1_3.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -157,6 +158,7 @@ public class VeranstaltungController {
 
 
     @RequestMapping(value = "/veranstaltungupdate/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String aendernForm(@PathVariable("id") long id, Model model) {
         logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());
         
@@ -603,33 +605,51 @@ public class VeranstaltungController {
     	return LocalDateTime.parse(dateTime);
     }
     
+    // Aktuelle Materialien im Lager - gebuchte materialien
+    
     private int aktBestand(Material m)
     {
-    	int akt = m.getBestand();    	
-    		 
+    	int aktImLager = m.getBestand();    	
+    	int gebucht = 0;
+    	int aktVorBuchung = aktImLager;
+    	
 		List<Buchung> buchungs = buchungRepository.findByMaterial(m);
 		
 		if(!buchungs.isEmpty())
-		{
-			for(Buchung b : buchungs)
+		{	
+			LocalDateTime i = aktVeranstaltung.getBeginn();  
+			while (i.isBefore(aktVeranstaltung.getEnde()))
 			{
-				if(b.getVeranstaltung()!=null)
+				for (Buchung b: buchungs)
 				{
-					if(b.getVeranstaltung().getEnde().isAfter(aktVeranstaltung.getBeginn()))
+					if(b.getVeranstaltung()!=null)
 					{
-						akt = akt - b.getMenge();
+						if(i.isBefore(b.getVeranstaltung().getEnde())&&i.isAfter(b.getVeranstaltung().getBeginn()))
+						{
+							gebucht = gebucht + b.getMenge();
+						}
+					}
+					else
+					{
+						if(i.isBefore(b.getBis())&&i.isAfter(b.getVon()))
+						{
+							gebucht = gebucht + b.getMenge();
+						}
 					}
 				}
-				else
-				{
-					if(b.getBis().isAfter(aktVeranstaltung.getBeginn()))
-					{
-						akt = akt - b.getMenge();
-					}
+				
+				if(gebucht>aktImLager) {
+					aktVorBuchung = 0;
+					aktImLager = 0;
+					break;
 				}
-			}
-		}
-		
-		return akt;
+				else if(gebucht<=aktImLager&&aktImLager-gebucht<aktVorBuchung)
+				{
+					aktVorBuchung = aktImLager-gebucht;
+				}					
+				i = i.plusDays(1);
+			}					
+		}		
+		return aktVorBuchung;
     }
 }
