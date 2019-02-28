@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @EnableConfigurationProperties
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
-@TestPropertySource("classpath:test.properties")
+@TestPropertySource("classpath:application-test.properties")
 public class ApplicationPropertiesTest {
 
     @Autowired

@@ -25,7 +25,7 @@ public class LoginWebsiteTest {
     @Test
     public void shouldReturnStatusOkIfStringContainsBenutzername() throws Exception {
         this.mockMvc.perform(get("/login")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Benutzername")));
+                .andExpect(content().string(containsString("username")));
     }
 
     @Test
