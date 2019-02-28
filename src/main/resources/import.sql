@@ -13,7 +13,7 @@ INSERT INTO benutzer_rolle(benutzer_id,rolle_id) VALUES (2,1);
 INSERT INTO benutzer(created_at, anzeigename, benutzername, dienstnummer, active, passwort) VALUES (now(), 'matthias', 'matthias', 'matthias', true, '$2a$10$eoJXaB5sKquqydjBbkxiHOIT7iowKUI6A2HUfpyYTrwaibJ5SfPFW');
 INSERT INTO benutzer_rolle(benutzer_id,rolle_id) VALUES (3,3);
 
-UPDATE INTO benutzer SET active = false WHERE id = 2 ;
+UPDATE benutzer SET active = false WHERE id = 2 ;
 
 
 
