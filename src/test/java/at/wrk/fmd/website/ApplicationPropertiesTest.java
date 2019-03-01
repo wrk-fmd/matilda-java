@@ -62,6 +62,18 @@ public class ApplicationPropertiesTest {
         String sql = "spring.jpa.show-sql";
         assertEquals("true", env.getProperty(sql));
     }
+    
+    @Test
+    public void verifyPropertyDDLAutoIsAvailableInEnvironment() {
+        String sql = "spring.jpa.hibernate.ddl-auto";
+        assertEquals("create-drop", env.getProperty(sql));
+    }
+    
+    @Test
+    public void verifyPropertyConitnueOnErrorIsAvailableInEnvironment() {
+        String sql = "spring.datasource.continue-on-error";
+        assertEquals("true", env.getProperty(sql));
+    }
 
     // DB Config
     
