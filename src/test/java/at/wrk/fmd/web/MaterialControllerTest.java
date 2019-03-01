@@ -9,21 +9,18 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.ui.Model;
 
+import at.wrk.fmd.environment.AbstractJunitMatildaTest;
 import at.wrk.fmd.model.Lagerstandort;
 import at.wrk.fmd.model.Materialtyp;
 import at.wrk.fmd.model.Veranstaltung;
+import at.wrk.fmd.repository.MaterialRepository;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class MaterialControllerTest {	
+public class MaterialControllerTest extends AbstractJunitMatildaTest{	
 	@Autowired
-	private MaterialController materialController;
+	private MaterialRepository materialRepository;
 	private Lagerstandort lagerstandort;
     
 	//Simple test whether MaterialController isNotNull
@@ -31,7 +28,7 @@ public class MaterialControllerTest {
 	@Test
 	public void contexLoads() throws Exception
 	{
-		assertThat(materialController).isNotNull();
+		assertThat(materialRepository).isNotNull();
 	}
 	
 	@Before

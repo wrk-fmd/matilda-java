@@ -1,43 +1,40 @@
 package at.wrk.fmd.web;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import java.util.List;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
+import at.wrk.fmd.environment.AbstractJunitMatildaTest;
+import at.wrk.fmd.model.Mitarbeitertyp;
+import at.wrk.fmd.repository.MitarbeitertypRepository;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-@ActiveProfiles("test")
-public class MitarbeiterTypControllerTest {
+public class MitarbeiterTypControllerTest extends AbstractJunitMatildaTest {
     
     @Autowired
-    private MitarbeitertypController mitarbeiterTypController;
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    //Simple test whether MitarbeiterTypController isNotNull
+    private MitarbeitertypRepository mitarbeitertyp;
     
     @Test
     public void contexLoads() throws Exception
     {
-        assertThat(mitarbeiterTypController).isNotNull();
+        assertThat(mitarbeitertyp).isNotNull();
     }
     
     @Test
-    public void shouldReturnShortName() throws Exception {
-        this.mockMvc.perform(get("/mitarbeitertyp")).andDo(print()).andExpect(status().is3xxRedirection());
+    public void shouldReturnCountOfMitarbeitertyp() {
+        assertThat(mitarbeitertyp.count()>0);
+    }
+    
+    @Test
+    public void shouldReturnKuerzel() {
+        List<Mitarbeitertyp> mitarbeiter = mitarbeitertyp.findAll();
+        String kuerzel = mitarbeiter.get(0).getKuerzel();
+        assertThat(kuerzel.contains("Team 1"));
+    }
+    
+    @Test
+    public void shouldReturnName() {
+        List<Mitarbeitertyp> mitarbeiter = mitarbeitertyp.findAll();
+        String name = mitarbeiter.get(0).getName();
+        assertThat(name.contains("Team 1"));
     }
 }

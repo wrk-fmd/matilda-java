@@ -1,30 +1,57 @@
 package at.wrk.fmd.web;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.List;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import at.wrk.fmd.environment.AbstractJunitMatildaTest;
+import at.wrk.fmd.model.Veranstaltung;
+import at.wrk.fmd.repository.VeranstaltungRepository;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-public class VeranstaltungsControllerTest {
+public class VeranstaltungsControllerTest extends AbstractJunitMatildaTest {
 	@Autowired
-	private VeranstaltungController veranstaltungsController;
+	private VeranstaltungRepository veranstaltungRepository;
 
-	//Simple test whether VeranstaltungController isNotNull
-	
 	@Test
 	public void contexLoads() throws Exception
 	{
-		assertThat(veranstaltungsController).isNotNull();
+		assertThat(veranstaltungRepository).isNotNull();
 	}
-	
+
 	@Test
 	public void shouldReturnVeranstaltungIsInserted() {
-	    
+	    List<Veranstaltung> veranstaltungSize = veranstaltungRepository.findAll();
+	    assertTrue(veranstaltungSize.size()>0);
 	}
+
+	@Test
+	public void shouldReturnVeranstaltungWithNameIsCreated() {
+	    Veranstaltung veranstaltungsName = veranstaltungRepository.findByName("Wien 2018");
+	    assertTrue(veranstaltungsName.getName().equals("Wien 2018"));
+	}
+
+    @Test
+    public void shouldReturnVeranstaltungWithZustand() {
+        Veranstaltung veranstaltungsZustand = veranstaltungRepository.findByName("Wien 2018");
+        assertTrue(veranstaltungsZustand.getZustand().equals("In Bearbeitung"));
+    }
+
+    @Test
+    public void shouldReturnVeranstaltungWithBeginnDate() {
+        Veranstaltung veranstaltungsZustand = veranstaltungRepository.findByName("Wien 2018");
+        assertTrue(veranstaltungsZustand.getBeginn().toString().equals("2018-11-04T00:00"));
+    }
+
+    @Test
+    public void shouldReturnVeranstaltungWithEndeDate() {
+        Veranstaltung veranstaltungsZustand = veranstaltungRepository.findByName("Wien 2018");
+        assertTrue(veranstaltungsZustand.getEnde().toString().equals("2018-11-05T00:00"));
+    }
+
+    @Test
+    public void shouldReturnVeranstaltungWithLagerstandort() {
+        Veranstaltung veranstaltungsZustand = veranstaltungRepository.findByName("Wien 2018");
+        assertTrue(veranstaltungsZustand.getLagerstandort().getId() == 1);
+    }
 }
