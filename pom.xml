@@ -207,15 +207,22 @@
 		    <groupId>org.seleniumhq.selenium</groupId>
 		    <artifactId>selenium-java</artifactId>
 		    </dependency>
-	<dependency>
-        <groupId>io.github.bonigarcia</groupId>
-        <artifactId>selenium-jupiter</artifactId>
-        <version>3.1.0</version>
-        <scope>test</scope>
-</dependency>
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>selenium-jupiter</artifactId>
+			<version>3.1.0</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- Selenium -->
+		<!-- Guava Ordering list -->
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>27.0.1-jre</version>
+		</dependency>
+		<!-- Guava Ordering list -->
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
