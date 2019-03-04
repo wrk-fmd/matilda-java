@@ -11,14 +11,10 @@ input[type=text], input[type=date], input[type=number], input[type=url], input[t
 	font-size: 16px;
 	margin-left: 2rem;
 }
-
-label {
-	font-size: 18px;
-	/* text-decoration: underline; */
-	font-weight: 400;
-	padding: 12px 12px 2px 0;
-	display: inline-block;
-	margin-left: 2rem;
+/*In der Mitarbeiterverwaltung gibt es input[type=text] in der Tabelle, die nicht vom 'margin-left: 2rem' betroffen sein sollen. 
+	Daher habe ich sie mit einer ID versehen um sie extra zu verwalten.*/
+#schmal{ 
+	margin-left: 0px;
 }
 
 input[type=submit] {
@@ -51,6 +47,14 @@ input[type=submit]:hover {
 input[type=submit]:active {
 	background-color: #caffca;
 	color: #b60e0c;
+}
+
+label {
+	font-size: 18px;
+	font-weight: 400;
+	padding: 12px 12px 2px 0;
+	display: inline-block;
+	margin-left: 2rem;
 }
 
 .container {
@@ -96,8 +100,9 @@ input[type=checkbox]:not(old) + label{
   margin-left: 2rem;
 }
 
- input[type="checkbox"], input[type="radio"]{
+ input[type=checkbox], input[type=radio]{
 	margin-left: 2rem;
+	margin-right: 2rem;
 } 
 
 input[type=checkbox]:not(old) + label > span{
@@ -138,7 +143,7 @@ input[type=checkbox]:not(old):checked + label > span:before{
 
 
 /* neue Form der Radiobuttons nicht mehr benötigt */
-/* input[type=radio]:not(old):checked +  label > span > span{
+ /* input[type=radio]:not(old):checked +  label > span > span{
   display          : block;
   width            : 0.5em;
   height           : 0.5em;
@@ -151,6 +156,5 @@ input[type=checkbox]:not(old):checked + label > span:before{
   background-image :      -o-linear-gradient(rgb(179,217,140),rgb(153,204,102));
   background-image : -webkit-linear-gradient(rgb(179,217,140),rgb(153,204,102));
   background-image :         linear-gradient(rgb(179,217,140),rgb(153,204,102));
-} */
-
-
+} 
+ */

@@ -36,17 +36,16 @@
 								<td><input type="checkbox" name="searchValues"
 									th:value="${user.id}" th:checked="${user.isActive}"
 									th:onclick="${'inputClick('''+ itemStat.index +''')'}" /></td>
-								<td><input type="text"
+								<td><input type="text" id="schmal"
 									th:field="*{users[__${itemStat.index}__].id}" readonly /></td>
-								<td><input type="text"
+								<td><input type="text" id="schmal"
 									th:field="*{users[__${itemStat.index}__].username}" readonly /></td>
-								<td><input class="anzeigename" type="text"
+								<td><input type="text" id="schmal"
 									name="anzeigename"
 									th:field="*{users[__${itemStat.index}__].anzeigename}" readonly /></td>
-								<td><input class="dienstnummer" type="text"
+								<td><input type="text" id="schmal"
 									name="dienstnummer"
-									th:field="*{users[__${itemStat.index}__].dienstnummer}"
-									readonly /></td>
+									th:field="*{users[__${itemStat.index}__].dienstnummer}" readonly /></td>
 							</tr>
 						</tbody>
 					</table>

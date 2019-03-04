@@ -3,10 +3,14 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/layout}">
 <head>
+          <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+ 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+ 	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
+ 	<head th:replace="/fragment/header :: header"></head>	
     <title>ERROR-PAGE</title>
 </head>
-<body>
-<div layout:fragment="content" th:remove="tag">
+<body class="genBackground">
+<div layout:fragment="content" th:remove="tag" class="container">
     <h1>500</h1>
     <h2>an error occurred on the page</h2>
     <p><a href="/" th:href="@{/}">Back to home page</a></p>
