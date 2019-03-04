@@ -13,7 +13,7 @@ import at.wrk.fmd.environment.Environment;
 public class PasswordAenderungTest extends Environment {
 
     @Test
-    public void isTitleMaterialAvailable() {
+    public void isTitlePasswortAendernAvailable() {
         login();
         Actions builder = new Actions(driver);
         
@@ -22,7 +22,7 @@ public class PasswordAenderungTest extends Environment {
         driver.findElement(By.xpath("//div[@class='dropdown-content-admin']"));
         driver.findElement(By.xpath("//a[contains(text(), 'Passwort aendern')]")).click();
 
-        assertTrue(driver.getTitle().contains("Passwortaenderung"));
+        assertTrue(driver.getTitle().contains("Passwort ändern"));
     }
     
     @AfterClass

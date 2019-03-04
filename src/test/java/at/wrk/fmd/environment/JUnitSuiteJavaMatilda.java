@@ -9,7 +9,6 @@ import at.wrk.fmd.web.MaterialControllerTest;
 import at.wrk.fmd.web.MaterialTypControllerTest;
 import at.wrk.fmd.web.MitarbeiterTypControllerTest;
 import at.wrk.fmd.web.MitarbeiterverwaltungControllerTest;
-import at.wrk.fmd.web.RestWebControllerTest;
 import at.wrk.fmd.web.UserControllerTest;
 import at.wrk.fmd.web.VeranstaltungsControllerTest;
 import at.wrk.fmd.website.ApplicationPropertiesTest;
@@ -24,9 +23,8 @@ import at.wrk.fmd.website.ApplicationPropertiesTest;
     MaterialControllerTest.class, //
     MitarbeiterTypControllerTest.class, //
     MitarbeiterverwaltungControllerTest.class,
-    RestWebControllerTest.class,
     UserControllerTest.class,
-    VeranstaltungsControllerTest.class, //
+    VeranstaltungsControllerTest.class //
 })
 public class JUnitSuiteJavaMatilda {
 }

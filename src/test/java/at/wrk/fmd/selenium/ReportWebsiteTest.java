@@ -23,7 +23,7 @@ public class ReportWebsiteTest extends Environment {
 
         driver.findElement(By.xpath("//a[@href='/report']")).click();
         
-        assertTrue(driver.findElement(By.tagName("h3")).getText().equals("Report für informative Ansichten"));
+        assertTrue(driver.findElement(By.tagName("h2")).getText().equals("Report für informative Ansichten"));
     }
     
     @Test

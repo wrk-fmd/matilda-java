@@ -15,7 +15,7 @@ public class MaterialTest extends Environment {
 
         driver.findElement(By.xpath("//a[@href='/material']")).click();
         
-        assertTrue(driver.findElement(By.tagName("h1")).getText().equals("Aktuelle Lager"));
+        assertTrue(driver.findElement(By.tagName("h2")).getText().equals("Aktuelle Lager"));
     }
     
     @Test
