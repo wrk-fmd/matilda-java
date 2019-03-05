@@ -32,7 +32,7 @@ public class MitarbeitertypController {
     public String list(Model model) {
         model.addAttribute("mitarbeitertyp", new Mitarbeitertyp());
 
-        List<Mitarbeitertyp> mitarbeitertypen = mitarbeitertypRepository.findAll();
+        List<Mitarbeitertyp> mitarbeitertypen = mitarbeitertypRepository.findAllByOrderByIdAsc();
         if (mitarbeitertypen != null) {
             model.addAttribute("mitarbeitertypen", mitarbeitertypen);
         }

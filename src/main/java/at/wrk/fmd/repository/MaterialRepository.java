@@ -16,4 +16,6 @@ public interface MaterialRepository extends JpaRepository<Material, Long>
 	List<Material> findByMaterialtyp(Materialtyp materialtyp);
 	
 	List<Material> findByLagerstandort(Lagerstandort lagerstandort);	
+	
+	List<Material> findByLagerstandortOrderByMaterialtypAsc(Lagerstandort lagerstandort);
 }

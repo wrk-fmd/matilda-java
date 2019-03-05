@@ -100,7 +100,7 @@ public class VeranstaltungController {
     public String list(Model model) {
         logger.info("Method {} called in {}", new Object() {}.getClass().getEnclosingMethod().getName(), this.getClass().getName());        
         		
-        List<Veranstaltung> veranstaltungen = veranstaltungRepository.findAll();
+        List<Veranstaltung> veranstaltungen = veranstaltungRepository.findAllByOrderByIdDesc();
         
         if (veranstaltungen != null) {
             model.addAttribute("veranstaltungen", veranstaltungen);
@@ -380,14 +380,14 @@ public class VeranstaltungController {
 		}
 		else
 		{
-			List<Veranstaltung> veranstaltungen = veranstaltungRepository.findAll();
+			List<Veranstaltung> veranstaltungen = veranstaltungRepository.findAllByOrderByIdDesc();
 	        if (veranstaltungen != null) {
 	            model.addAttribute("veranstaltungen", veranstaltungen);
 	        }
 			return "redirect:/veranstaltung?nobuchung"; 
 		}
 		
-		List<Veranstaltung> veranstaltungen = veranstaltungRepository.findAll();				
+		List<Veranstaltung> veranstaltungen = veranstaltungRepository.findAllByOrderByIdDesc();				
         if (veranstaltungen != null) {
             model.addAttribute("veranstaltungen", veranstaltungen);
         }

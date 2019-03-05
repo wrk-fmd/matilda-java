@@ -47,7 +47,7 @@ public class LagerstandortController {
     public String list(Model model) {
         model.addAttribute("lagerstandort", new Lagerstandort());
 
-        List<Lagerstandort> lagerstandorten = lagerstandortRepository.findAll();
+        List<Lagerstandort> lagerstandorten = lagerstandortRepository.findAllByOrderByIdAsc();
         if (lagerstandorten != null) {
             model.addAttribute("lagerstandorten", lagerstandorten);
         }
@@ -65,7 +65,7 @@ public class LagerstandortController {
         }
         if (result.hasErrors()) {
 
-            List<Lagerstandort> lagerstandorten = lagerstandortRepository.findAll();
+            List<Lagerstandort> lagerstandorten = lagerstandortRepository.findAllByOrderByIdAsc();
             if (lagerstandorten != null) {
                 model.addAttribute("lagerstandorten", lagerstandorten);
             }

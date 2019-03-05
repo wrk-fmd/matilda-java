@@ -11,4 +11,6 @@ public interface MatEinRepository extends JpaRepository<Materialtyp_Einheitentyp
     Materialtyp_Einheitentyp findById(long id);
 
     List<Materialtyp_Einheitentyp> findByEinheitentyp(Einheitentyp einheitentyp);
+    
+    List<Materialtyp_Einheitentyp> findAllByOrderByIdAsc();
 }

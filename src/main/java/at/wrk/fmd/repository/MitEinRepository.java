@@ -11,4 +11,6 @@ public interface MitEinRepository extends JpaRepository<Mitarbeitertyp_Einheiten
     Mitarbeitertyp_Einheitentyp findById(long id);
 
     List<Mitarbeitertyp_Einheitentyp> findByEinheitentyp(Einheitentyp einheitentyp);
+    
+    List<Mitarbeitertyp_Einheitentyp> findAllByOrderByIdAsc();
 }

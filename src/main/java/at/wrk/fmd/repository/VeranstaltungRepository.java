@@ -16,4 +16,6 @@ public interface VeranstaltungRepository extends JpaRepository<Veranstaltung, Lo
     List<Veranstaltung> findAll();
     
     List<Veranstaltung> findByEndeGreaterThan(LocalDateTime date);
+    
+    List<Veranstaltung> findAllByOrderByIdDesc();
 }

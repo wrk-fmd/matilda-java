@@ -14,4 +14,6 @@ public interface MitarbeitertypRepository extends JpaRepository<Mitarbeitertyp, 
     Mitarbeitertyp findById(long id);
 
     void deleteById(Long id);
+    
+    List<Mitarbeitertyp> findAllByOrderByIdAsc();
 }

@@ -11,6 +11,8 @@ public interface EinheitentypRepository extends JpaRepository<Einheitentyp, Long
 
     List<Einheitentyp> findAll();
 
+    List<Einheitentyp> findAllByOrderByIdAsc();
+    
     Einheitentyp findById(long id);
 
     void deleteById(Long id);

@@ -39,7 +39,7 @@ public class EinheitentypController {
     public String list(Model model) {
         model.addAttribute("einheitentyp", new Einheitentyp());
 
-        List<Einheitentyp> einheitentypen = einheitentypRepository.findAll();
+        List<Einheitentyp> einheitentypen = einheitentypRepository.findAllByOrderByIdAsc();
         if (einheitentypen != null) {
             model.addAttribute("einheitentypen", einheitentypen);
         }
@@ -56,7 +56,7 @@ public class EinheitentypController {
             result.rejectValue("name", null, "Es ist bereits ein Einheitentyp mit gleichem Namen eingetragen");
         }
         if (result.hasErrors()) {
-            List<Einheitentyp> einheitentypen = einheitentypRepository.findAll();
+            List<Einheitentyp> einheitentypen = einheitentypRepository.findAllByOrderByIdAsc();
             if (einheitentypen != null) {
                 model.addAttribute("einheitentypen", einheitentypen);
             }

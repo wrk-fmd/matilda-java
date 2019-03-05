@@ -35,7 +35,7 @@ public class MaterialtypController {
         
         model.addAttribute("materialtyp", new Materialtyp());
 
-        List<Materialtyp> materialtypen = materialtypRepository.findAll();
+        List<Materialtyp> materialtypen = materialtypRepository.findAllByOrderByIdAsc();
         if (materialtypen != null) {
             model.addAttribute("materialtypen", materialtypen);
         }
@@ -53,7 +53,7 @@ public class MaterialtypController {
             result.rejectValue("name", null, "Es ist bereits ein Materialtyp mit gleichem Namen eingetragen");
         }
         if (result.hasErrors()) {
-            List<Materialtyp> materialtypen = materialtypRepository.findAll();
+            List<Materialtyp> materialtypen = materialtypRepository.findAllByOrderByIdAsc();
             if (materialtypen != null) {
                 model.addAttribute("materialtypen", materialtypen);
             }

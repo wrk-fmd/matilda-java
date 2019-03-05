@@ -14,4 +14,6 @@ public interface MaterialtypRepository extends JpaRepository<Materialtyp, Long> 
     Materialtyp findById(long id);
 
     void deleteById(Long id);
+    
+    List<Materialtyp> findAllByOrderByIdAsc();
 }
