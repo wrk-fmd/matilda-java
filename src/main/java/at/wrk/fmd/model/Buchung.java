@@ -64,4 +64,16 @@ public class Buchung extends Audit
 		this.veranstaltung = veranstaltung;
 		this.beschreibung = beschreibung;
 	}
+	
+	public Buchung(Material material, int menge, Veranstaltung veranstaltung,
+			@NotBlank @Size(min = 3, max = 25) String beschreibung, LocalDateTime von, LocalDateTime bis)
+	{
+		super();
+		this.material = material;
+		this.menge = menge;
+		this.veranstaltung = veranstaltung;
+		this.beschreibung = beschreibung;
+		this.von = von;
+		this.bis = bis;
+	}
 }
