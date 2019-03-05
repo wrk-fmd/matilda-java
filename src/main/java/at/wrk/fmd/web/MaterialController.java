@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -81,16 +84,21 @@ public class MaterialController {
     // ************************************* Lagerstandort List ************************************
 
     @RequestMapping(value = "/material", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String list(Model model) {
 		List<Lagerstandort> lagerstandorten = lagerstandortRepository.findAll();
 		if(lagerstandorten!=null)
+		{
 			model.addAttribute("lagerstandorten",lagerstandorten);
+		}
+		
 		return "material";
 	}
 
     // ************************************* Materialien im Lager  ************************************
 
     @RequestMapping(value = "/materialverwaltung/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String materialVerwaltungForm(@PathVariable("id") long id, Model model) {
 
 		Lagerstandort lagerstandort = lagerstandortRepository.findById(id);
@@ -101,15 +109,21 @@ public class MaterialController {
 		model.addAttribute("material", new Material());
 		
 		if(materialien!=null)
+		{
 			model.addAttribute("materialien", materialien);
+		}
 		else
-			return "materialverwaltung?nomaterial";		
+		{
+			return "materialverwaltung?nomaterial";
+		}
+		
         return "materialverwaltung";
     }
    
     // ************************************* neues Material im Lager hinzufügen  ************************************
     
 	@RequestMapping(value="/neumaterial", method=RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String neuMaterial(Model model) {
 			
 		model.addAttribute("material", new Material());
@@ -118,6 +132,7 @@ public class MaterialController {
     }
     	
     @RequestMapping(value="/neumaterial", method=RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String addSpeichern(Model model, @ModelAttribute("material") @Valid Material material, BindingResult result) {
     	   	
 		material.setLagerstandort(aktLagerstandort);
@@ -134,6 +149,7 @@ public class MaterialController {
     // ************************************* Lieferschein - Lieferung ************************************
 
     @RequestMapping(value = "/lieferung/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')")
     public String addNtransaktionForm(@PathVariable("id") long id, Model model) {
 
         aktMaterial = materialRepository.findById(id);
@@ -202,9 +218,8 @@ public class MaterialController {
     @RequestMapping(value = "/buchung", method = RequestMethod.POST)
     public String buchungSpeichern(Model model,@ModelAttribute("buchung") @Valid at.wrk.fmd.pojo.Buchung buchung,
             BindingResult result) {
-    	
-    	buchung.setMaterial(aktMaterial);
-    	   	
+   	
+    	buchung.setMaterial(aktMaterial);    	   	
 		int x = aktMaterial.getBestand();
 		x = x - buchung.getMenge();
 		if(x<0)
@@ -237,8 +252,7 @@ public class MaterialController {
     		return "buchung";
     	}
 		buchungRepository.save(b);		
-		return "redirect:/materialverwaltung/"+aktLagerId;
-    	
+		return "redirect:/materialverwaltung/"+aktLagerId;   	
 	} 
 
     // ************************************* Inventur ************************************
@@ -247,6 +261,7 @@ public class MaterialController {
     public String aendernForm(@PathVariable("id") long id, Model model) {
 
         Material exicting = materialRepository.findById(id);
+        aktMaterialId = exicting.getId();
         aktLagerId = exicting.getLagerstandort().getId();
 
         model.addAttribute("material", exicting);
@@ -254,12 +269,13 @@ public class MaterialController {
         return "inventur";
     }
 
-    @RequestMapping(value = "/inventur/{id}", method = RequestMethod.POST)
-    public String aendernSpeichern(@PathVariable("id") long id, @ModelAttribute("material") @Valid Material material,
+    @RequestMapping(value = "/inventur", method = RequestMethod.POST)
+    public String aendernSpeichern(@ModelAttribute("material") @Valid Material material,
             BindingResult result) {
 
-		Material exicting = materialRepository.findById(id);
     	
+		Material exicting = materialRepository.findById(aktMaterialId);
+		
     	if(material.getBestand()<0)
     	{
     		result.rejectValue("bestand", null, "Bestand kann nicht ein negatives Wert haben!");
@@ -267,16 +283,16 @@ public class MaterialController {
     	if(result.hasErrors()) {
     		return "inventur";
     	}
-    	
     	exicting.setBestand(material.getBestand());
     	exicting.setSeriennummer(material.getSeriennummer());
     	exicting.setEinkaufsdatum(material.getEinkaufsdatum());
     	exicting.setLetztesudatum(material.getLetztesudatum());
     	exicting.setNaechstesudatum(material.getNaechstesudatum());
     	exicting.setEinsatzbereitschaft(material.isEinsatzbereitschaft());
+    	   
     	
     	materialRepository.save(exicting);
-    		
+    	
     	return "redirect:/materialverwaltung/"+aktLagerId;
     }
     
@@ -340,7 +356,8 @@ public class MaterialController {
 			}
 		}
 		
-		if(!buchungsInLager.isEmpty()) {
+		if(!buchungsInLager.isEmpty())
+		{
 			model.addAttribute("buchungsInLager", buchungsInLager);
 		}
 		

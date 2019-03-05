@@ -3,9 +3,9 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<head th:replace="/fragment/header :: header"></head>
-	
-	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+
+	<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
@@ -13,16 +13,27 @@
     <title>Inventur</title>
 </head>
 <body>
-<div class="container">
+	
 	<h2>Inventur</h2>
-
-    <form action="#" th:action="@{/inventur/{id}(id=${material.id})}" th:object="${material}" method="post">
+<div class="container">
+    <form action="#" th:action="@{/inventur}" th:object="${material}" method="post">
     
     	<p class="error-message"
 	    th:if="${#fields.hasGlobalErrors()}"
 	    th:each="error : ${#fields.errors('global')}"
  		th:text="${error}">Validation error</p>
         
+        <div class="row"
+			th:classappend="${#fields.hasErrors('bezeichnung')}? 'has-error':''">
+			<div class="col-50">
+				<label for="bezeichnung">Bezeichnung</label> 
+				<input type="text" th:field="*{bezeichnung}" placeholder="Bezeichung.."/>
+				<p class="error-message"
+					th:each="error: ${#fields.errors('bezeichnung')}"
+					th:text="${error}">Validation error</p>
+			</div>
+		</div>
+		
         <div class="row"
         th:classappend="${#fields.hasErrors('bestand')}? 'has-error':''">
         <div class=col-50>
