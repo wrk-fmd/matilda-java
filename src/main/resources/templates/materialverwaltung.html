@@ -7,6 +7,7 @@
 	    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 	    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
 	 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+	 	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
 		<script src="webjars/jquery/2.0.3/jquery.min.js"></script>
 		<script src='webjars/moment/2.19.1/min/moment.min.js'></script>
 		<title th:text="@{${@environment.getProperty('matilda.mainsite')}}"></title>
@@ -27,14 +28,13 @@
 	<th>Nächstes Überprüfungs- datum</th>
 	<th>Einsatz- bereitschaft</th>
 	<th class="CellWithComment"><i class="far fa-question-circle"></i>
-		<span class="CellComment" >Das ausgewählte Material 'buchen'. 
-															 Das Material kann auch gleich zu einer bestehenden Veranstaltung hinzufügen werden. </span>
+		<span class="CellComment" >Das ausgewählte Material 'buchen'.  </span>
 	</th>
 	<th class="CellWithComment"><i class="far fa-question-circle"></i>
 		<span class="CellComment" >Lieferungen verwalten</span>
 	</th>
 	<th class="CellWithComment"><i class="far fa-question-circle"></i>
-		<span class="CellComment" >Inventur</span>
+		<span class="CellComment" >Inventur machen</span>
 	</th>
 </tr>
 </thead>
@@ -60,7 +60,7 @@
 </td>
 <td>
 	<a href="#" data-th-href="@{/inventur/{id}(id=${material.id})}">
-	<input type="Button" value="Inventur" class="buttons"/>
+	<input type="Button" value="Inventur/Ändern" class="buttons"/>
 	</a>
 </td>
 </tr>
@@ -79,10 +79,7 @@
 			    window.location.href="../material";
 		     }
 			</script>
-
         <div class="col-md-6 col-md-offset-3">
-
-
             <div th:if="${param.nomaterial}">
                 <div class="alert alert-info">
                     Es gibt kein Material in diesem Lager!
@@ -94,9 +91,7 @@
                     Der Lieferschein wurde erfolgreich eingetragen!
                 </div>
             </div>
-
 </div>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/sortTable.js}"/></script>
 </body>

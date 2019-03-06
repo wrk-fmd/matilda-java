@@ -3,19 +3,17 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
 	<link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
-	
+	<head th:replace="/fragment/header :: header"></head>
     <title>Inventur</title>
 </head>
-<body>
-	
+<body class="genBackground">
+	<div class="container">
 	<h2>Inventur</h2>
-<div class="container">
     <form action="#" th:action="@{/inventur}" th:object="${material}" method="post">
     
     	<p class="error-message"

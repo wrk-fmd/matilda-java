@@ -16,11 +16,6 @@ h2, h3 {
 	font-family: Arial;
 }
 
-/* h3 {
-	color: #222;
-	margin-left: 25px;
-} */
-
 h4 {
 	color: #b60e0c;
 	font-size: 32px;
@@ -224,16 +219,16 @@ table.mainTable input[type=text] {
 	position: absolute;
 	z-index: 100;
 	border: 1px;
-	background-color: #ffffee;
+	background-color: #ffe;
 	border-style: solid;
 	border-width: 1px;
 	border-color: #b60e0c;
 	padding: 3px;
 	color: black;
-	bottom: 27px;
-	left: -2px;
+	bottom: 1.65rem;
 	font-weight: normal;
-	min-width: 10rem;
+	min-width: 5rem;
+	max-width: 10rem;
 }
 
 .CellWithComment:hover span.CellComment {
