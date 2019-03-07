@@ -218,18 +218,28 @@ public class MaterialController {
     @RequestMapping(value = "/buchung", method = RequestMethod.POST)
     public String buchungSpeichern(Model model,@ModelAttribute("buchung") @Valid at.wrk.fmd.pojo.Buchung buchung,
             BindingResult result) {
-   	
-    	buchung.setMaterial(aktMaterial);    	   	
-		int x = aktMaterial.getBestand();
-		x = x - buchung.getMenge();
-		if(x<0)
-		{
-			result.rejectValue("menge", null, "Nicht genug Material im Lager!");
-		}	
+    	
+    	buchung.setMaterial(aktMaterial);    
     	if(buchung.getVon().compareTo(buchung.getBis())>=0 && buchung.getVeranstaltung()==null)
     	{
     		result.rejectValue("bis", null, "Das Ende der Buchung darf nicht vor dem Anfang sein!");
     	}   	
+    	if(result.hasErrors()) {
+    		return "buchung";
+    	} 	
+    	int x = -1;
+    	if(buchung.getVeranstaltung()==null)
+    	{
+    		x = aktBestand(aktMaterial, convertor(buchung.getVon()), convertor(buchung.getBis()));
+    	}
+    	else
+    	{
+    		x = aktBestand(aktMaterial, buchung.getVeranstaltung().getBeginn(), buchung.getVeranstaltung().getEnde());
+    	}
+		if(x<buchung.getMenge())
+		{
+			result.rejectValue("menge", null, "Zu dieser Zeit sind nur "+ x +" Stück zur Verfügung!");
+		}		
     	if(result.hasErrors()) {
     		return "buchung";
     	}
@@ -367,5 +377,60 @@ public class MaterialController {
     private LocalDateTime convertor(String dateTime)
     {
     	return LocalDateTime.parse(dateTime);
+    }
+    
+    private int aktBestand(Material m, LocalDateTime begin, LocalDateTime ende)
+    {
+    	int aktImLager = m.getBestand();    	
+    	int gebucht = 0;
+    	int aktVorBuchung = aktImLager;
+
+    	
+		List<Buchung> buchungs = buchungRepository.findByMaterial(m);
+		if(!buchungs.isEmpty())
+		{	
+			LocalDateTime i = begin;;  
+			while (i.isBefore(ende))
+			{
+				gebucht = 0;
+				for (Buchung b: buchungs)
+				{
+					if(b.getVeranstaltung()!=null)
+					{
+						if(i.isBefore(b.getVeranstaltung().getEnde())&&i.isAfter(b.getVeranstaltung().getBeginn()))
+						{
+							gebucht = gebucht + b.getMenge();
+						}
+						else if (i.isEqual(b.getVeranstaltung().getBeginn()))
+						{
+							gebucht = gebucht + b.getMenge();
+						}
+					}
+					else
+					{
+						if(i.isBefore(b.getBis())&&i.isAfter(b.getVon()))
+						{
+							gebucht = gebucht + b.getMenge();
+						}
+						else if(i.isEqual(b.getVon()))
+						{
+							gebucht = gebucht + b.getMenge();
+						}
+					}
+				}
+				
+				if(gebucht>aktImLager) {
+					aktVorBuchung = 0;
+					aktImLager = 0;
+					break;
+				}
+				else if(gebucht<=aktImLager&&aktImLager-gebucht<aktVorBuchung)
+				{
+					aktVorBuchung = aktImLager-gebucht;
+				}					
+				i = i.plusDays(1);
+			}					
+		}		
+		return aktVorBuchung;
     }
 }

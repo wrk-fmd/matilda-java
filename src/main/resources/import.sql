@@ -67,10 +67,10 @@ INSERT INTO material (lagerstandort, materialtyp, bezeichnung, bestand, einsatzb
 INSERT INTO material (lagerstandort, materialtyp, bezeichnung, bestand, einsatzbereitschaft) VALUES (3, 6, 'CE- und FDA-konform', 3, false);
 INSERT INTO material (lagerstandort, materialtyp, bezeichnung, bestand, einsatzbereitschaft) VALUES (3, 2, 'Bayer', 701, true);
 
-INSERT INTO veranstaltung (name, beginn, ende, zustand,lagerstandort) VALUES ('Wien 2018', '2018-11-04T00:00', '2018-11-05T23:59', 'In Bearbeitung',1);
-INSERT INTO veranstaltung (name, beginn, ende, zustand,lagerstandort) VALUES ('München 2018', '2018-11-03T00:00', '2018-11-04T23:59', 'In Bearbeitung',1);
-INSERT INTO veranstaltung (name, beginn, ende, zustand,lagerstandort) VALUES ('LA 2018', '2018-11-06T00:00', '2018-11-07T23:59', 'In Bearbeitung',1);
-INSERT INTO veranstaltung (name, beginn, ende, zustand,lagerstandort) VALUES ('Steiermark 2018', '2018-12-04T08:00', '2018-12-04T17:59', 'In Bearbeitung',1);
+INSERT INTO veranstaltung (name, beginn, ende, zustand,lagerstandort) VALUES ('Wien 2018', '2018-11-04T00:00', '2018-11-05T22:00', 'In Bearbeitung',1);
+INSERT INTO veranstaltung (name, beginn, ende, zustand,lagerstandort) VALUES ('München 2018', '2018-11-03T00:00', '2018-11-04T23:50', 'In Bearbeitung',1);
+INSERT INTO veranstaltung (name, beginn, ende, zustand,lagerstandort) VALUES ('LA 2018', '2018-11-06T00:00', '2018-11-07T23:55', 'In Bearbeitung',1);
+INSERT INTO veranstaltung (name, beginn, ende, zustand,lagerstandort) VALUES ('Steiermark 2018', '2018-12-04T08:00', '2018-12-05T17:59', 'In Bearbeitung',1);
 INSERT INTO veranstaltung (name, beginn, ende, zustand,lagerstandort) VALUES ('Burgenland 2019', '2019-01-04T00:00', '2019-01-07T23:59', 'In Bearbeitung',1);
 
 INSERT INTO veranstaltung_einheitentyp (veranstaltung, einheitentyp, bezeichnung) VALUES (1,1, '1');

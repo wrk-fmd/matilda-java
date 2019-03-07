@@ -1,8 +1,11 @@
 package at.wrk.fmd.web;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -230,6 +233,7 @@ public class VeranstaltungController {
 		{
 			List<VeranstaltungBuchung> ver = veranstaltungBuchungRepository.findByVeranstaltung(existing);
 			//wenn noch kein Pojosklasse erstellt ist
+			
 			if(ver.isEmpty())
 			{
 				List<Veranstaltung_Einheitentyp> verein = verEinRepository.findByVeranstaltung(existing);
@@ -308,8 +312,7 @@ public class VeranstaltungController {
 		    				veranstaltungBuchungs = verbuch;
 		    				veranstaltungBuchungRepository.saveAll(veranstaltungBuchungs);
 		    				veranstaltungBuchungWrapper.setBuchungList(veranstaltungBuchungs);
-		    				
-		    				
+		    						    		
 		    				model.addAttribute("veranstaltungBuchungWrapper",veranstaltungBuchungWrapper);
 		    				
 		    				return "veranstaltungbuchung"; 	    				
@@ -350,6 +353,8 @@ public class VeranstaltungController {
 		
 		List<VeranstaltungBuchung> veranstaltungBuchungs = veranstaltungBuchungRepository.findByVeranstaltung(aktVeranstaltung);
 		
+		// Gesamtmenge von einem bestimmten Material sollte weniger als aktueller Bestand im Lager sein			
+		
 		for(VeranstaltungBuchung vb : veranstaltungBuchungs)
 		{
 			if(vb.getWunschMaterial()!=null & vb.getWunschMenge()!=0)
@@ -362,12 +367,16 @@ public class VeranstaltungController {
 		    		{
 		    			m = ma;
 		    		}
-				}		
-				if(m.getBestand()>=vb.getWunschMenge())
+				}					
+				if(aktBestand(m)>=vb.getWunschMenge())
 				{
-//					m.setBestand(m.getBestand()-vb.getWunschMenge());
-//					materialRepository.save(m);
 					Buchung buchung = new Buchung(m, vb.getWunschMenge(), aktVeranstaltung, "AUTO-BUCHUNG", aktVeranstaltung.getBeginn(), aktVeranstaltung.getEnde());					
+					buchungRepository.save(buchung);
+					gebucht = true;
+				}
+				else if(aktBestand(m)<vb.getWunschMenge()&&aktBestand(m)>0)
+				{					
+					Buchung buchung = new Buchung(m, aktBestand(m), aktVeranstaltung, "AUTO-BUCHUNG", aktVeranstaltung.getBeginn(), aktVeranstaltung.getEnde());		
 					buchungRepository.save(buchung);
 					gebucht = true;
 				}
@@ -397,7 +406,6 @@ public class VeranstaltungController {
     @RequestMapping(value="/reset", method=RequestMethod.POST)
     public String reset(Model model)
     {
-    	
     	List<VeranstaltungBuchung> verb = veranstaltungBuchungRepository.findByVeranstaltung(aktVeranstaltung);
     	veranstaltungBuchungRepository.deleteAll(verb);
     	
@@ -617,9 +625,10 @@ public class VeranstaltungController {
 		
 		if(!buchungs.isEmpty())
 		{	
-			LocalDateTime i = aktVeranstaltung.getBeginn();  
+			LocalDateTime i = aktVeranstaltung.getBeginn();  			
 			while (i.isBefore(aktVeranstaltung.getEnde()))
 			{
+				gebucht = 0;
 				for (Buchung b: buchungs)
 				{
 					if(b.getVeranstaltung()!=null)
@@ -628,10 +637,18 @@ public class VeranstaltungController {
 						{
 							gebucht = gebucht + b.getMenge();
 						}
+						else if (i.isEqual(b.getVeranstaltung().getBeginn()))
+						{
+							gebucht = gebucht + b.getMenge();
+						}
 					}
 					else
 					{
 						if(i.isBefore(b.getBis())&&i.isAfter(b.getVon()))
+						{
+							gebucht = gebucht + b.getMenge();
+						}
+						else if(i.isEqual(b.getVon()))
 						{
 							gebucht = gebucht + b.getMenge();
 						}
@@ -646,10 +663,13 @@ public class VeranstaltungController {
 				else if(gebucht<=aktImLager&&aktImLager-gebucht<aktVorBuchung)
 				{
 					aktVorBuchung = aktImLager-gebucht;
-				}					
+				}				
+				
 				i = i.plusDays(1);
 			}					
 		}		
+		
 		return aktVorBuchung;
     }
+    
 }
