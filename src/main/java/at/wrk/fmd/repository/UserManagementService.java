@@ -20,8 +20,13 @@ public interface UserManagementService {
     
     UserCreationDto saveUserForm(List<Benutzer> users);
     
+
     @Modifying
-    @Query(value = "UPDATE benutzer SET active = :active WHERE id = :id", nativeQuery = true)
+    @Query(value = "UPDATE benutzer SET active = :active,"
+            + "username = :username,"
+            + "anzeigename = :anzeigename,"
+            + "dienstnummer = :dienstnummer"
+            + " WHERE id = :id", nativeQuery = true)
     @Transactional
-    void updateActivePassiveUser(@Param("active") Boolean active, @Param("id") long id);
+    void updateActivePassiveUser(Boolean active, String username, String anzeigename, String dienstnummer, long id);
 }

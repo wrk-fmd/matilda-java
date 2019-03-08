@@ -23,9 +23,13 @@ public interface UserRepository extends JpaRepository<Benutzer, Long> {
     void deleteById(Long id);
     
     @Modifying
-    @Query(value = "UPDATE benutzer SET active = :active WHERE id = :id", nativeQuery = true)
+    @Query(value = "UPDATE benutzer SET active = :active,"
+            + "benutzername = :benutzername,"
+            + "anzeigename = :anzeigename,"
+            + "dienstnummer = :dienstnummer"
+            + " WHERE id = :id", nativeQuery = true)
     @Transactional
-    void setUserActive(@Param("active") Boolean active, @Param("id") long id);
+    void setUserActive(@Param("active") Boolean active, @Param("benutzername") String benutzername, @Param("anzeigename") String anzeigename, @Param("dienstnummer") String dienstnummer, @Param("id") long id);
 
     Benutzer findByBenutzername(String username, Sort sortByIdAsc);
 }

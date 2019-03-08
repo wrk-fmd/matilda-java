@@ -66,34 +66,24 @@ public class Mitarbeiterverwaltung {
 
     private void callUpdateActiveOrNotActiveUser(UserCreationDto userTableSettings, List<String> searchValues) {
         int modelSize = userTableSettings.getUsers().size();
-        Collection listOne = new ArrayList<>();
-        Collection listTwo = new ArrayList<>();
         
-        for(int i = 0; i<modelSize; i++) {
-            listOne.add(userTableSettings.getUsers().get(i).getId());
-        }
-        
-        for(int i = 0; i<searchValues.size(); i++) {
-            listTwo.add(Long.parseLong(searchValues.get(i)));
-        }
-        
-        Collection<Long> similar = new HashSet<Long>( listOne );
-        Collection<Long> different = new HashSet<Long>();
-        different.addAll( listOne );
-        different.addAll( listTwo );
-
-        similar.retainAll( listTwo );
-        different.removeAll( similar );
-
-        Iterator<Long> iteratorSimilar = similar.iterator();
-        Iterator<Long> iteratorDifferent = different.iterator();
-        
-        while (iteratorSimilar.hasNext()) {
-            userManagementServiceImpl.updateActivePassiveUser(new Boolean("true"), iteratorSimilar.next());
-        }
-
-        while (iteratorDifferent.hasNext()) {
-            userManagementServiceImpl.updateActivePassiveUser(new Boolean("false"), iteratorDifferent.next());
+        for(int i = 1; i<=modelSize; i++) {
+            String x = String.valueOf(i);
+            if(searchValues.contains(x)) {
+                Long id = userTableSettings.getUsers().get(i-1).getId();
+                String username = userTableSettings.getUsers().get(i-1).getUsername();
+                String anzeigename = userTableSettings.getUsers().get(i-1).getAnzeigename();
+                String dienstnummer = userTableSettings.getUsers().get(i-1).getDienstnummer();
+                
+                userManagementServiceImpl.updateActivePassiveUser(new Boolean("true"), username, anzeigename, dienstnummer, id);                
+            } else {
+                Long id = userTableSettings.getUsers().get(i-1).getId();
+                String username = userTableSettings.getUsers().get(i-1).getUsername();
+                String anzeigename = userTableSettings.getUsers().get(i-1).getAnzeigename();
+                String dienstnummer = userTableSettings.getUsers().get(i-1).getDienstnummer();
+                
+                userManagementServiceImpl.updateActivePassiveUser(new Boolean("false"), username, anzeigename, dienstnummer, id);
+            }
         }
     }
 }
