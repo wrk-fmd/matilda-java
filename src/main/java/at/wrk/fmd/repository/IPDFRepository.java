@@ -19,7 +19,7 @@ public interface IPDFRepository extends JpaRepository<Benutzer, Long> {
             + "INNER JOIN buchung b ON b.veranstaltung = v.id "
             + "WHERE m.einkaufsdatum BETWEEN ?1 AND ?2 "
             + "GROUP BY v.name, l.name, m.bezeichnung", nativeQuery = true)
-    List<?> findByDate(@Param("findAllByDate") Date dateBeginn, Date dateEnde);
+    List<?> findByDate(Date dateBeginn, Date dateEnde);
     
     @Query(value = "SELECT v.name AS veranstaltungsname, "
             + "ve.bezeichnung AS veranstaltung_einheitentyp, "
@@ -32,7 +32,7 @@ public interface IPDFRepository extends JpaRepository<Benutzer, Long> {
             + "INNER JOIN einheitentyp e ON e.id = ve.einheitentyp "
             + "WHERE m.einkaufsdatum BETWEEN ?1 AND ?2 "
             + "GROUP BY v.name, ve.bezeichnung, m.bezeichnung, e.name", nativeQuery = true)
-    List<?> findByAusgabeschein(@Param("findAllByDate") Date dateBeginn, Date dateEnde);
+    List<?> findByAusgabeschein(Date dateBeginn, Date dateEnde);
 
     @Query(value = "SELECT v.name as veranstaltung, l.name as lagerstandort, m.bezeichnung "
             + "FROM lagerstandort l "
@@ -41,5 +41,5 @@ public interface IPDFRepository extends JpaRepository<Benutzer, Long> {
             + "WHERE v.beginn BETWEEN ?1 AND ?2 "
             + "GROUP BY v.name, l.name, m.bezeichnung "
             + "ORDER BY v.name", nativeQuery = true)
-    List<?> findByPackliste(@Param("findAllByDate") Date dateBeginn, Date dateEnde);    
+    List<?> findByPackliste(Date dateBeginn, Date dateEnde);    
 }
