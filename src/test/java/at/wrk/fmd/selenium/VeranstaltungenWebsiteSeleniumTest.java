@@ -5,9 +5,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import at.wrk.fmd.environment.Environment;
+import at.wrk.fmd.environment.EnvironmentAbstractSeleniumTest;
 
-public class VeranstaltungenWebsiteTest extends Environment {
+public class VeranstaltungenWebsiteSeleniumTest extends EnvironmentAbstractSeleniumTest {
     
     // Handles more or less all elements on Registration website
 

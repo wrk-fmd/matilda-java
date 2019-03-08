@@ -1,18 +1,15 @@
 package at.wrk.fmd.selenium;
 
 import static org.junit.Assert.assertTrue;
-
 import java.util.List;
-
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import at.wrk.fmd.environment.EnvironmentAbstractSeleniumTest;
 
-import at.wrk.fmd.environment.Environment;
-
-public class BenutzerregistrierungTest extends Environment {
+public class BenutzerregistrierungSeleniumTest extends EnvironmentAbstractSeleniumTest {
     
     // Handles more or less all elements on Registration website
 

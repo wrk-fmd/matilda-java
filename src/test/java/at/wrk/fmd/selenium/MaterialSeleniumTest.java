@@ -5,9 +5,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import at.wrk.fmd.environment.Environment;
+import at.wrk.fmd.environment.EnvironmentAbstractSeleniumTest;
 
-public class MaterialTest extends Environment {
+public class MaterialSeleniumTest extends EnvironmentAbstractSeleniumTest {
 
     @Test
     public void isCaptionAvailable() {

@@ -1,7 +1,7 @@
 package at.wrk.fmd.selenium;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.AfterClass;
@@ -9,9 +9,9 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import at.wrk.fmd.environment.Environment;
+import at.wrk.fmd.environment.EnvironmentAbstractSeleniumTest;
 
-public class MitarbeiterverwaltungWebsiteTest extends Environment {
+public class MitarbeiterverwaltungWebsiteSeleniumTest extends EnvironmentAbstractSeleniumTest {
     
     // Handles more or less all elements on Mitarbeiterverwaltung website
 

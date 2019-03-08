@@ -4,15 +4,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import at.wrk.fmd.environment.Environment;
 
-public class LoginWebsiteTest extends Environment{
+import at.wrk.fmd.environment.EnvironmentAbstractSeleniumTest;
+
+public class LoginWebsiteSeleniumTest extends EnvironmentAbstractSeleniumTest {
     
     @Test
     public void isCaptionAvailable() {

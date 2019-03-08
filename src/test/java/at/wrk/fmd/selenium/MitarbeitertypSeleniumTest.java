@@ -7,10 +7,9 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import at.wrk.fmd.environment.EnvironmentAbstractSeleniumTest;
 
-import at.wrk.fmd.environment.Environment;
-
-public class MitarbeitertypTest extends Environment {
+public class MitarbeitertypSeleniumTest extends EnvironmentAbstractSeleniumTest {
     @Test
     public void isCaptionAvailable() {
         login();

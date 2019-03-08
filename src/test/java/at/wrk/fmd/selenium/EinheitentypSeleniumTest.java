@@ -1,16 +1,14 @@
 package at.wrk.fmd.selenium;
 
 import static org.junit.Assert.assertTrue;
-
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import at.wrk.fmd.environment.EnvironmentAbstractSeleniumTest;
 
-import at.wrk.fmd.environment.Environment;
-
-public class EinheitentypTest extends Environment {
+public class EinheitentypSeleniumTest extends EnvironmentAbstractSeleniumTest {
 
     @Test
     public void isCaptionAvailable() {

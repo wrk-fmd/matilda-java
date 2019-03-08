@@ -13,7 +13,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public abstract class Environment {
+public abstract class EnvironmentAbstractSeleniumTest {
     
     @LocalServerPort
     protected int port;    
