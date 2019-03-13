@@ -2,12 +2,18 @@ package at.wrk.fmd.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import at.wrk.fmd.dto.UserCreationDto;
 import at.wrk.fmd.model.Benutzer;
 import at.wrk.fmd.pojo.User;
 import at.wrk.fmd.repository.UserManagementService;
 import at.wrk.fmd.repository.UserRepository;
+import at.wrk.fmd.repository.updateOldPasswordRepository;
 
 @Service("userManagementServiceImpl")
 public class UserManagementServiceImpl implements UserManagementService {
@@ -37,7 +43,7 @@ public class UserManagementServiceImpl implements UserManagementService {
     }
 
     @Override
-    public void updateActivePassiveUser(Boolean active, String username, String anzeigename, String dienstnummer, long id) {
-        userRepo.setUserActive(active, username, anzeigename, dienstnummer, id);
+    public void updateActivePassiveUser(Boolean active, long id) {
+        userRepo.setUserActive(active, id);
     }
 }
