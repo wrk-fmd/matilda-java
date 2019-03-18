@@ -2,10 +2,14 @@ package at.wrk.fmd.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
+
 import at.wrk.fmd.pojo.User;
 
 public class UserCreationDto {
 
+	@Valid
     private List<User> users;
     
     public UserCreationDto() {

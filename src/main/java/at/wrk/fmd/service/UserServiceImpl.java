@@ -25,11 +25,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public Benutzer findByBenutzername(String benutzername) {
+    @Override
+	public Benutzer findByBenutzername(String benutzername) {
         return userRepository.findByBenutzername(benutzername);
     }
 
-    public Benutzer save(UserRegistrationDto registration) {
+    @Override
+	public Benutzer save(UserRegistrationDto registration) {
         Benutzer benutzer = new Benutzer();
         benutzer.setBenutzername(registration.getBenutzername());
         benutzer.setAnzeigename(registration.getAnzeigename());

@@ -10,6 +10,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.passay.DictionaryRule;
+import org.passay.LengthRule;
 import org.passay.PasswordData;
 import org.passay.PasswordValidator;
 import org.passay.RuleResult;
@@ -42,7 +43,7 @@ public class FieldMatchValidator implements ConstraintValidator<ValidPassword, S
         PasswordValidator validator = new PasswordValidator(Arrays.asList(
 
                 // at least 8 characters
-                // new LengthRule(8, 30),
+                 new LengthRule(1, 300),
 
                 // at least one upper-case character
                 // new CharacterRule(EnglishCharacterData.UpperCase, 1),

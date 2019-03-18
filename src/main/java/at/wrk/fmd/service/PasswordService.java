@@ -2,13 +2,14 @@ package at.wrk.fmd.service;
 
 import java.util.Collection;
 import java.util.List;
-import org.springframework.data.domain.Sort;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import at.wrk.fmd.dto.UserCreationDto;
 import at.wrk.fmd.model.Benutzer;
 import at.wrk.fmd.pojo.CustomSort;
@@ -31,13 +32,13 @@ public class PasswordService extends CustomSort{
     public void updatePassword(UserCreationDto userTableSettings, String radiobuttonName) {
         
         List<User> users = userTableSettings.getUsers();
-        
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getUsername() == null && users.get(i).getPassword() != null) {
+
+        for(int i = 0; i<userTableSettings.getUsers().size(); i++) {
+        	if(userTableSettings.getUsers().get(i).getUsername().equals(radiobuttonName)) {
                 String username = radiobuttonName;
-                String newPassword = passwordEncoder.encode(users.get(i).getPassword());
-                passwordRepo.updatePassword(username, newPassword);
-            }
+            	String newPassword = passwordEncoder.encode(userTableSettings.getUsers().get(i).getPassword());
+            	passwordRepo.updatePassword(username, newPassword);
+        	}
         }
     }
     

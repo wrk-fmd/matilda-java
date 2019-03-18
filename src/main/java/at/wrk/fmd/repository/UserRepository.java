@@ -16,11 +16,13 @@ import at.wrk.fmd.model.Benutzer;
 public interface UserRepository extends JpaRepository<Benutzer, Long> {
     Benutzer findByBenutzername(String benutzername);
 
-    List<Benutzer> findAll();
+    @Override
+	List<Benutzer> findAll();
     
     List<Benutzer> findAllByOrderByIdAsc();
 
-    void deleteById(Long id);
+    @Override
+	void deleteById(Long id);
     
     @Modifying
     @Query(value = "UPDATE benutzer SET active = :active,"
