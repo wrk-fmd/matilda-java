@@ -11,11 +11,14 @@ input[type=text], input[type=date], input[type=number], input[type=url], input[t
 	font-size: 16px;
 	margin-left: 2rem;
 }
-/*In der Mitarbeiterverwaltung gibt es input[type=text] in der Tabelle, die nicht vom 'margin-left: 2rem' betroffen sein sollen. 
-	Daher habe ich sie mit einer ID versehen um sie extra zu verwalten.*/
+/*für input[type=text] in Tabellen, die nicht vom 'margin-left: 2rem' betroffen sein sollen. */
 #schmal{ 
 	margin-left: 0px;
 }
+input[data-toggle]{
+	margin-left: 0px;
+}
+
 
 input[type=submit] {
 	color: #fff;
