@@ -4,8 +4,14 @@ Resource management software for warehouses.
 
 ## Installation
 
-* ADMIN User is created automatically - for password see document.
+* ADMIN user and password is created automatically
+	username: admin
+	password: admin
 
 ## Dependencies
 
-tba
+MATILDA uses Postgres as its database.
+
+In application.properties adapt the datasource section accordingly:
+
+spring.datasource.url=
