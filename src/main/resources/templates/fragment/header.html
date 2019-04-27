@@ -1,4 +1,4 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 	<body>
 		<div class="topnav" id="myTopnav" th:fragment="header">
 		<!--	<img class="logo" src="./Pictures/WRK_Logo.jpg" alt="Logo"> -->
@@ -13,16 +13,16 @@
 				</button>
 				 <div class="dropdown-content">
 					 <!-- TODO use thymeleaf resolver of URLs -->
-					<a href="/materialtyp">Materialtyp</a>
-					<a href="/einheitentyp">Einheitentyp</a>
-					<a href="/mitarbeitertyp">Mitarbeitertyp</a>
+					<a th:href="@{/materialtyp}">Materialtyp</a>
+					<a th:href="@{/einheitentyp}">Einheitentyp</a>
+					<a th:href="@{/mitarbeitertyp}">Mitarbeitertyp</a>
 				</div>
 			 </div>
 		</div>
 			<div sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERVISOR')">
-				<a href="/lagerstandort" class="active">Lagerstandort</a>
+				<a th:href="@{/lagerstandort}" class="active">Lagerstandort</a>
 			</div>
-			<a href="/report" class="active">Report</a>
+			<a th:href="@{/report}" class="active">Report</a>
 			
 			<div class="dropdownAdmin">
 				<button class="dropbtnAdmin" th:text="#{konto}">
@@ -30,12 +30,12 @@
 			 	</button>
 				<div class="dropdown-content-admin">
 					<div sec:authorize="hasAuthority('ADMIN')">
-						<a href="/mitarbeiterverwaltung">Mitarbeiterverwaltung</a>
-						<a href="/registration" th:text="#{benutzerregistrierung}"></a>
+						<a th:href="@{/mitarbeiterverwaltung}">Mitarbeiterverwaltung</a>
+						<a th:href="@{/registration}" th:text="#{benutzerregistrierung}"></a>
 					</div>
-						<a href="/passwordaenderung" th:text="#{passwort_aendern}"></a>
+						<a th:href="@{/passwordaenderung}" th:text="#{passwort_aendern}"></a>
 					<div>
-						<a href="javascript: document.logoutForm.submit()" > Sign out </a>
+						<a th:href="@{javascript: document.logoutForm.submit()}" > Sign out </a>
 						<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
       						<input hidden type="submit" value="Logout"/>
 						</form>
@@ -43,7 +43,7 @@
 				</div>
 			</div>
 			
-		<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+		<a th:href="@{javascript:void(0);}" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 				
 		</div>
 
